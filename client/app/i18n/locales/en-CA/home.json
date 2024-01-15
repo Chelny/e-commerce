@@ -1,0 +1,11 @@
+{
+  "home": {
+    "greetings": "Hello {{name}}!",
+    "plural_zero": "There are no one online.",
+    "plural_one": "There's one person online.",
+    "plural_other": "There are {{count}} online.",
+    "select_male": "That's what he said.",
+    "select_female": "That's what she said.",
+    "select": "That's what they said."
+  }
+}

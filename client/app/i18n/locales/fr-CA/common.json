@@ -1,0 +1,25 @@
+{
+  "app_menu": {
+    "home": "Accueil",
+    "search": "Recherche",
+    "login": "Connexion",
+    "cart": "Panier"
+  },
+  "shop_menu": {
+    "new_arrivals": "Nouveaux produits",
+    "mens": "Hommes",
+    "womens": "Femmes",
+    "kids": "Enfants",
+    "sale": "Vente"
+  },
+  "app_footer": {
+    "about": "À propos",
+    "support": "Support",
+    "copyright": "Copyright © {{year}} E-commerce. Tous droits réservés.",
+    "terms_of_service": "Conditions d'utilisation",
+    "privacy_policy": "Politique de confidentialité"
+  },
+  "pages": {
+    "back_home": "Retour à l'accueil"
+  }
+}

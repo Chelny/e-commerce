@@ -1,0 +1,21 @@
+{
+  "product": {
+    "view_product": "View Product",
+    "add_to_cart": "Add to Cart"
+  },
+  "new_arrivals": {
+    "title": "New Arrivals"
+  },
+  "mens": {
+    "title": "Mens"
+  },
+  "womens": {
+    "title": "Womens"
+  },
+  "kids": {
+    "title": "Kids"
+  },
+  "sale": {
+    "title": "Sale"
+  }
+}

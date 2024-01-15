@@ -1,0 +1,25 @@
+{
+  "app_menu": {
+    "home": "Home",
+    "search": "Search",
+    "login": "Login",
+    "cart": "Cart"
+  },
+  "shop_menu": {
+    "new_arrivals": "New Arrivals",
+    "mens": "Mens",
+    "womens": "Womens",
+    "kids": "Kids",
+    "sale": "Sale"
+  },
+  "app_footer": {
+    "about": "About",
+    "support": "Support",
+    "copyright": "Copyright © {{year}} E-commerce. All rights reserved.",
+    "terms_of_service": "Terms of Service",
+    "privacy_policy": "Privacy Policy"
+  },
+  "pages": {
+    "back_home": "Back home"
+  }
+}
