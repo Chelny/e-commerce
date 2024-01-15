@@ -1,0 +1,10 @@
+{
+  "client/app/**/*.css": [
+    "pnpm run lint:css --fix",
+    "prettier --write"
+  ],
+  "client/app/**/*.tsx": [
+    "pnpm run lint:ts --fix",
+    "prettier --write"
+  ]
+}

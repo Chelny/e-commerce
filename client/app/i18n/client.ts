@@ -1,14 +1,14 @@
-'use client'
+"use client"
 
-import { useEffect, useState } from 'react'
-import i18next from 'i18next'
-import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next'
-import { useCookies } from 'react-cookie'
-import resourcesToBackend from 'i18next-resources-to-backend'
-import LanguageDetector from 'i18next-browser-languagedetector'
-import { getOptions, supportedLocales, cookieName } from './settings'
+import { useEffect, useState } from "react"
+import i18next from "i18next"
+import LanguageDetector from "i18next-browser-languagedetector"
+import resourcesToBackend from "i18next-resources-to-backend"
+import { useCookies } from "react-cookie"
+import { initReactI18next, useTranslation as useTranslationOrg } from "react-i18next"
+import { cookieName, getOptions, supportedLocales } from "./settings"
 
-const runsOnServerSide = typeof window === 'undefined'
+const runsOnServerSide = typeof window === "undefined"
 
 i18next
   .use(initReactI18next)
@@ -18,7 +18,7 @@ i18next
     ...getOptions(),
     lng: undefined, // Let detect the language on client side
     detection: {
-      order: ['path', 'htmlTag', 'cookie', 'navigator'],
+      order: ["path", "htmlTag", "cookie", "navigator"],
     },
     preload: runsOnServerSide ? supportedLocales : [],
   })
@@ -50,7 +50,7 @@ export function useTranslation(locale: string, namespaces: string | string[], op
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       if (cookies[cookieName] === locale) return
-      setCookie(cookieName, locale, { path: '/' })
+      setCookie(cookieName, locale, { path: "/" })
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [locale, cookies[cookieName]])
   }

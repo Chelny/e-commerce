@@ -1,8 +1,8 @@
-import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
-import Backend from 'i18next-http-backend'
-import LanguageDetector from 'i18next-browser-languagedetector'
-import { defaultLocale, defaultNamespace, supportedLocales } from '@/app/i18n/settings'
+import i18n from "i18next"
+import LanguageDetector from "i18next-browser-languagedetector"
+import Backend from "i18next-http-backend"
+import { initReactI18next } from "react-i18next"
+import { defaultLocale, defaultNamespace, supportedLocales } from "@/app/i18n/settings"
 
 i18n
   // Load translation using http -> see /public/locales (i.e. https://github.com/i18next/react-i18next/tree/master/example/react/public/locales)

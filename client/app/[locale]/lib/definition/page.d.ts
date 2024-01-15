@@ -1,4 +1,4 @@
-interface PageParams {
+type TPageProps = {
   params: {
     locale: string
   }

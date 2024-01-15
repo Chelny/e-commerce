@@ -1,14 +1,18 @@
-'use client'
+"use client"
 
-import React, { useState } from 'react'
+import React, { useState } from "react"
 // import Image from 'next/image'
-import { useParams } from 'next/navigation'
-import { dir } from 'i18next'
-import { useKeenSlider } from 'keen-slider/react'
+import { useParams } from "next/navigation"
+import { dir } from "i18next"
+import { useKeenSlider } from "keen-slider/react"
 // import { useTranslation } from '@/app/i18n/client'
-import 'keen-slider/keen-slider.min.css'
+import "keen-slider/keen-slider.min.css"
 
-export function BannerCarousel({ locale }: { locale: string }) {
+type TBannerCarouselProps = {
+  locale: string
+}
+
+export function BannerCarousel({ locale }: TBannerCarouselProps) {
   const params = useParams()
   // const { t } = await useTranslation(locale, 'common')
 
@@ -27,7 +31,7 @@ export function BannerCarousel({ locale }: { locale: string }) {
     {
       slides: slides.length,
       loop: true,
-      rtl: dir(locale) === 'rtl',
+      rtl: dir(locale) === "rtl",
       initial: 0,
       created() {
         setLoaded(true)
@@ -80,11 +84,15 @@ export function BannerCarousel({ locale }: { locale: string }) {
   return (
     <div className="relative">
       <div className="keen-slider" ref={sliderRef}>
-        {slides.map((src: string, index: number) =>
-          <div key={index} className="keen-slider__slide !min-w-full !max-w-full h-96" style={{ backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center center" }}>
+        {slides.map((src: string, index: number) => (
+          <div
+            key={index}
+            className="keen-slider__slide !min-w-full !max-w-full h-96"
+            style={{ backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center center" }}
+          >
             {/* <Image src={src} width={1600} height={900} priority={true} alt={src} /> */}
           </div>
-        )}
+        ))}
       </div>
 
       {loaded && instanceRef.current && (
@@ -95,7 +103,9 @@ export function BannerCarousel({ locale }: { locale: string }) {
               onClick={() => {
                 instanceRef.current?.moveToIdx(idx)
               }}
-              className={"appearance-none flex items-center w-10 after:w-full h-10 after:h-1.5 p-0 border-0 after:rounded m-0 ml-3 mr-3 bg-transparent after:border after:border-ecommerce-800 no-underline cursor-pointer touch-manipulation after:content-['']".concat(currentSlide === idx ? ' after:bg-ecommerce-300' : '')}
+              className={"appearance-none flex items-center w-10 after:w-full h-10 after:h-1.5 p-0 border-0 after:rounded m-0 ml-3 mr-3 bg-transparent after:border after:border-ecommerce-800 no-underline cursor-pointer touch-manipulation after:content-['']".concat(
+                currentSlide === idx ? " after:bg-ecommerce-300" : ""
+              )}
             ></button>
           ))}
         </div>

@@ -1,6 +1,6 @@
-function toMoneyValue(locale: string, value: number, currency: string = 'USD', decimals: number = 2) {
+function toMoneyValue(locale: string, value: number, currency: string = "USD", decimals: number = 2) {
   return new Intl.NumberFormat(locale, {
-    style: 'currency',
+    style: "currency",
     currency,
     maximumFractionDigits: decimals,
     minimumFractionDigits: decimals,
@@ -18,5 +18,5 @@ export function Currency({
   currency?: string
   decimals?: number
 }) {
-  return <>{ toMoneyValue(locale, value, currency, decimals) }</>
+  return <>{toMoneyValue(locale, value, currency, decimals)}</>
 }

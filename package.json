@@ -1,0 +1,28 @@
+{
+	"name": "e-commerce",
+	"version": "0.1.0",
+	"private": true,
+	"author": {
+		"name": "Chelny Duplan",
+		"url": "https://www.linkedin.com/in/chelny/"
+	},
+	"scripts": {
+		"prepare": "husky install",
+		"lint:css": "npx stylelint 'client/app/**/*.css'",
+		"lint:ts": "npx eslint 'client/app/**/*.tsx'",
+		"lint": "pnpm run lint:css && pnpm run lint:ts",
+		"lint:fix": "pnpm run lint:css --fix && pnpm run lint:ts --fix --max-warnings 0"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "17.6.5",
+		"@commitlint/config-conventional": "17.6.5",
+		"eslint-plugin-import": "2.29.1",
+		"husky": "^8.0.0",
+		"lint-staged": "13.2.2",
+		"prettier": "2.8.8",
+		"stylelint": "15.7.0",
+		"stylelint-config-hudochenkov": "10.0.0",
+		"stylelint-config-tailwindcss": "0.0.7",
+		"stylelint-order": "6.0.4"
+	}
+}

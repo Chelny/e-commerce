@@ -1,6 +1,6 @@
-'use client'
+"use client"
 
-import { useRouter, useParams, useSelectedLayoutSegments } from 'next/navigation'
+import { useParams, useRouter, useSelectedLayoutSegments } from "next/navigation"
 
 export function ChangeLocale({ className }: { className: string }) {
   const router = useRouter()
@@ -14,10 +14,9 @@ export function ChangeLocale({ className }: { className: string }) {
     // This is used by the Header component which is used in `app/[locale]/layout.tsx` file,
     // urlSegments will contain the segments after the locale.
     // We replace the URL with the new locale and the rest of the segments.
-    router.push(
-      `/${newLocale}/${urlSegments.slice(1).join('/')}${searchParams.size > 0 ? `?${searchParams}` : ''}`,
-      { scroll: false },
-    )
+    router.push(`/${newLocale}/${urlSegments.slice(1).join("/")}${searchParams.size > 0 ? `?${searchParams}` : ""}`, {
+      scroll: false,
+    })
   }
 
   return (
