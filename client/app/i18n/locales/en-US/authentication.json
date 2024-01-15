@@ -1,9 +1,20 @@
 {
   "form": {
     "login": "Login",
-    "email_label": "Email",
-    "password_label": "Password",
-    "login_button": "Login",
-    "sign_up_button": "Sign Up"
+    "sign_up": "Sign Up",
+    "forgot_password": "Forgot Password?",
+    "reset_password": "Reset Password",
+    "label": {
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "gender": "Gender",
+      "gender_male": "Male",
+      "gender_female": "Female",
+      "gender_other": "Other",
+      "birth_date": "Birth Date",
+      "email": "Email",
+      "password": "Password",
+      "confirm_password": "Confirm Password"
+    }
   }
 }

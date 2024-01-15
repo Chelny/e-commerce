@@ -46,16 +46,24 @@ export function Footer({ locale }: { locale: string }) {
         <div className='flex flex-col justify-center md:justify-end items-center md:items-end'>
           <ul className='flex space-x-4 text-2xl'>
             <li>
-              <Link href={'https://www.facebook.com'} target='_blank'><FontAwesomeIcon icon={faFacebook} /></Link>
+              <Link href={'https://www.facebook.com'} target='_blank' aria-label='Facebook'>
+                <FontAwesomeIcon icon={faFacebook} />
+              </Link>
             </li>
             <li>
-              <Link href={'https://www.instagram.com'} target='_blank'><FontAwesomeIcon icon={faInstagram} /></Link>
+              <Link href={'https://www.instagram.com'} target='_blank' aria-label='Instagram'>
+                <FontAwesomeIcon icon={faInstagram} />
+              </Link>
             </li>
             <li>
-              <Link href={'https://www.linkedin.com'} target='_blank'><FontAwesomeIcon icon={faLinkedin} /></Link>
+              <Link href={'https://www.linkedin.com/in/chelny'} target='_blank' aria-label='LinkedIn'>
+                <FontAwesomeIcon icon={faLinkedin} />
+              </Link>
             </li>
             <li>
-              <Link href={'https://www.x.com'} target='_blank'><FontAwesomeIcon icon={faXTwitter} /></Link>
+              <Link href={'https://www.twitter.com/chelny'} target='_blank' aria-label='Twitter'>
+                <FontAwesomeIcon icon={faXTwitter} />
+              </Link>
             </li>
           </ul>
         </div>

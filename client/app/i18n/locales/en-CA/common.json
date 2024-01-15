@@ -19,6 +19,13 @@
     "terms_of_service": "Terms of Service",
     "privacy_policy": "Privacy Policy"
   },
+  "breadcrumbs": {
+    "home": "Home",
+    "login": "Login",
+    "sign_up": "Sign Up",
+    "forgot_password": "Forgot Password",
+    "reset_password": "Reset Password"
+  },
   "pages": {
     "back_home": "Back home"
   }

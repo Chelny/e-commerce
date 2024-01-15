@@ -23,13 +23,14 @@ export function Header({ locale }: { locale: string }) {
       <nav className='flex justify-end items-center gap-4'>
         <ul className='flex space-x-8'>
           <li>
-            <FontAwesomeIcon icon={faSearch} />
+            <FontAwesomeIcon icon={faSearch} aria-label={t('app_menu.search')} />
           </li>
           <li>
             <Link
               className={`app-menu-link ${pathname === `/${locale}/login` ? 'active' : ''}`}
               href={`/${locale}/login`}
               locale={false}
+              aria-label={t('app_menu.login')}
             >
               <FontAwesomeIcon icon={faUser} />
             </Link>
@@ -39,6 +40,7 @@ export function Header({ locale }: { locale: string }) {
               className={`app-menu-link ${pathname === `/${locale}/cart` ? 'active' : ''}`}
               href={`/${locale}/cart`}
               locale={false}
+              aria-label={t('app_menu.cart')}
             >
               <FontAwesomeIcon icon={faBagShopping} />
             </Link>
