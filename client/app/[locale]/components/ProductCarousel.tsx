@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from "react"
 // import Image from 'next/image'
-import { useParams, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { dir } from "i18next"
 import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons"
 import { faHeart } from "@fortawesome/free-solid-svg-icons"
@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { KeenSliderPlugin, useKeenSlider } from "keen-slider/react"
 import { Currency } from "@/app/[locale]/components/Currency"
 import ProductCarouselSkeleton from "@/app/[locale]/components/ProductCarousel.skeleton"
+import { ROUTE_SHOP } from "@/app/[locale]/lib/site-map"
 import { useTranslation } from "@/app/i18n/client"
 import "keen-slider/keen-slider.min.css"
 import styles from "./ProductCarousel.module.css"
@@ -19,7 +20,6 @@ type TProductCarouselProps = {
 }
 
 export function ProductCarousel({ locale }: TProductCarouselProps) {
-  const params = useParams()
   const router = useRouter()
   const { t } = useTranslation(locale, ["common", "shop"])
 
@@ -48,22 +48,25 @@ export function ProductCarousel({ locale }: TProductCarouselProps) {
       rtl: dir(locale) === "rtl",
       initial: 0,
       mode: "free-snap",
-      slides: {
-        perView: 1,
-      },
       breakpoints: {
         "(min-width: 400px)": {
-          slides: { perView: 1.6, spacing: 10 },
+          slides: { perView: 1.3 },
         },
         "(min-width: 640px)": {
-          slides: { perView: 3, spacing: 10 },
+          slides: { perView: 2.3 },
         },
         "(min-width: 768px)": {
-          slides: { perView: 4, spacing: 10 },
+          slides: { perView: 2.5 },
         },
         "(min-width: 1024px)": {
-          slides: { perView: 5, spacing: 10 },
+          slides: { perView: 3.5 },
         },
+        "(min-width: 1200px)": {
+          slides: { perView: 4.3 },
+        },
+      },
+      slides: {
+        perView: 1,
       },
       created() {
         setLoaded(true)
@@ -75,8 +78,8 @@ export function ProductCarousel({ locale }: TProductCarouselProps) {
     [ResizePlugin]
   )
 
-  const onViewProduct = () => {
-    router.push(`/${locale}/shop/item/${1}`, { scroll: false })
+  const handleViewProductDetails = (id: number) => {
+    router.push(`/${locale}${ROUTE_SHOP.PATH}?product=${id}`, { scroll: false })
   }
 
   return (
@@ -93,7 +96,11 @@ export function ProductCarousel({ locale }: TProductCarouselProps) {
                   <FontAwesomeIcon icon={faHeartOutline} />
                   {/* <FontAwesomeIcon icon={faHeart} /> */}
                 </button>
-                <button className={styles.viewProductButton} type="button" onClick={onViewProduct}>
+                <button
+                  className={styles.viewProductButton}
+                  type="button"
+                  onClick={() => handleViewProductDetails(index)}
+                >
                   {t("shop:product.view_product")}
                 </button>
               </div>
@@ -107,6 +114,14 @@ export function ProductCarousel({ locale }: TProductCarouselProps) {
                     <Currency locale={locale} value={499.99} />
                   </span>
                 </div>
+                {/* <div className="grid grid-cols-[1fr_1fr] space-x-2 text-white">
+                  <button type="button" className="p-1 bg-ecommerce-700">
+                    {t("shop:add_to_cart")}
+                  </button>
+                  <button type="button" className="p-1 bg-ecommerce-900">
+                    {t("shop:buy_now")}
+                  </button>
+                </div> */}
               </div>
             </div>
           ))}

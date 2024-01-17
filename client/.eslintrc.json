@@ -1,14 +1,15 @@
 {
   "root": true,
+  "extends": ["next/core-web-vitals"],
   "parserOptions": {
     "project": ["client/tsconfig.json"]
   },
   "overrides": [
     {
-      "files": ["**/*.tsx"],
-      "extends": "next/core-web-vitals",
+      "files": ["client/app/**/*.ts", "client/app/**/*.tsx"],
       "rules": {
         "@next/next/no-html-link-for-pages": "off",
+        "@typescript-eslint/no-explicit-any": "off",
         "import/order": [
           "error",
           {

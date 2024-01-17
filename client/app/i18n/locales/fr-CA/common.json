@@ -1,32 +1,33 @@
 {
-  "app_menu": {
-    "home": "Accueil",
-    "search": "Recherche",
-    "login": "Connexion",
-    "cart": "Panier"
-  },
-  "shop_menu": {
-    "new_arrivals": "Nouveaux produits",
-    "mens": "Hommes",
-    "womens": "Femmes",
-    "kids": "Enfants",
-    "sale": "Vente"
-  },
-  "app_footer": {
-    "about": "À propos",
-    "support": "Support",
-    "copyright": "Copyright © {{year}} E-commerce. Tous droits réservés.",
-    "terms_of_service": "Conditions d'utilisation",
-    "privacy_policy": "Politique de confidentialité"
-  },
-  "breadcrumbs": {
+  "site_map": {
     "home": "Accueil",
     "login": "Connexion",
     "sign_up": "Créer un compte",
     "forgot_password": "Mot de passe oublié",
-    "reset_password": "Réinitialisation du mot de passe"
+    "reset_password": "Réinitialisation du mot de passe",
+    "shop": "Magasin",
+    "new_arrivals": "Nouveautés",
+    "popular": "Populaire",
+    "sale": "Vente",
+    "about": "À Propos",
+    "company": "Compagnie",
+    "team": "L'équipe",
+    "careers": "Carrières",
+    "contact": "Contactez nous",
+    "support": "Support",
+    "faqs": "FAQ",
+    "shipping": "Expédition",
+    "returns": "Échanges et retours",
+    "terms_of_service": "Conditions d'utilisation",
+    "privacy_policy": "Politique de confidentialité"
   },
-  "pages": {
-    "back_home": "Retour à l'accueil"
+  "app_menu": {
+    "search": "Recherche"
+  },
+  "app_footer": {
+    "copyright": "Copyright © {{year}} E-commerce. Tous droits réservés."
+  },
+  "button": {
+    "view_all": "Voir tout"
   }
 }

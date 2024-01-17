@@ -5,30 +5,52 @@
 :root {
   --color-white: theme("colors.ecommerce.100");
   --color-black: theme("colors.ecommerce.900");
-  --border-color: theme("colors.ecommerce.500");
-  --border-radius: theme("borderRadius.default");
-  --input-background: theme("colors.ecommerce.100");
-  --input-opacity-disabled: 0.65;
-  --radio-button-background: theme("colors.ecommerce.100");
-  --radio-button-background-checked: theme("colors.ecommerce.900");
-  --button-bg-color: theme("colors.ecommerce.900");
+  --text-color: theme("colors.ecommerce.900");
   --link: theme("colors.ecommerce.900");
   --link-hover: theme("colors.ecommerce.500");
   --link-active: theme("colors.ecommerce.500");
-  --shop-menu-link: theme("colors.ecommerce.200");
+  --border-radius: theme("borderRadius.default");
+  --border-color: theme("colors.ecommerce.500");
+  --input-background: theme("colors.ecommerce.200");
+  --input-opacity-disabled: 0.65;
+  --radio-button-background: theme("colors.ecommerce.200");
+  --radio-button-background-checked: theme("colors.ecommerce.900");
+  --radio-toolbar-border-focus: theme("colors.ecommerce.300");
+  --radio-toolbar-background: theme("colors.ecommerce.300");
+  --radio-toolbar-background-hover: theme("colors.ecommerce.400");
+  --radio-toolbar-background-checked: theme("colors.ecommerce.900");
+  --radio-toolbar-text: theme("colors.ecommerce.900");
+  --radio-toolbar-text-hover: theme("colors.ecommerce.900");
+  --radio-toolbar-text-checked: theme("colors.ecommerce.200");
+  --progress-bar-background: theme("colors.ecommerce.300");
+  --progress-value-background: theme("colors.ecommerce.900");
+  --button-background-color: theme("colors.ecommerce.900");
+  --button-background-color-hover: theme("colors.ecommerce.500");
+  --button-secondary-background-color: theme("colors.ecommerce.600");
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --border-color: theme("colors.ecommerce.600");
-    --button-bg-color: theme("colors.ecommerce.600");
+    --text-color: theme("colors.ecommerce.100");
     --link: theme("colors.ecommerce.100");
     --link-active: theme("colors.ecommerce.500");
-    --shop-menu-link: theme("colors.ecommerce.300");
-    --input-background: theme("colors.ecommerce.900");
+    --border-color: theme("colors.ecommerce.600");
+    --input-background: theme("colors.ecommerce.800");
     --input-opacity-disabled: 0.5;
-    --radio-button-background: theme("colors.ecommerce.900");
-    --radio-button-background-checked: theme("colors.ecommerce.900");
+    --radio-button-background: theme("colors.ecommerce.800");
+    --radio-button-background-checked: theme("colors.ecommerce.800");
+    --radio-toolbar-border-focus: theme("colors.ecommerce.500");
+    --radio-toolbar-background: theme("colors.ecommerce.700");
+    --radio-toolbar-background-hover: theme("colors.ecommerce.600");
+    --radio-toolbar-background-checked: theme("colors.ecommerce.800");
+    --radio-toolbar-text: theme("colors.ecommerce.200");
+    --radio-toolbar-text-hover: theme("colors.ecommerce.200");
+    --radio-toolbar-text-checked: theme("colors.ecommerce.100");
+    --progress-bar-background: theme("colors.ecommerce.700");
+    --progress-value-background: theme("colors.ecommerce.500");
+    --button-background-color: theme("colors.ecommerce.600");
+    --button-background-color-hover: theme("colors.ecommerce.800");
+    --button-secondary-background-color: theme("colors.ecommerce.700");
   }
 }
 
@@ -52,20 +74,22 @@ html {
 
 body {
   min-height: 100vh;
+  font-variant-numeric: tabular-nums;
 }
 
 h1 {
-  margin-block: 1.5rem;
   font-size: 1.75rem;
 }
 
+h1:has(+ form) {
+  margin-block-end: 1.5rem;
+}
+
 h2 {
-  margin-block: 1.25rem;
   font-size: 1.5rem;
 }
 
 h3 {
-  margin-block: 1rem;
   font-size: 1.25rem;
 }
 
@@ -73,7 +97,7 @@ input,
 select,
 textarea {
   padding: 0.75rem;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   background-color: var(--input-background);
 }
 
@@ -154,8 +178,38 @@ textarea {
   }
 }
 
+.radio-toolbar input[type="radio"] {
+  position: fixed;
+  width: 0;
+  opacity: 0%;
+}
+
+.radio-toolbar label {
+  display: inline-block;
+  padding: 0.625rem 1.25rem;
+  border: 0.0625rem double transparent;
+  border-radius: var(--border-radius);
+  background-color: var(--radio-toolbar-background);
+  color: var(--radio-toolbar-text);
+  margin-inline-end: 1rem;
+}
+
+.radio-toolbar label:hover {
+  background-color: var(--radio-toolbar-background-hover);
+  color: var(--radio-toolbar-text-hover);
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
+  background-color: var(--radio-toolbar-background-checked);
+  color: var(--radio-toolbar-text-checked);
+}
+
+.radio-toolbar input[type="radio"]:focus + label {
+  border: 0.0625rem double var(--radio-toolbar-border-focus);
+}
+
 select {
-  border-right: 12px solid transparent;
+  border-right: 0.75rem solid transparent;
 }
 
 input:disabled,
@@ -167,26 +221,63 @@ textarea:disabled {
 
 button {
   padding: 0.75rem;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
+  color: var(--color-white);
   font-weight: 500;
+  transition: ease-out 0.4s;
+}
+
+button[type="submit"],
+button.primary-action,
+button.secondary-action {
   /* stylelint-disable-next-line declaration-no-important */
   margin-block-start: 1rem !important;
 }
 
-button[type="submit"] {
-  /* stylelint-disable-next-line declaration-no-important */
-  background-color: var(--button-bg-color) !important;
-  color: var(--color-white);
+button[type="submit"],
+button.primary-action {
+  background-color: var(--button-background-color);
 }
 
-button:hover {
-  position: relative;
-  top: 1px;
+button.secondary-action {
+  background-color: var(--button-secondary-background-color);
+}
+
+button.button-link {
+  padding: 0;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: unset;
+}
+
+button:not(.button-link):hover {
+  box-shadow: inset 0 0 0 3.125rem var(--button-background-color-hover);
 }
 
 hr {
   margin-block: 2rem;
   border-color: var(--border-color);
+}
+
+progress {
+  width: auto;
+  height: 2rem;
+  border: none;
+}
+
+progress::-moz-progress-bar {
+  border-radius: var(--border-radius);
+  background: var(--progress-bar-background);
+}
+
+progress::-webkit-progress-bar {
+  border-radius: var(--border-radius);
+  background: var(--progress-bar-background);
+}
+
+progress::-webkit-progress-value {
+  border-radius: var(--border-radius);
+  background: var(--progress-value-background);
 }
 
 a {
@@ -213,8 +304,8 @@ a:hover,
 a:focus {
   color: var(--link-hover);
   text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 2px;
+  text-decoration-thickness: 0.125rem;
+  text-underline-offset: 0.125rem;
 }
 
 footer a:hover,

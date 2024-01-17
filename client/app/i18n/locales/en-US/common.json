@@ -1,32 +1,33 @@
 {
-  "app_menu": {
-    "home": "Home",
-    "search": "Search",
-    "login": "Login",
-    "cart": "Cart"
-  },
-  "shop_menu": {
-    "new_arrivals": "New Arrivals",
-    "mens": "Mens",
-    "womens": "Womens",
-    "kids": "Kids",
-    "sale": "Sale"
-  },
-  "app_footer": {
-    "about": "About",
-    "support": "Support",
-    "copyright": "Copyright © {{year}} E-commerce. All rights reserved.",
-    "terms_of_service": "Terms of Service",
-    "privacy_policy": "Privacy Policy"
-  },
-  "breadcrumbs": {
+  "site_map": {
     "home": "Home",
     "login": "Login",
     "sign_up": "Sign Up",
     "forgot_password": "Forgot Password",
-    "reset_password": "Reset Password"
+    "reset_password": "Reset Password",
+    "shop": "Shop",
+    "new_arrivals": "New Arrivals",
+    "popular": "Popular",
+    "sale": "Sale",
+    "about": "About",
+    "company": "Company",
+    "team": "Meet The Team",
+    "careers": "Careers",
+    "contact": "Contact Us",
+    "support": "Support",
+    "faqs": "FAQs",
+    "shipping": "Shipping",
+    "returns": "Exchanges and Returns",
+    "terms_of_service": "Terms of Service",
+    "privacy_policy": "Privacy Policy"
   },
-  "pages": {
-    "back_home": "Back home"
+  "app_menu": {
+    "search": "Search"
+  },
+  "app_footer": {
+    "copyright": "Copyright © {{year}} E-commerce. All rights reserved."
+  },
+  "button": {
+    "view_all": "View All"
   }
 }

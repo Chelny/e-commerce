@@ -15,6 +15,10 @@
       "email": "Email",
       "password": "Password",
       "confirm_password": "Confirm Password"
+    },
+    "button": {
+      "send_email": "Send Email",
+      "reset_password": "Reset"
     }
   }
 }

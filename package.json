@@ -9,7 +9,7 @@
 	"scripts": {
 		"prepare": "husky install",
 		"lint:css": "npx stylelint 'client/app/**/*.css'",
-		"lint:ts": "npx eslint 'client/app/**/*.tsx'",
+		"lint:ts": "npx eslint 'client/app/**/*.{ts,tsx}'",
 		"lint": "pnpm run lint:css && pnpm run lint:ts",
 		"lint:fix": "pnpm run lint:css --fix && pnpm run lint:ts --fix --max-warnings 0"
 	},

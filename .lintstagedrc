@@ -3,7 +3,7 @@
     "pnpm run lint:css --fix",
     "prettier --write"
   ],
-  "client/app/**/*.tsx": [
+  "client/app/**/*.{ts,tsx}": [
     "pnpm run lint:ts --fix",
     "prettier --write"
   ]

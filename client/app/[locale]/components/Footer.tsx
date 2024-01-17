@@ -3,6 +3,19 @@
 import Link from "next/link"
 import { faFacebook, faInstagram, faLinkedin, faXTwitter } from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
+  ROUTE_ABOUT,
+  ROUTE_CAREERS,
+  ROUTE_COMPANY,
+  ROUTE_CONTACT,
+  ROUTE_FAQS,
+  ROUTE_PRIVACY_POLICY,
+  ROUTE_RETURNS,
+  ROUTE_SHIPPING,
+  ROUTE_SUPPORT,
+  ROUTE_TEAM,
+  ROUTE_TERMS_OF_SERVICE,
+} from "@/app/[locale]/lib/site-map"
 import { useTranslation } from "@/app/i18n/client"
 
 type TFooterProps = {
@@ -10,39 +23,53 @@ type TFooterProps = {
 }
 
 export function Footer({ locale }: TFooterProps) {
-  const { t } = useTranslation(locale, ["common", "about", "support"])
+  const { t } = useTranslation(locale, ["common"])
 
   return (
-    <footer className="p-4 bg-ecommerce-900 text-ecommerce-100">
+    <footer className="p-4 bg-ecommerce-900 dark:bg-ecommerce-800 text-ecommerce-100">
       <div className="grid grid-rows-app-footer-links md:grid-rows-app-footer-links-md grid-cols-app-footer-links md:grid-cols-app-footer-links-md md:space-x-24 space-y-8 md:space-y-0 pb-4 md:py-6 text-center md:text-start">
         <div className="space-y-4">
-          <h3>{t("app_footer.about")}</h3>
+          <h3>{t(ROUTE_ABOUT.TITLE)}</h3>
           <ul className="space-y-2">
             <li>
-              <Link href={`/${locale}/company`}>{t("about:company.title")}</Link>
+              <Link href={`/${locale}${ROUTE_COMPANY.PATH}`} aria-label={ROUTE_COMPANY.TITLE}>
+                {t(ROUTE_COMPANY.TITLE)}
+              </Link>
             </li>
             <li>
-              <Link href={`/${locale}/team`}>{t("about:meet_the_team.title")}</Link>
+              <Link href={`/${locale}${ROUTE_TEAM.PATH}`} aria-label={ROUTE_TEAM.TITLE}>
+                {t(ROUTE_TEAM.TITLE)}
+              </Link>
             </li>
             <li>
-              <Link href={`/${locale}/careers`}>{t("about:careers.title")}</Link>
+              <Link href={`/${locale}${ROUTE_CAREERS.PATH}`} aria-label={ROUTE_CAREERS.TITLE}>
+                {t(ROUTE_CAREERS.TITLE)}
+              </Link>
             </li>
             <li>
-              <Link href={`/${locale}/contact-us`}>{t("about:contact_us.title")}</Link>
+              <Link href={`/${locale}${ROUTE_CONTACT.PATH}`} aria-label={ROUTE_CONTACT.TITLE}>
+                {t(ROUTE_CONTACT.TITLE)}
+              </Link>
             </li>
           </ul>
         </div>
         <div className="space-y-4">
-          <h3>{t("app_footer.support")}</h3>
+          <h3>{t(ROUTE_SUPPORT.TITLE)}</h3>
           <ul className="space-y-2">
             <li>
-              <Link href={`/${locale}/faq`}>{t("support:faqs.title")}</Link>
+              <Link href={`/${locale}${ROUTE_FAQS.PATH}`} aria-label={ROUTE_FAQS.TITLE}>
+                {t(ROUTE_FAQS.TITLE)}
+              </Link>
             </li>
             <li>
-              <Link href={`/${locale}/shipping`}>{t("support:shipping.title")}</Link>
+              <Link href={`/${locale}${ROUTE_SHIPPING.PATH}`} aria-label={ROUTE_SHIPPING.TITLE}>
+                {t(ROUTE_SHIPPING.TITLE)}
+              </Link>
             </li>
             <li>
-              <Link href={`/${locale}/exchanges-and-returns`}>{t("support:returns.title")}</Link>
+              <Link href={`/${locale}${ROUTE_RETURNS.PATH}`} aria-label={ROUTE_RETURNS.TITLE}>
+                {t(ROUTE_RETURNS.TITLE)}
+              </Link>
             </li>
           </ul>
         </div>
@@ -77,8 +104,8 @@ export function Footer({ locale }: TFooterProps) {
       >
         <div>{t("app_footer.copyright", { year: new Date().getFullYear() })}</div>
         <div className="flex space-x-2 md:space-x-4 justify-center md:justify-end">
-          <Link href={`/${locale}/terms-of-service`}>{t("app_footer.terms_of_service")}</Link>
-          <Link href={`/${locale}/privacy-policy`}>{t("app_footer.privacy_policy")}</Link>
+          <Link href={`/${locale}${ROUTE_TERMS_OF_SERVICE.PATH}`}>{t(ROUTE_TERMS_OF_SERVICE.TITLE)}</Link>
+          <Link href={`/${locale}${ROUTE_PRIVACY_POLICY.PATH}`}>{t(ROUTE_PRIVACY_POLICY.TITLE)}</Link>
         </div>
       </div>
     </footer>

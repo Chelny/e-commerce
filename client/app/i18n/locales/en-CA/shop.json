@@ -1,21 +1,18 @@
 {
   "product": {
     "view_product": "View Product",
-    "add_to_cart": "Add to Cart"
+    "add_to_cart": "Add to cart",
+    "buy_now": "Buy Now",
+    "description": "Description",
+    "choose_size": "Choose Size",
+    "add_to_wish_list": "Add to wish list",
+    "reviews_zero": "No reviews",
+    "reviews_one": "{{count}} review",
+    "reviews_other": "{{count}} reviews",
+    "stars_one": "{{count}} star",
+    "stars_other": "{{count}} stars"
   },
-  "new_arrivals": {
-    "title": "New Arrivals"
-  },
-  "mens": {
-    "title": "Mens"
-  },
-  "womens": {
-    "title": "Womens"
-  },
-  "kids": {
-    "title": "Kids"
-  },
-  "sale": {
-    "title": "Sale"
-  }
+  "in_stock": "In stock:",
+  "recommendations": "Recommendations",
+  "reviews": "Reviews"
 }

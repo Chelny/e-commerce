@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ROUTE_FORGOT_PASSWORD, ROUTE_SIGN_UP } from "@/app/[locale]/lib/site-map"
 import { useTranslation } from "@/app/i18n"
 
 export default async function Login({ params }: TPageProps) {
@@ -10,9 +11,8 @@ export default async function Login({ params }: TPageProps) {
     console.log("login formData=", formData)
 
     // const rawFormData = {
-    //   firstName: formData.get('firstName'),
-    //   lastName: formData.get('lastName'),
-    //   gender: formData.get('gender'),
+    //   email: formData.get('email'),
+    //   password: formData.get('password'),
     // }
   }
 
@@ -31,8 +31,12 @@ export default async function Login({ params }: TPageProps) {
         <button type="submit">{t("authentication:form.login")}</button>
         <hr />
         <div className="flex justify-center space-x-4 py-4">
-          <Link href={`/${params.locale}/sign-up`}>{t("authentication:form.sign_up")}</Link>
-          <Link href={`/${params.locale}/forgot-password`}>{t("authentication:form.forgot_password")}</Link>
+          <Link href={`/${params.locale}${ROUTE_SIGN_UP.PATH}`} aria-label={t(ROUTE_SIGN_UP.TITLE)}>
+            {t("authentication:form.sign_up")}
+          </Link>
+          <Link href={`/${params.locale}${ROUTE_FORGOT_PASSWORD.PATH}`} aria-label={t(ROUTE_FORGOT_PASSWORD.TITLE)}>
+            {t("authentication:form.forgot_password")}
+          </Link>
         </div>
       </form>
     </>

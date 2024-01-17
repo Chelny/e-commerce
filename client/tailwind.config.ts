@@ -26,7 +26,7 @@ const config: Config = {
         "authentication-form-md": "32rem",
       },
       borderRadius: {
-        "default": "8px",
+        "default": "0.25rem",
       },
       colors: {
         "ecommerce": {

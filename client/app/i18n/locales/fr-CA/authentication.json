@@ -15,6 +15,10 @@
       "email": "Courriel",
       "password": "Mot de passe",
       "confirm_password": "Confirmation du mot de passe"
+    },
+    "button": {
+      "send_email": "Envoyer un courriel",
+      "reset_password": "Réinitialiser"
     }
   }
 }

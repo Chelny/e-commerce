@@ -6,6 +6,7 @@ import LanguageDetector from "i18next-browser-languagedetector"
 import resourcesToBackend from "i18next-resources-to-backend"
 import { useCookies } from "react-cookie"
 import { initReactI18next, useTranslation as useTranslationOrg } from "react-i18next"
+import { ROUTE_HOME } from "@/app/[locale]/lib/site-map"
 import { cookieName, getOptions, supportedLocales } from "./settings"
 
 const runsOnServerSide = typeof window === "undefined"
@@ -50,7 +51,7 @@ export function useTranslation(locale: string, namespaces: string | string[], op
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       if (cookies[cookieName] === locale) return
-      setCookie(cookieName, locale, { path: "/" })
+      setCookie(cookieName, locale, { path: ROUTE_HOME.PATH })
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [locale, cookies[cookieName]])
   }

@@ -1,13 +1,32 @@
-import Link from "next/link"
 import { useTranslation } from "@/app/i18n"
 
 export default async function SignUp({ params }: TPageProps) {
   const { t } = await useTranslation(params.locale, ["common", "authentication"])
 
+  async function signUp(formData: FormData): Promise<void> {
+    "use server"
+
+    console.log("signUp formData=", formData)
+
+    // const rawFormData = {
+    //   firstName: formData.get('firstName'),
+    //   lastName: formData.get('lastName'),
+    //   gender: formData.get('gender'),
+    //   birthDate: formData.get('birthDate'),
+    //   email: formData.get('email'),
+    //   password: formData.get('password'),
+    //   confirmPassword: formData.get('confirmPassword'),
+    // }
+  }
+
   return (
     <>
       <h1>{t("authentication:form.sign_up")}</h1>
-      <form className="flex flex-col space-y-2 w-authentication-form md:w-authentication-form-md" noValidate>
+      <form
+        className="flex flex-col space-y-2 w-authentication-form md:w-authentication-form-md"
+        noValidate
+        action={signUp}
+      >
         <div className="grid md:grid-cols-[1fr_1fr] md:space-x-2">
           <div className="flex flex-col">
             <label htmlFor="firstName">{t("authentication:form.label.first_name")}</label>
@@ -57,10 +76,6 @@ export default async function SignUp({ params }: TPageProps) {
           </div>
         </div>
         <button type="submit">{t("authentication:form.sign_up")}</button>
-        <hr />
-        <div className="flex justify-center space-x-4 py-4">
-          <Link href={`/${params.locale}/login`}>{t("authentication:form.login")}</Link>
-        </div>
       </form>
     </>
   )

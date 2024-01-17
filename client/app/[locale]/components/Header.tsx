@@ -1,11 +1,11 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { faBagShopping, faSearch, faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { ChangeLocale } from "@/app/[locale]/components/ChangeLocale"
+import { ROUTE_CART, ROUTE_LOGIN } from "@/app/[locale]/lib/site-map"
 import { useTranslation } from "@/app/i18n/client"
 
 type THeaderProps = {
@@ -17,7 +17,7 @@ export function Header({ locale }: THeaderProps) {
   const { t } = useTranslation(locale, "common")
 
   return (
-    <header className="sticky z-20 top-0 grid justify-between items-center grid-cols-app-header md:grid-cols-app-header-md gap-4 p-4 bg-ecommerce-100 dark:bg-ecommerce-900">
+    <header className="sticky z-20 top-0 grid justify-between items-center grid-cols-app-header md:grid-cols-app-header-md gap-4 p-4 bg-ecommerce-200 dark:bg-ecommerce-800">
       <ChangeLocale className="hidden md:block"></ChangeLocale>
       <h1 className="my-0 text-start md:text-center text-2xl uppercase">
         <Link
@@ -35,20 +35,20 @@ export function Header({ locale }: THeaderProps) {
           </li>
           <li>
             <Link
-              className={`app-menu-link ${pathname === `/${locale}/login` ? "active" : ""}`}
-              href={`/${locale}/login`}
+              className={`app-menu-link ${pathname === `/${locale}${ROUTE_LOGIN.PATH}` ? "active" : ""}`}
+              href={`/${locale}${ROUTE_LOGIN.PATH}`}
               locale={false}
-              aria-label={t("app_menu.login")}
+              aria-label={t(ROUTE_LOGIN.TITLE)}
             >
               <FontAwesomeIcon icon={faUser} />
             </Link>
           </li>
           <li>
             <Link
-              className={`app-menu-link ${pathname === `/${locale}/cart` ? "active" : ""}`}
-              href={`/${locale}/cart`}
+              className={`app-menu-link ${pathname === `/${locale}${ROUTE_CART.PATH}` ? "active" : ""}`}
+              href={`/${locale}${ROUTE_CART.PATH}`}
               locale={false}
-              aria-label={t("app_menu.cart")}
+              aria-label={t(ROUTE_CART.TITLE)}
             >
               <FontAwesomeIcon icon={faBagShopping} />
             </Link>

@@ -1,14 +1,6 @@
 {
-  "company": {
-    "title": "La compagnie"
-  },
-  "meet_the_team": {
-    "title": "Recontrer l'équipe"
-  },
-  "careers": {
-    "title": "Carrières"
-  },
-  "contact_us": {
-    "title": "Contactez-nous"
-  }
+  "company": {},
+  "meet_the_team": {},
+  "careers": {},
+  "contact_us": {}
 }

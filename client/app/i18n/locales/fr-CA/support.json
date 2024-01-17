@@ -1,11 +1,5 @@
 {
-  "faqs": {
-    "title": "FAQ"
-  },
-  "shipping": {
-    "title": "Expédition"
-  },
-  "returns": {
-    "title": "Échanges et retours"
-  }
+  "faqs": {},
+  "shipping": {},
+  "returns": {}
 }
