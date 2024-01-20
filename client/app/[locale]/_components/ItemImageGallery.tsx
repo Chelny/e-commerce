@@ -14,11 +14,11 @@ import {
 import { useTranslation } from "@/app/i18n/client"
 import "keen-slider/keen-slider.min.css"
 
-type TProductImageGalleryProps = {
+type TItemImageGalleryProps = {
   locale: string
 }
 
-export function ProductImageGallery({ locale }: TProductImageGalleryProps) {
+export function ItemImageGallery({ locale }: TItemImageGalleryProps) {
   const { t } = useTranslation(locale, "shop")
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     rtl: dir(locale) === "rtl",

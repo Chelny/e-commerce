@@ -4,8 +4,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { faBagShopping, faSearch, faUser } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { ChangeLocale } from "@/app/[locale]/components/ChangeLocale"
-import { ROUTE_CART, ROUTE_LOGIN } from "@/app/[locale]/lib/site-map"
+import { ChangeLocale } from "@/app/[locale]/_components/ChangeLocale"
+import { ROUTE_CART, ROUTE_LOGIN } from "@/app/[locale]/_lib/site-map"
 import { useTranslation } from "@/app/i18n/client"
 
 type THeaderProps = {

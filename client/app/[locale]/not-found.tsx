@@ -1,6 +1,6 @@
 import { headers } from "next/headers"
 import Link from "next/link"
-import { ROUTE_HOME } from "@/app/[locale]/lib/site-map"
+import { ROUTE_HOME } from "@/app/[locale]/_lib/site-map"
 
 export default function NotFound() {
   const headersList = headers()

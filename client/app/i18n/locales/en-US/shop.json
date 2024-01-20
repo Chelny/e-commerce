@@ -1,6 +1,6 @@
 {
-  "product": {
-    "view_product": "View Product",
+  "item": {
+    "view_item": "View Item",
     "add_to_cart": "Add to cart",
     "buy_now": "Buy Now",
     "description": "Description",
@@ -14,5 +14,7 @@
   },
   "in_stock": "In stock:",
   "recommendations": "Recommendations",
-  "reviews": "Reviews"
+  "reviews": "Reviews",
+  "no_items_found": "No items found",
+  "no_more_items": "No more items"
 }

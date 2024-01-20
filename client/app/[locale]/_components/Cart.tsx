@@ -27,10 +27,10 @@ export function Cart({ locale }: TCartProps) {
         onChange={(event: ChangeEvent<HTMLInputElement>) => handleQuantity(event)}
       />
       <button className="secondary-action" type="button">
-        {t("product.add_to_cart")}
+        {t("item.add_to_cart")}
       </button>
       <button className="primary-action" type="button">
-        {t("product.buy_now")}
+        {t("item.buy_now")}
       </button>
     </div>
   )

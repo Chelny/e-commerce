@@ -1,28 +1,17 @@
 "use client"
 
 import { Suspense, useState } from "react"
-// import Image from 'next/image'
-import { useRouter } from "next/navigation"
 import { dir } from "i18next"
-import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons"
-import { faHeart } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { KeenSliderPlugin, useKeenSlider } from "keen-slider/react"
-import { Currency } from "@/app/[locale]/components/Currency"
-import ProductCarouselSkeleton from "@/app/[locale]/components/ProductCarousel.skeleton"
-import { ROUTE_SHOP } from "@/app/[locale]/lib/site-map"
-import { useTranslation } from "@/app/i18n/client"
+import { ItemCard } from "@/app/[locale]/_components/ItemCard"
+import ItemCarouselSkeleton from "@/app/[locale]/_components/ItemCarousel.skeleton"
 import "keen-slider/keen-slider.min.css"
-import styles from "./ProductCarousel.module.css"
 
-type TProductCarouselProps = {
+type TItemCarouselProps = {
   locale: string
 }
 
-export function ProductCarousel({ locale }: TProductCarouselProps) {
-  const router = useRouter()
-  const { t } = useTranslation(locale, ["common", "shop"])
-
+export function ItemCarousel({ locale }: TItemCarouselProps) {
   const slides = [
     "https://picsum.photos/id/10/275/300",
     "https://picsum.photos/id/18/275/300",
@@ -78,51 +67,13 @@ export function ProductCarousel({ locale }: TProductCarouselProps) {
     [ResizePlugin]
   )
 
-  const handleViewProductDetails = (id: number) => {
-    router.push(`/${locale}${ROUTE_SHOP.PATH}?product=${id}`, { scroll: false })
-  }
-
   return (
     <div className="relative">
       <div className="keen-slider pb-2" ref={sliderRef}>
-        <Suspense fallback={<ProductCarouselSkeleton />}>
+        <Suspense fallback={<ItemCarouselSkeleton />}>
           {slides.map((src: string, index: number) => (
             <div key={index} className="keen-slider__slide">
-              <div
-                className={`${styles.productItemCardImage} bg-ecommerce-500`}
-                style={{ backgroundImage: `url(${src})` }}
-              >
-                <button className={styles.addFavouriteButton} type="button">
-                  <FontAwesomeIcon icon={faHeartOutline} />
-                  {/* <FontAwesomeIcon icon={faHeart} /> */}
-                </button>
-                <button
-                  className={styles.viewProductButton}
-                  type="button"
-                  onClick={() => handleViewProductDetails(index)}
-                >
-                  {t("shop:product.view_product")}
-                </button>
-              </div>
-              <div className="py-2 leading-loose">
-                <div>Lorem ipsum</div>
-                <div>
-                  <span>
-                    <Currency locale={locale} value={6222} />
-                  </span>{" "}
-                  <span className="text-ecommerce-500 line-through">
-                    <Currency locale={locale} value={499.99} />
-                  </span>
-                </div>
-                {/* <div className="grid grid-cols-[1fr_1fr] space-x-2 text-white">
-                  <button type="button" className="p-1 bg-ecommerce-700">
-                    {t("shop:add_to_cart")}
-                  </button>
-                  <button type="button" className="p-1 bg-ecommerce-900">
-                    {t("shop:buy_now")}
-                  </button>
-                </div> */}
-              </div>
+              <ItemCard locale={locale} item={{ id: index, imagePath: src }}></ItemCard>
             </div>
           ))}
         </Suspense>
@@ -167,13 +118,14 @@ function Arrow(props: { disabled: boolean; left?: boolean; onClick: (e: any) => 
 }
 
 const ResizePlugin: KeenSliderPlugin = (slider) => {
-  const observer = new ResizeObserver(function () {
+  const observer = new ResizeObserver(() => {
     slider.update()
   })
 
   slider.on("created", () => {
     observer.observe(slider.container)
   })
+
   slider.on("destroyed", () => {
     observer.unobserve(slider.container)
   })

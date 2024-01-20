@@ -15,7 +15,7 @@ import {
   ROUTE_SUPPORT,
   ROUTE_TEAM,
   ROUTE_TERMS_OF_SERVICE,
-} from "@/app/[locale]/lib/site-map"
+} from "@/app/[locale]/_lib/site-map"
 import { useTranslation } from "@/app/i18n/client"
 
 type TFooterProps = {

@@ -3,7 +3,7 @@
 import React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ROUTE_HOME, SITE_MAP, TSiteMap } from "@/app/[locale]/lib/site-map"
+import { ROUTE_HOME, SITE_MAP, TSiteMap } from "@/app/[locale]/_lib/site-map"
 import { useTranslation } from "@/app/i18n/client"
 
 type TBreadcrumbsProps = {

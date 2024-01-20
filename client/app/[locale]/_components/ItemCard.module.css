@@ -1,4 +1,4 @@
-.productItemCardImage {
+.itemItemCardImage {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -11,7 +11,7 @@
 }
 
 .addFavouriteButton,
-.viewProductButton {
+.viewItemButton {
   position: absolute;
   visibility: hidden;
 }
@@ -23,7 +23,7 @@
   color: var(--color-black);
 }
 
-.viewProductButton {
+.viewItemButton {
   bottom: 0;
   width: calc(100% - 1rem);
   margin: 0.5rem;
@@ -38,11 +38,11 @@
   transform: translateY(100%);
 }
 
-.productItemCardImage:hover .addFavouriteButton {
+.itemItemCardImage:hover .addFavouriteButton {
   visibility: visible;
 }
 
-.productItemCardImage:hover .viewProductButton {
+.itemItemCardImage:hover .viewItemButton {
   visibility: visible;
   transform: translateY(0);
 }

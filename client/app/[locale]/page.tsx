@@ -1,7 +1,7 @@
 import Link from "next/link"
-import { BannerCarousel } from "@/app/[locale]/components/BannerCarousel"
-import { ProductCarousel } from "@/app/[locale]/components/ProductCarousel"
-import { ROUTE_NEW_ARRIVALS, ROUTE_POPULAR, ROUTE_SALE } from "@/app/[locale]/lib/site-map"
+import { BannerCarousel } from "@/app/[locale]/_components/BannerCarousel"
+import { ItemCarousel } from "@/app/[locale]/_components/ItemCarousel"
+import { ROUTE_NEW_ARRIVALS, ROUTE_POPULAR, ROUTE_SALE } from "@/app/[locale]/_lib/site-map"
 import { useTranslation } from "@/app/i18n"
 
 export default async function HomePage({ params }: TPageProps) {
@@ -22,7 +22,7 @@ export default async function HomePage({ params }: TPageProps) {
               {t("button.view_all")}
             </Link>
           </div>
-          <ProductCarousel locale={params.locale}></ProductCarousel>
+          <ItemCarousel locale={params.locale}></ItemCarousel>
         </section>
         <section>
           <div className="flex justify-between align-center mb-6">
@@ -31,7 +31,7 @@ export default async function HomePage({ params }: TPageProps) {
               {t("button.view_all")}
             </Link>
           </div>
-          <ProductCarousel locale={params.locale}></ProductCarousel>
+          <ItemCarousel locale={params.locale}></ItemCarousel>
         </section>
         <section>
           <div className="flex justify-between align-center mb-6">
@@ -40,7 +40,7 @@ export default async function HomePage({ params }: TPageProps) {
               {t("button.view_all")}
             </Link>
           </div>
-          <ProductCarousel locale={params.locale}></ProductCarousel>
+          <ItemCarousel locale={params.locale}></ItemCarousel>
         </section>
       </div>
     </>
