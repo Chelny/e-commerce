@@ -16,8 +16,7 @@ export async function useTranslation(locale: string, namespaces: string | string
   const namespacesArray = Array.isArray(namespaces) ? namespaces : [namespaces]
   const i18nextInstance = await initI18next(locale, namespacesArray)
   return {
-    // t: (key: string) => i18nextInstance.t(key),
     t: i18nextInstance.getFixedT(locale, namespacesArray, options.keyPrefix),
-    i18n: i18nextInstance
+    i18n: i18nextInstance,
   }
 }

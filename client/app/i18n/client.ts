@@ -22,6 +22,7 @@ i18next
       order: ["path", "htmlTag", "cookie", "navigator"],
     },
     preload: runsOnServerSide ? supportedLocales : [],
+    load: "currentOnly",
   })
 
 export function useTranslation(locale: string, namespaces: string | string[], options = {}) {

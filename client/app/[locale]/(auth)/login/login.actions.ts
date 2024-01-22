@@ -1,28 +1,31 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { z } from "zod"
+import { email, flatten, minLength, object, type Output, safeParse, string, regex, EMAIL_REGEX } from "valibot"
 
-export async function login(prevState: { message: string; errors?: Record<string, string[]> }, formData: FormData) {
-  const schema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8),
+export async function login(prevState: TFormPreviousState, formData: FormData) {
+  const schema = object({
+    email: string([minLength(1, "email.required"), regex(EMAIL_REGEX, "email.pattern")]),
+    password: string([minLength(1, "password.required")]),
   })
 
-  const validation = schema.safeParse({
+  type LoginData = Output<typeof schema>
+
+  const result = safeParse(schema, {
     email: formData.get("email"),
     password: formData.get("password"),
   })
 
-  if (!validation.success) {
+  if (!result.success) {
     return {
-      message: "Invalid email or the password",
-      errors: validation.error.flatten().fieldErrors,
+      ...prevState,
+      message: "Invalid email or password",
+      errors: flatten(result.issues).nested,
     }
   }
 
   // Mutate data
-  console.log(validation.data)
+  console.log(result.output)
   revalidatePath("/")
 
   return {

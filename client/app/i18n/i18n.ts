@@ -2,10 +2,6 @@ import i18n from "i18next"
 import LanguageDetector from "i18next-browser-languagedetector"
 import Backend from "i18next-http-backend"
 import { initReactI18next } from "react-i18next"
-import { z } from "zod"
-import { zodI18nMap } from "zod-i18n-map"
-import zodTranslationEN from "zod-i18n-map/locales/en/zod.json"
-import zodTranslationFR from "zod-i18n-map/locales/fr/zod.json"
 import { defaultLocale, defaultNamespace, supportedLocales } from "@/app/i18n/settings"
 
 i18n
@@ -28,13 +24,6 @@ i18n
     interpolation: {
       escapeValue: false, // Not needed for react as it escapes by default
     },
-    resources: {
-      "en-US": { zod: zodTranslationEN },
-      "en-CA": { zod: zodTranslationEN },
-      "fr-CA": { zod: zodTranslationFR },
-    },
   })
-
-z.setErrorMap(zodI18nMap)
 
 export default i18n

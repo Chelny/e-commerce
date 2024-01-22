@@ -1,0 +1,57 @@
+{
+  "login": "Login",
+  "sign_up": "Sign Up",
+  "forgot_password": "Forgot Password?",
+  "reset_password": "Reset Password",
+  "label": {
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "gender": "Gender",
+    "gender_male": "Male",
+    "gender_female": "Female",
+    "gender_other": "Other",
+    "birth_date": "Birth Date",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password"
+  },
+  "hint": {
+    "birth_date": "The minimum age is 18 years old.",
+    "password": "Password must be at least 8 characters long, must contain at least one digit and must contain at least one special character from !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~."
+  },
+  "button": {
+    "send_email": "Send Email",
+    "reset_password": "Reset"
+  },
+  "agreement_text": "By clicking \"Sign Up\", I agree to the terms and conditions, including the privacy policy, and consent to the processing of my personal data in accordance with the specified guidelines.",
+  "errors": {
+    "first_name": {
+      "required": "First name is required",
+      "pattern": "Invalid first name"
+    },
+    "last_name": {
+      "required": "Last name is required",
+      "pattern": "Invalid last name"
+    },
+    "gender": {
+      "required": "Gender is required"
+    },
+    "birth_date": {
+      "required": "Birth date is required",
+      "max": "Age must be minimum of 18 years"
+    },
+    "email": {
+      "required": "Email is required",
+      "pattern": "Invalid email"
+    },
+    "password": {
+      "required": "Password is required",
+      "pattern": "Invalid password"
+    },
+    "confirm_password": {
+      "required": "Password is required",
+      "pattern": "Invalid password",
+      "match": "Passwords don't match"
+    }
+  }
+}

@@ -29,14 +29,14 @@
     "react-cookie": "6.1.1",
     "react-dom": "18.2.0",
     "react-i18next": "13.5.0",
-    "zod": "3.21.4",
-    "zod-i18n-map": "2.25.0"
+    "valibot": "0.26.0",
+    "xregexp": "5.1.1"
   },
   "devDependencies": {
     "@types/negotiator": "0.6.3",
     "@types/node": "^20.0.0",
-    "@types/react": "18.2.36",
-    "@types/react-dom": "18.2.13",
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.0",
     "autoprefixer": "^10.0.1",
     "eslint-config-next": "14.0.3",
     "postcss": "^8.0.0",
