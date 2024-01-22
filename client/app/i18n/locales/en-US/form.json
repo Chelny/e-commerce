@@ -17,7 +17,7 @@
   },
   "hint": {
     "birth_date": "The minimum age is 18 years old.",
-    "password": "Password must be at least 8 characters long, must contain at least one digit and must contain at least one special character from !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~."
+    "password": "Password must be at least 8 characters long, must contain at least one digit and must contain at least one special character."
   },
   "button": {
     "send_email": "Send Email",
@@ -49,8 +49,8 @@
       "pattern": "Invalid password"
     },
     "confirm_password": {
-      "required": "Password is required",
-      "pattern": "Invalid password",
+      "required": "Confirm password is required",
+      "pattern": "Invalid confirm password",
       "match": "Passwords don't match"
     }
   }

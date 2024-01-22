@@ -17,7 +17,7 @@
   },
   "hint": {
     "birth_date": "L'âge minimum est de 18 ans.",
-    "password": "Le mot de passe doit comporter au moins 8 caractères, doit contenir au moins un chiffre et doit contenir au moins un caractère spécial de !\"#$%&'()*+,-./:;<=>?@[\\ ]^_`{|}~."
+    "password": "Le mot de passe doit comporter au moins 8 caractères, doit contenir au moins un chiffre et doit contenir au moins un caractère spécial."
   },
   "button": {
     "send_email": "Envoyer un courriel",
@@ -37,7 +37,7 @@
       "required": "Le sexe est requis"
     },
     "birth_date": {
-      "required": "La date de naissance est requis",
+      "required": "La date de naissance est requise",
       "max": "Date de naissance non valide"
     },
     "email": {
@@ -49,8 +49,8 @@
       "pattern": "Mot de passe non valide"
     },
     "confirm_password": {
-      "required": "Le mot de passe est requis",
-      "pattern": "Mot de passe non valide",
+      "required": "La confirmation du mot de passe est requise",
+      "pattern": "Confirmation du mot de passe non valide",
       "match": "Les mot de passes ne sont pas identiques"
     }
   }
