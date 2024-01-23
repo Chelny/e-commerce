@@ -6,10 +6,10 @@ from .views import (
 )
 
 urlpatterns = [
-    path('api', OrderApiView.as_view()),
-    path('api/<int:id>/', OrderApiView.as_view()),
-    path('api/items', OrderItemsApiView.as_view()),
-    path('api/items/<int:id>/', OrderItemsApiView.as_view()),
-    path('api/payments', OrderPaymentApiView.as_view()),
-    path('api/payments/<int:id>/', OrderPaymentApiView.as_view()),
+    path('', OrderApiView.as_view()),
+    path('<int:id>/', OrderApiView.as_view()),
+    path('items', OrderItemsApiView.as_view()),
+    path('items/<int:id>/', OrderItemsApiView.as_view()),
+    path('payments', OrderPaymentApiView.as_view()),
+    path('payments/<int:id>/', OrderPaymentApiView.as_view()),
 ]

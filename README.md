@@ -19,11 +19,73 @@ E-commerce is an e-commerce web application for the sole purpose of learning Nex
 
 ## Installation
 
-TODO
+Clone project
+
+```
+git clone git@github.com:Chelny/e-commerce.git
+```
+
+### Server
+
+Set `.env` file from the provided `.env.example` file.
+
+Open a terminal and go to the server directory:
+
+```
+cd server
+```
+
+Activate virtual environment with:
+
+```
+source venv/bin/activate
+```
+
+Apply migration (the project uses a database):
+
+```
+python manage.py migrate
+```
+
+Run server:
+
+```
+python manage.py runserver
+```
+
+### Client
+
+Set `.env.local` file from the provided `.env.local.example` file.
+
+Open a new terminal and go to the client directory:
+
+```
+cd client
+```
+
+Install dependencies:
+
+```
+pnpm i
+```
+
+Run server:
+
+```
+pnpm run dev
+```
 
 ## Usage
 
-TODO
+### Run Tests
+
+On server:
+
+```
+python manage.py test # Run all tests
+python manage.py test your_app_name # Run tests for a specific app or module
+python manage.py test your_app_name.tests.test_module # Run tests for a specific test file or for a specific test class or method
+```
 
 ## License
 

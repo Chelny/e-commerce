@@ -23,13 +23,13 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    birth_date = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=10, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')], null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(default=timezone.now)
 
     # Add any other custom fields or methods as needed
     objects = CustomUserManager()
@@ -97,4 +97,4 @@ class UserPayment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Payment for {self.user.username}"
+        return f"Payment for {self.user.email}"

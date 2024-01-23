@@ -1,8 +1,10 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 import { email, flatten, minLength, object, type Output, safeParse, string, regex, custom } from "valibot"
 import { NAME_REGEX, PASSWORD_REGEX } from "@/app/[locale]/_lib/constants"
+import { POST } from "@/app/[locale]/(auth)/sign-up/api/route"
+import { ROUTE_LOGIN } from "@/app/[locale]/_lib/site-map"
 
 export async function signUp(prevState: TFormPreviousState, formData: FormData) {
   // The user must be at least 18 years old
@@ -47,11 +49,6 @@ export async function signUp(prevState: TFormPreviousState, formData: FormData) 
     }
   }
 
-  // Mutate data
-  console.log(result.output)
-  revalidatePath("/")
-
-  return {
-    message: "Sign up successful",
-  }
+  const response = await POST<SignUpData>(result.output)
+  if (response.status === "success") redirect(ROUTE_LOGIN.PATH)
 }

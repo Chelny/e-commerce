@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
+from common.utils import success_response, error_response
 from .models import Product, ProductCategory, ProductDiscount, ProductInventory
 from .serializers import ProductSerializer, ProductCategorySerializer, ProductDiscountSerializer, ProductInventorySerializer
 
@@ -22,17 +22,14 @@ class ProductApiView(APIView):
             # Retrieve a specific product
             product_instance = self.get_object(id)
             if not product_instance:
-                return Response(
-                    {"res": "Object with product id does not exist"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return error_response(message='Product with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
             serializer = ProductSerializer(product_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             # List all products
             products = Product.objects.all()
             serializer = ProductSerializer(products, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         data = {
@@ -50,17 +47,14 @@ class ProductApiView(APIView):
         serializer = ProductSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return success_response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id, *args, **kwargs):
         product_instance = self.get_object(id)
         if not product_instance:
-            return Response(
-                {"res": "Object with product id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Product with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         data = {
             'brand': request.data.get('brand'),
             'name': request.data.get('name'),
@@ -76,21 +70,15 @@ class ProductApiView(APIView):
         serializer = ProductSerializer(instance=product_instance, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, *args, **kwargs):
         product_instance = self.get_object(id)
         if not product_instance:
-            return Response(
-                {"res": "Object with product id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Product with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         product_instance.delete()
-        return Response(
-            {"res": "Object deleted!"},
-            status=status.HTTP_200_OK
-        )
+        return error_response(message=None, status_code=status.HTTP_204_NO_CONTENT)
 
 class ProductCategoryApiView(APIView):
     # Add permission to check if user is authenticated
@@ -107,18 +95,15 @@ class ProductCategoryApiView(APIView):
             # Retrieve a specific category
             product_category_instance = self.get_object(id)
             if not product_category_instance:
-                return Response(
-                    {"res": "Object with category id does not exists"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return error_response(message='Category with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
 
             serializer = ProductCategorySerializer(product_category_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             # List all product categories
             products = ProductCategory.objects.all()
             serializer = ProductCategorySerializer(products, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         data = {
@@ -128,17 +113,14 @@ class ProductCategoryApiView(APIView):
         serializer = ProductCategorySerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return success_response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id, *args, **kwargs):
         product_category_instance = self.get_object(id)
         if not product_category_instance:
-            return Response(
-                {"res": "Object with category id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Category with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         data = {
             'name': request.data.get('name'),
             'description': request.data.get('description')
@@ -146,21 +128,15 @@ class ProductCategoryApiView(APIView):
         serializer = ProductCategorySerializer(instance=product_category_instance, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, *args, **kwargs):
         product_category_instance = self.get_object(id)
         if not product_category_instance:
-            return Response(
-                {"res": "Object with category id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Category with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         product_category_instance.delete()
-        return Response(
-            {"res": "Object deleted!"},
-            status=status.HTTP_200_OK
-        )
+        return error_response(message=None, status_code=status.HTTP_204_NO_CONTENT)
 
 class ProductDiscountApiView(APIView):
     # Add permission to check if user is authenticated
@@ -177,18 +153,15 @@ class ProductDiscountApiView(APIView):
             # Retrieve a specific discount
             product_discount_instance = self.get_object(id)
             if not product_discount_instance:
-                return Response(
-                    {"res": "Object with product discount id does not exists"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return error_response(message='Product discount with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
 
             serializer = ProductDiscountSerializer(product_discount_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             # List all discounts
             products = ProductDiscount.objects.all()
             serializer = ProductDiscountSerializer(products, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         data = {
@@ -199,17 +172,14 @@ class ProductDiscountApiView(APIView):
         serializer = ProductDiscountSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return success_response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id, *args, **kwargs):
         product_discount_instance = self.get_object(id)
         if not product_discount_instance:
-            return Response(
-                {"res": "Object with product discount id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Product discount with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         data = {
             'name': request.data.get('name'),
             'description': request.data.get('description')
@@ -217,21 +187,15 @@ class ProductDiscountApiView(APIView):
         serializer = ProductDiscountSerializer(instance=product_discount_instance, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, *args, **kwargs):
         product_discount_instance = self.get_object(id)
         if not product_discount_instance:
-            return Response(
-                {"res": "Object with product discount id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Product discount with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         product_discount_instance.delete()
-        return Response(
-            {"res": "Object deleted!"},
-            status=status.HTTP_200_OK
-        )
+        return error_response(message=None, status_code=status.HTTP_204_NO_CONTENT)
 
 class ProductInventoryApiView(APIView):
     # Add permission to check if user is authenticated
@@ -248,18 +212,15 @@ class ProductInventoryApiView(APIView):
             # Retrieve a specific inventory
             product_inventory_instance = self.get_object(id)
             if not product_inventory_instance:
-                return Response(
-                    {"res": "Object with inventory id does not exists"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return error_response(message='Inventory with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
 
             serializer = ProductInventorySerializer(product_inventory_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             # List all inventories
             products = ProductInventory.objects.all()
             serializer = ProductInventorySerializer(products, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         data = {
@@ -268,17 +229,14 @@ class ProductInventoryApiView(APIView):
         serializer = ProductInventorySerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return success_response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id, *args, **kwargs):
         product_inventory_instance = self.get_object(id)
         if not product_inventory_instance:
-            return Response(
-                {"res": "Object with inventory id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Inventory with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         data = {
             'name': request.data.get('name'),
             'description': request.data.get('description')
@@ -286,18 +244,12 @@ class ProductInventoryApiView(APIView):
         serializer = ProductInventorySerializer(instance=product_inventory_instance, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, *args, **kwargs):
         product_inventory_instance = self.get_object(id)
         if not product_inventory_instance:
-            return Response(
-                {"res": "Object with inventory id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Inventory with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         product_inventory_instance.delete()
-        return Response(
-            {"res": "Object deleted!"},
-            status=status.HTTP_200_OK
-        )
+        return error_response(message=None, status_code=status.HTTP_204_NO_CONTENT)

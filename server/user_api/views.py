@@ -1,15 +1,63 @@
 from django.shortcuts import render
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from django.contrib.auth.hashers import make_password, check_password
 from rest_framework import status
 from rest_framework import permissions
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from common.utils import success_response, error_response
 from .models import CustomUser, UserAddress, ShoppingSession, CartItem, UserPayment
-from .serializers import UserSerializer, UserAddressSerializer, ShoppingSessionSerializer, CartItemSerializer, UserPaymentSerializer
+from .serializers import LoginSerializer, UserSerializer, UserAddressSerializer, ShoppingSessionSerializer, CartItemSerializer, UserPaymentSerializer
 
 # Create your views here.
+class UserLoginView(APIView):
+    def get_user_by_email(self, email):
+        try:
+            user = CustomUser.objects.get(email=email)
+            return user
+        except CustomUser.DoesNotExist:
+            return None
+
+    def post(self, request, *args, **kwargs):
+        serializer = LoginSerializer(data=request.data)
+        if serializer.is_valid():
+            email = serializer.validated_data['email']
+            password = serializer.validated_data['password']
+
+            user = self.get_user_by_email(email)
+
+            if user is not None and check_password(password, user.password):
+                # Generate JWT tokens
+                refresh = RefreshToken.for_user(user)
+                tokens = {
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                }
+                return success_response(data=tokens, status_code=status.HTTP_200_OK)
+
+            return error_response(message='Invalid credentials', status_code=status.HTTP_401_UNAUTHORIZED)
+
+        return error_response(message='Invalid data', status_code=status.HTTP_400_BAD_REQUEST)
+
 class UserApiView(APIView):
+    # authentication_classes = [JWTAuthentication]
+
     # Add permission to check if user is authenticated
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
+
+    permission_classes_by_action = {
+        'get': [permissions.IsAuthenticated],
+        'post': [],
+        'put': [JWTAuthentication, permissions.IsAuthenticated],
+        'delete': [JWTAuthentication, permissions.IsAuthenticated],
+    }
+
+    def get_permissions(self):
+        return [permission() for permission in self.permission_classes_by_action.get(self.action, [])]
+
+    def initial(self, request, *args, **kwargs):
+        self.action = None
+        super().initial(request, *args, **kwargs)
 
     def get_object(self, id):
         try:
@@ -18,79 +66,86 @@ class UserApiView(APIView):
             return None
 
     def get(self, request, id=None, *args, **kwargs):
+        self.action = 'get'
+
         if id is not None:
             # Retrieve a specific user
             user_instance = self.get_object(id)
             if not user_instance:
-                return Response(
-                    {"res": "Object with user id does not exist"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return error_response(message='User with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
             serializer = UserSerializer(user_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status_code=status.HTTP_200_OK)
         else:
             # List all users
             users = CustomUser.objects.all()
             serializer = UserSerializer(users, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
+        self.action = 'post'
+
+        print(request.data)
+
         data = {
-            'brand': request.data.get('brand'),
-            'name': request.data.get('name'),
-            'description': request.data.get('description'),
-            'sku': request.data.get('sku'),
-            'colors': request.data.get('colors'),
-            'category_id': request.data.get('category_id'),
-            'inventory_id': request.data.get('inventory_id'),
-            'price': request.data.get('price'),
-            'discount_id': request.data.get('discount_id'),
-            'image': request.data.get('image')
+            'first_name': request.data.get('firstName'),
+            'last_name': request.data.get('lastName'),
+            'gender': request.data.get('gender'),
+            'birth_date': request.data.get('birthDate'),
+            'email': request.data.get('email'),
+            'password': make_password(request.data.get('password'))
         }
+
+        # Set active state to True
+        data['active'] = True
+
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            # Create a token for the user using refresh token
+            refresh = RefreshToken.for_user(serializer.instance)
+            tokens = {
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+            }
+
+            return success_response(data={'user': serializer.data, 'tokens': tokens}, status_code=status.HTTP_201_CREATED)
+
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id, *args, **kwargs):
+        self.action = 'put'
+
         user_instance = self.get_object(id)
         if not user_instance:
-            return Response(
-                {"res": "Object with user id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='User with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         data = {
-            'brand': request.data.get('brand'),
-            'name': request.data.get('name'),
-            'description': request.data.get('description'),
-            'sku': request.data.get('sku'),
-            'colors': request.data.get('colors'),
-            'category_id': request.data.get('category_id'),
-            'inventory_id': request.data.get('inventory_id'),
-            'price': request.data.get('price'),
-            'discount_id': request.data.get('discount_id'),
-            'image': request.data.get('image')
+            'first_name': request.data.get('firstName'),
+            'last_name': request.data.get('lastName'),
+            'gender': request.data.get('gender'),
+            'birth_date': request.data.get('birthDate'),
+            'email': request.data.get('email')
         }
+
+        # Check if a new password is provided
+        password = request.data.get('password')
+        if password is not None:
+            data['password'] = make_password(password)
+
         serializer = UserSerializer(instance=user_instance, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, *args, **kwargs):
+        self.action = 'delete'
+
         user_instance = self.get_object(id)
         if not user_instance:
-            return Response(
-                {"res": "Object with user id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='User with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         user_instance.delete()
-        return Response(
-            {"res": "Object deleted!"},
-            status=status.HTTP_200_OK
-        )
+        return error_response(message=None, status_code=status.HTTP_204_NO_CONTENT)
 
 class UserAddressApiView(APIView):
     # Add permission to check if user is authenticated
@@ -107,17 +162,14 @@ class UserAddressApiView(APIView):
             # Retrieve a specific address
             user_address_instance = self.get_object(id)
             if not user_address_instance:
-                return Response(
-                    {"res": "Object with user id does not exist"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return error_response(message='Address with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
             serializer = UserAddressSerializer(user_address_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             # List all addresses
             user_addresses = UserAddress.objects.all()
             serializer = UserAddressSerializer(user_addresses, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         data = {
@@ -134,17 +186,14 @@ class UserAddressApiView(APIView):
         serializer = UserAddressSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return success_response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id, *args, **kwargs):
         user_address_instance = self.get_object(id)
         if not user_address_instance:
-            return Response(
-                {"res": "Object with user id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Address with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         data = {
             'user': request.data.get('user'),
             'address_line1': request.data.get('address_line1'),
@@ -159,21 +208,15 @@ class UserAddressApiView(APIView):
         serializer = UserAddressSerializer(instance=user_address_instance, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, *args, **kwargs):
         user_address_instance = self.get_object(id)
         if not user_address_instance:
-            return Response(
-                {"res": "Object with user id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Address with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         user_address_instance.delete()
-        return Response(
-            {"res": "Object deleted!"},
-            status=status.HTTP_200_OK
-        )
+        return error_response(message=None, status_code=status.HTTP_204_NO_CONTENT)
 
 class ShoppingSessionApiView(APIView):
     # Add permission to check if user is authenticated
@@ -190,17 +233,14 @@ class ShoppingSessionApiView(APIView):
             # Retrieve a specific shopping session
             shopping_session_instance = self.get_object(id)
             if not shopping_session_instance:
-                return Response(
-                    {"res": "Object with shopping session id does not exist"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return error_response(message='Shopping session with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
             serializer = ShoppingSessionSerializer(shopping_session_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             # List all shopping sessions
             shopping_sessions = ShoppingSession.objects.all()
             serializer = ShoppingSessionSerializer(shopping_sessions, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         data = {
@@ -210,17 +250,14 @@ class ShoppingSessionApiView(APIView):
         serializer = ShoppingSessionSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return success_response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id, *args, **kwargs):
         shopping_session_instance = self.get_object(id)
         if not shopping_session_instance:
-            return Response(
-                {"res": "Object with shopping session id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Shopping session with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         data = {
             'user': request.data.get('user'),
             'total': request.data.get('total')
@@ -228,21 +265,15 @@ class ShoppingSessionApiView(APIView):
         serializer = ShoppingSessionSerializer(instance=shopping_session_instance, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, *args, **kwargs):
         shopping_session_instance = self.get_object(id)
         if not shopping_session_instance:
-            return Response(
-                {"res": "Object with shopping session id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Shopping session with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         shopping_session_instance.delete()
-        return Response(
-            {"res": "Object deleted!"},
-            status=status.HTTP_200_OK
-        )
+        return error_response(message=None, status_code=status.HTTP_204_NO_CONTENT)
 
 class CartItemApiView(APIView):
     # Add permission to check if user is authenticated
@@ -259,17 +290,14 @@ class CartItemApiView(APIView):
             # Retrieve a specific cart item
             cart_item_instance = self.get_object(id)
             if not cart_item_instance:
-                return Response(
-                    {"res": "Object with cart item id does not exist"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return error_response(message='Cart item with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
             serializer = CartItemSerializer(cart_item_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             # List all cart items
             cart_items = CartItem.objects.all()
             serializer = CartItemSerializer(cart_items, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         data = {
@@ -280,17 +308,14 @@ class CartItemApiView(APIView):
         serializer = CartItemSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return success_response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id, *args, **kwargs):
         cart_item_instance = self.get_object(id)
         if not cart_item_instance:
-            return Response(
-                {"res": "Object with cart item id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Cart item with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         data = {
             'session': request.data.get('session'),
             'product': request.data.get('product'),
@@ -299,21 +324,15 @@ class CartItemApiView(APIView):
         serializer = CartItemSerializer(instance=cart_item_instance, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, *args, **kwargs):
         cart_item_instance = self.get_object(id)
         if not cart_item_instance:
-            return Response(
-                {"res": "Object with cart item id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Cart item with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         cart_item_instance.delete()
-        return Response(
-            {"res": "Object deleted!"},
-            status=status.HTTP_200_OK
-        )
+        return error_response(message=None, status_code=status.HTTP_204_NO_CONTENT)
 
 class UserPaymentApiView(APIView):
     # Add permission to check if user is authenticated
@@ -330,17 +349,14 @@ class UserPaymentApiView(APIView):
             # Retrieve a specific payment
             user_payment_instance = self.get_object(id)
             if not user_payment_instance:
-                return Response(
-                    {"res": "Object with user payment id does not exist"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return error_response(message='User payment with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
             serializer = UserPaymentSerializer(user_payment_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             # List all payments
             user_payments = UserPayment.objects.all()
             serializer = UserPaymentSerializer(user_payments, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         data = {
@@ -353,17 +369,14 @@ class UserPaymentApiView(APIView):
         serializer = UserPaymentSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return success_response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id, *args, **kwargs):
         user_payment_instance = self.get_object(id)
         if not user_payment_instance:
-            return Response(
-                {"res": "Object with user payment id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='User payment with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         data = {
             'user': request.data.get('user'),
             'payment_type': request.data.get('payment_type'),
@@ -374,18 +387,12 @@ class UserPaymentApiView(APIView):
         serializer = UserPaymentSerializer(instance=user_payment_instance, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, *args, **kwargs):
         user_payment_instance = self.get_object(id)
         if not user_payment_instance:
-            return Response(
-                {"res": "Object with user payment id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='User payment with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         user_payment_instance.delete()
-        return Response(
-            {"res": "Object deleted!"},
-            status=status.HTTP_200_OK
-        )
+        return error_response(message=None, status_code=status.HTTP_204_NO_CONTENT)

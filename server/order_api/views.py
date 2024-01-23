@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
+from common.utils import success_response, error_response
 from .models import Order, OrderItems, OrderPayment
 from .serializers import OrderSerializer, OrderItemsSerializer, OrderPaymentSerializer
 
@@ -22,17 +22,14 @@ class OrderApiView(APIView):
             # Retrieve a specific order
             order_instance = self.get_object(id)
             if not order_instance:
-                return Response(
-                    {"res": "Object with order id does not exist"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return error_response(message='Order with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
             serializer = OrderSerializer(order_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             # List all orders
             orders = Order.objects.all()
             serializer = OrderSerializer(orders, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         data = {
@@ -43,17 +40,14 @@ class OrderApiView(APIView):
         serializer = OrderSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return success_response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id, *args, **kwargs):
         order_instance = self.get_object(id)
         if not order_instance:
-            return Response(
-                {"res": "Object with order id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Order with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         data = {
             'user': request.data.get('user'),
             'total': request.data.get('total'),
@@ -62,21 +56,15 @@ class OrderApiView(APIView):
         serializer = OrderSerializer(instance=order_instance, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, *args, **kwargs):
         order_instance = self.get_object(id)
         if not order_instance:
-            return Response(
-                {"res": "Object with order id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Order with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         order_instance.delete()
-        return Response(
-            {"res": "Object deleted!"},
-            status=status.HTTP_200_OK
-        )
+        return error_response(message=None, status_code=status.HTTP_204_NO_CONTENT)
 
 class OrderItemsApiView(APIView):
     # Add permission to check if user is authenticated
@@ -93,17 +81,14 @@ class OrderItemsApiView(APIView):
             # Retrieve a specific order item
             order_item_instance = self.get_object(id)
             if not order_item_instance:
-                return Response(
-                    {"res": "Object with order item id does not exist"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return error_response(message='Order item with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
             serializer = OrderItemsSerializer(order_item_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             # List all order items
             order_items = OrderItems.objects.all()
             serializer = OrderItemsSerializer(order_items, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         data = {
@@ -114,17 +99,14 @@ class OrderItemsApiView(APIView):
         serializer = OrderItemsSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return success_response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id, *args, **kwargs):
         order_item_instance = self.get_object(id)
         if not order_item_instance:
-            return Response(
-                {"res": "Object with order item id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Order item with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         data = {
             'order': request.data.get('order'),
             'product': request.data.get('product'),
@@ -133,21 +115,15 @@ class OrderItemsApiView(APIView):
         serializer = OrderItemsSerializer(instance=order_item_instance, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, *args, **kwargs):
         order_item_instance = self.get_object(id)
         if not order_item_instance:
-            return Response(
-                {"res": "Object with order item id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Order item with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         order_item_instance.delete()
-        return Response(
-            {"res": "Object deleted!"},
-            status=status.HTTP_200_OK
-        )
+        return error_response(message=None, status_code=status.HTTP_204_NO_CONTENT)
 
 class OrderPaymentApiView(APIView):
     # Add permission to check if user is authenticated
@@ -164,17 +140,14 @@ class OrderPaymentApiView(APIView):
             # Retrieve a specific payment detail
             order_payment_instance = self.get_object(id)
             if not order_payment_instance:
-                return Response(
-                    {"res": "Object with order payment id does not exist"},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                return error_response(message='Order payment with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
             serializer = OrderPaymentSerializer(order_payment_instance)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             # List all order payments
             order_payment = OrderPayment.objects.all()
             serializer = OrderPaymentSerializer(order_payment, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
         data = {
@@ -192,17 +165,14 @@ class OrderPaymentApiView(APIView):
         serializer = OrderPaymentSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return success_response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, id, *args, **kwargs):
         order_payment_instance = self.get_object(id)
         if not order_payment_instance:
-            return Response(
-                {"res": "Object with order payment id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Order payment with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         data = {
             'brand': request.data.get('brand'),
             'name': request.data.get('name'),
@@ -218,18 +188,12 @@ class OrderPaymentApiView(APIView):
         serializer = OrderPaymentSerializer(instance=order_payment_instance, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return success_response(data=serializer.data, status=status.HTTP_200_OK)
+        return error_response(message=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, id, *args, **kwargs):
         order_payment_instance = self.get_object(id)
         if not order_payment_instance:
-            return Response(
-                {"res": "Object with order payment id does not exists"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return error_response(message='Order payment with this ID does not exist', status_code=status.HTTP_400_BAD_REQUEST)
         order_payment_instance.delete()
-        return Response(
-            {"res": "Object deleted!"},
-            status=status.HTTP_200_OK
-        )
+        return error_response(message=None, status_code=status.HTTP_204_NO_CONTENT)

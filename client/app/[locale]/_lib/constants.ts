@@ -1,5 +1,7 @@
 import XRegExp from "xregexp"
 
+export const SERVER_URL = "http://localhost:8000/api"
+
 export const BIRTH_DATE_REGEX = /^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[0-9]|[1-2][0-9]|3[0-1])$/
 
 export const EMAIL_REGEX =

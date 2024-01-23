@@ -12,6 +12,6 @@ type TForm = {
 }
 
 type TFormPreviousState = {
-  message: string
+  message?: string
   errors?: Partial<Record<string, [string, ...string[]]>>
 }

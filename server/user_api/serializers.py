@@ -1,6 +1,10 @@
 from rest_framework import serializers
 from .models import CustomUser, UserAddress, ShoppingSession, CartItem, UserPayment
 
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
