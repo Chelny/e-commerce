@@ -1,21 +1,28 @@
-from django.http import JsonResponse
 from rest_framework import status
+from rest_framework.response import Response
 
-def success_response(data=None, message=None, status_code=status.HTTP_200_OK):
+def success_response(data=None, message=None, status=status.HTTP_200_OK):
     response_data = {'status': 'success'}
 
     if message:
         response_data['message'] = message
 
-    if data is not None:
+    if data:
         response_data['data'] = data
 
-    return JsonResponse(response_data, status=status_code)
+    response = Response(response_data, status=status)
 
-def error_response(message=None, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR):
+    return response
+
+def error_response(errors=None, message=None, status=status.HTTP_500_INTERNAL_SERVER_ERROR):
     response_data = {'status': 'error'}
 
     if message:
         response_data['message'] = message
 
-    return JsonResponse(response_data, status=status_code)
+    if errors:
+        response_data['errors'] = errors
+
+    response = Response(response_data, status=status)
+
+    return response

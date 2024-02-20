@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/app/[locale]/_components/Breadcrumbs"
 import { Footer } from "@/app/[locale]/_components/Footer"
 import { Header } from "@/app/[locale]/_components/Header"
 import { supportedLocales } from "@/app/i18n/settings"
+import { ThemeProvider } from "@/app/[locale]/_providers/theme-provider"
 import "@fortawesome/fontawesome-svg-core/styles.css"
 import "@/app/globals.css"
 
@@ -24,16 +25,16 @@ export async function generateStaticParams() {
 
 export default function LocaleLayout({ children, params }: { children: React.ReactNode; params: { locale: string } }) {
   return (
-    <html lang={params.locale} dir={dir(params.locale)}>
-      <body
-        className={`${inter.className} grid grid-rows-app bg-ecommerce-100 dark:bg-ecommerce-900 text-ecommerce-800 dark:text-ecommerce-200`}
-      >
-        <Header locale={params.locale}></Header>
-        <main className="overflow-x-hidden flex flex-col">
-          <Breadcrumbs locale={params.locale} />
-          {children}
-        </main>
-        <Footer locale={params.locale}></Footer>
+    <html lang={params.locale} dir={dir(params.locale)} suppressHydrationWarning>
+      <body className={`${inter.className} grid grid-rows-app`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <Header locale={params.locale}></Header>
+          <main className="overflow-x-hidden flex flex-col">
+            <Breadcrumbs locale={params.locale} />
+            {children}
+          </main>
+          <Footer locale={params.locale}></Footer>
+        </ThemeProvider>
       </body>
     </html>
   )

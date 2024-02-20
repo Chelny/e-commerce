@@ -31,5 +31,18 @@
   },
   "button": {
     "view_all": "Voir tout"
+  },
+  "theme": {
+    "toggle_theme": "Changer le thème",
+    "light": "Clair",
+    "dark": "Foncé",
+    "system": "Système"
+  },
+  "ui": {
+    "alert": {
+      "error": {
+        "title": "Erreur"
+      }
+    }
   }
 }

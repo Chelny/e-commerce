@@ -52,6 +52,7 @@
       "required": "Confirm password is required",
       "pattern": "Invalid confirm password",
       "match": "Passwords don't match"
-    }
+    },
+    "login": "Invalid credentials"
   }
 }

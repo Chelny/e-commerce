@@ -2,6 +2,8 @@
 
 import Link from "next/link"
 import { useFormState, useFormStatus } from "react-dom"
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons"
+import { Alert, AlertDescription, AlertTitle } from "@/app/[locale]/_components/ui/alert"
 import { FieldErrorMessage } from "@/app/[locale]/_components/FieldErrorMessage"
 import { ROUTE_FORGOT_PASSWORD, ROUTE_SIGN_UP } from "@/app/[locale]/_lib/site-map"
 import { login } from "@/app/[locale]/(auth)/login/login.actions"
@@ -23,12 +25,19 @@ export function LoginForm({ locale }: TForm) {
         noValidate
         action={formAction}
       >
+        {state?.errors?.form && (
+          <Alert variant="destructive">
+            <ExclamationTriangleIcon className="h-4 w-4" />
+            <AlertTitle>{t("ui.alert.error.title")}</AlertTitle>
+            <AlertDescription>{t("errors.login")}</AlertDescription>
+          </Alert>
+        )}
         <label htmlFor="email">{t("form:label.email")}</label>
         <input
           type="email"
           id="email"
           name="email"
-          className={`${state?.errors?.email && "invalid-form-field"}`}
+          className={`${(state?.errors?.email || state?.errors?.form) && "invalid-form-field"}`}
           autoFocus
           required
         />
@@ -38,7 +47,7 @@ export function LoginForm({ locale }: TForm) {
           type="password"
           id="password"
           name="password"
-          className={`${state?.errors?.password && "invalid-form-field"}`}
+          className={`${(state?.errors?.password || state?.errors?.form) && "invalid-form-field"}`}
           required
         />
         <FieldErrorMessage locale={locale} field={state?.errors?.password} />

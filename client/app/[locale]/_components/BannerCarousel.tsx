@@ -103,7 +103,7 @@ export function BannerCarousel({ locale }: TBannerCarouselProps) {
               onClick={() => {
                 instanceRef.current?.moveToIdx(idx)
               }}
-              className={"appearance-none flex items-center w-10 after:w-full h-10 after:h-1.5 p-0 border-0 after:rounded m-0 ml-3 mr-3 bg-transparent after:border after:border-ecommerce-800 no-underline cursor-pointer touch-manipulation after:content-['']".concat(
+              className={"carousel-navigation-button appearance-none flex items-center w-10 after:w-full h-10 after:h-1.5 p-0 border-0 after:rounded m-0 ml-3 mr-3 bg-transparent after:border after:border-ecommerce-800 no-underline cursor-pointer touch-manipulation after:content-['']".concat(
                 currentSlide === idx ? " after:bg-ecommerce-300" : ""
               )}
             ></button>

@@ -31,5 +31,18 @@
   },
   "button": {
     "view_all": "View All"
+  },
+  "theme": {
+    "toggle_theme": "Toggle Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "ui": {
+    "alert": {
+      "error": {
+        "title": "Error"
+      }
+    }
   }
 }

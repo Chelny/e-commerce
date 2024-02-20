@@ -33,7 +33,7 @@ export default async function ShopPage({ params, searchParams }: TPageProps) {
             <div>
               <div className="flex justify-between items-center space-x-2">
                 <h1>item name</h1>
-                <button className="button-link" type="button">
+                <button className="link-button" type="button">
                   <FontAwesomeIcon icon={faShareAlt} />
                 </button>
               </div>
@@ -52,7 +52,7 @@ export default async function ShopPage({ params, searchParams }: TPageProps) {
                   </div>
                   <Link href="#reviews">{t("shop:item.reviews", { count: 25 })}</Link>
                 </div>
-                <button className="button-link" type="button">
+                <button className="link-button" type="button">
                   {t("shop:item.add_to_wish_list")}
                 </button>
               </div>

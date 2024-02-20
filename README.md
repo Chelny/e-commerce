@@ -44,6 +44,7 @@ source venv/bin/activate
 Apply migration (the project uses a database):
 
 ```
+python manage.py makemigrations
 python manage.py migrate
 ```
 

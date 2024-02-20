@@ -1,13 +1,16 @@
 import type { Config } from "tailwindcss"
 
 const config: Config = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  // darkMode: "class",
+  content: ["./app/**/*.{ts,tsx}"],
+  darkMode: "class",
   theme: {
+    // container: {
+    //   center: true,
+    //   padding: "2rem",
+    //   screens: {
+    //     "2xl": "1400px",
+    //   },
+    // },
     extend: {
       gridTemplateRows: {
         "app": "max-content auto max-content",
@@ -25,11 +28,8 @@ const config: Config = {
         "authentication-form": "100%",
         "authentication-form-md": "32rem",
       },
-      borderRadius: {
-        "default": "0.25rem",
-      },
       colors: {
-        "ecommerce": {
+        ecommerce: {
           100: "#f8f9fa",
           200: "#e9ecef",
           300: "#dee2e6",
@@ -40,9 +40,57 @@ const config: Config = {
           800: "#212529",
           900: "#131618",
         },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
-  plugins: [],
-}
+  plugins: [require("tailwindcss-animate")],
+} satisfies Config
+
 export default config
