@@ -26,6 +26,7 @@ export function ItemImageGallery({ locale }: TItemImageGalleryProps) {
   })
   const [thumbnailRef] = useKeenSlider<HTMLDivElement>(
     {
+      rtl: dir(locale) === "rtl",
       initial: 0,
       slides: {
         perView: 4,

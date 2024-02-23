@@ -1,12 +1,11 @@
 import Link from "next/link"
-import { faShareAlt, faStar, faStarHalfAlt } from "@fortawesome/free-solid-svg-icons"
-import { faStar as faStarEmpty } from "@fortawesome/free-regular-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { FaShare, FaRegStar, FaStar, FaStarHalfStroke } from "react-icons/fa6"
 import { useTranslation } from "@/app/i18n"
 import { Cart } from "@/app/[locale]/_components/Cart"
 import { ItemCarousel } from "@/app/[locale]/_components/ItemCarousel"
 import { ItemImageGallery } from "@/app/[locale]/_components/ItemImageGallery"
 import ItemGrid from "@/app/[locale]/_components/ItemsGrid"
+import { dir } from "i18next"
 
 export default async function ShopPage({ params, searchParams }: TPageProps) {
   const { t } = await useTranslation(params.locale, "shop")
@@ -26,29 +25,29 @@ export default async function ShopPage({ params, searchParams }: TPageProps) {
     return (
       <>
         <div className="flex flex-col space-y-16">
-          <div className="grid md:grid-cols-[25rem_2fr_1.5fr] md:space-x-8 space-y-8 md:space-y-0">
+          <div className="grid md:grid-cols-[25rem_2fr_1.5fr] md:space-x-8 rtl:md:space-x-reverse space-y-8 md:space-y-0">
             <div>
               <ItemImageGallery locale={params.locale} />
             </div>
             <div>
-              <div className="flex justify-between items-center space-x-2">
+              <div className="flex justify-between items-center space-x-2 rtl:space-x-reverse">
                 <h1>item name</h1>
                 <button className="link-button" type="button">
-                  <FontAwesomeIcon icon={faShareAlt} />
+                  <FaShare />
                 </button>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 rtl:space-x-reverse">
                 <h2>$59.00</h2>
                 <span className="text-ecommerce-500 line-through">$129.98</span>
               </div>
               <div className="flex justify-between">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 rtl:space-x-reverse">
                   <div className="flex">
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStarHalfAlt} />
-                    <FontAwesomeIcon icon={faStarEmpty} />
+                    <FaStar />
+                    <FaStar />
+                    <FaStar />
+                    <FaStarHalfStroke />
+                    <FaRegStar />
                   </div>
                   <Link href="#reviews">{t("shop:item.reviews", { count: 25 })}</Link>
                 </div>
@@ -96,21 +95,21 @@ export default async function ShopPage({ params, searchParams }: TPageProps) {
           <hr />
           <section>
             <h2 id="reviews">{t("shop:reviews")}</h2>
-            <div className="grid md:grid-cols-[1fr_3fr] md:space-x-16 space-y-8 md:space-y-0">
+            <div className="grid md:grid-cols-[1fr_3fr] md:space-x-16 rtl:md:space-x-reverse space-y-8 md:space-y-0">
               <div className="space-y-8">
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 rtl:space-x-reverse">
                   <div className="flex">
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStarHalfAlt} />
-                    <FontAwesomeIcon icon={faStarEmpty} />
+                    <FaStar />
+                    <FaStar />
+                    <FaStar />
+                    <FaStarHalfStroke />
+                    <FaRegStar />
                   </div>
                   <div>4.5/5</div>
                   <div>({t("shop:item.reviews", { count: 25 })})</div>
                 </div>
                 <div className="flex flex-col space-y-4">
-                  <div className="grid grid-cols-[2fr_4fr_1fr] items-center space-x-2">
+                  <div className="grid grid-cols-[2fr_4fr_1fr] items-center space-x-2 rtl:space-x-reverse">
                     <div>{t("shop:item.stars", { count: 5 })}</div>
                     <progress value="47" max="100" aria-label={t("shop:item.stars", { count: 5 })}>
                       {" "}
@@ -118,7 +117,7 @@ export default async function ShopPage({ params, searchParams }: TPageProps) {
                     </progress>
                     <div className="text-end">47%</div>
                   </div>
-                  <div className="grid grid-cols-[2fr_4fr_1fr] items-center space-x-2">
+                  <div className="grid grid-cols-[2fr_4fr_1fr] items-center space-x-2 rtl:space-x-reverse">
                     <div>{t("shop:item.stars", { count: 4 })}</div>
                     <progress value="13" max="100" aria-label={t("shop:item.stars", { count: 4 })}>
                       {" "}
@@ -126,7 +125,7 @@ export default async function ShopPage({ params, searchParams }: TPageProps) {
                     </progress>
                     <div className="text-end">13%</div>
                   </div>
-                  <div className="grid grid-cols-[2fr_4fr_1fr] items-center space-x-2">
+                  <div className="grid grid-cols-[2fr_4fr_1fr] items-center space-x-2 rtl:space-x-reverse">
                     <div>{t("shop:item.stars", { count: 3 })}</div>
                     <progress value="32" max="100" aria-label={t("shop:item.stars", { count: 3 })}>
                       {" "}
@@ -134,7 +133,7 @@ export default async function ShopPage({ params, searchParams }: TPageProps) {
                     </progress>
                     <div className="text-end">32%</div>
                   </div>
-                  <div className="grid grid-cols-[2fr_4fr_1fr] items-center space-x-2">
+                  <div className="grid grid-cols-[2fr_4fr_1fr] items-center space-x-2 rtl:space-x-reverse">
                     <div>{t("shop:item.stars", { count: 2 })}</div>
                     <progress value="5" max="100" aria-label={t("shop:item.stars", { count: 2 })}>
                       {" "}
@@ -142,7 +141,7 @@ export default async function ShopPage({ params, searchParams }: TPageProps) {
                     </progress>
                     <div className="text-end">5%</div>
                   </div>
-                  <div className="grid grid-cols-[2fr_4fr_1fr] items-center space-x-2">
+                  <div className="grid grid-cols-[2fr_4fr_1fr] items-center space-x-2 rtl:space-x-reverse">
                     <div>{t("shop:item.stars", { count: 1 })}</div>
                     <progress value="3" max="100" aria-label={t("shop:item.stars", { count: 1 })}>
                       {" "}

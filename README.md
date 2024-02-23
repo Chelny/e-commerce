@@ -1,6 +1,6 @@
-# E-commerce
+# E-commerce <a name="readme-top"></a>
 
-E-commerce is an e-commerce web application for the sole purpose of learning Next.js and Python (Django).
+E-commerce website made with <a href="https://nextjs.org/" target="_blank">Next.js</a>, <a href="https://tailwindcss.com/" target="_blank">TailwindCSS</a>, <a href="https://www.python.org/" target="_blank">Python</a> (<a href="https://www.djangoproject.com/" target="_blank">Django</a> and <a href="https://www.django-rest-framework.org/" target="_blank">Django REST</a>) and <a href="https://www.sqlite.org/" target="_blank">SQLite</a>.
 
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -17,6 +17,10 @@ E-commerce is an e-commerce web application for the sole purpose of learning Nex
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
+| Home Page                                                            | Login Page                                                            |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| <img src="client/public/assets/images/github/home-page-desktop.png"> | <img src="client/public/assets/images/github/login-page-desktop.png"> |
+
 ## Installation
 
 Clone project
@@ -27,7 +31,7 @@ git clone git@github.com:Chelny/e-commerce.git
 
 ### Server
 
-Set `.env` file from the provided `.env.example` file.
+On the `server/` directory, set `.env` file from the provided `.env.example` file.
 
 Open a terminal and go to the server directory:
 
@@ -56,7 +60,7 @@ python manage.py runserver
 
 ### Client
 
-Set `.env.local` file from the provided `.env.local.example` file.
+On the `client/` directory, set `.env` file from the provided `.env.example` file.
 
 Open a new terminal and go to the client directory:
 
@@ -76,11 +80,11 @@ Run server:
 pnpm run dev
 ```
 
-## Usage
+<p align="end">(<a href="#readme-top">back to top</a>)</p>
 
-### Run Tests
+## Tests
 
-On server:
+### Server
 
 ```
 python manage.py test # Run all tests
@@ -88,6 +92,10 @@ python manage.py test your_app_name # Run tests for a specific app or module
 python manage.py test your_app_name.tests.test_module # Run tests for a specific test file or for a specific test class or method
 ```
 
-## License
+<p align="end">(<a href="#readme-top">back to top</a>)</p>
 
-TODO
+## Donation
+
+<a href="https://www.paypal.me/ChelnyD">Donate on Paypal</a>
+
+<p align="end">(<a href="#readme-top">back to top</a>)</p>

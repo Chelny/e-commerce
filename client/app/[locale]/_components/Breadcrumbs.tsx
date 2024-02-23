@@ -16,7 +16,7 @@ export function Breadcrumbs({ locale }: TBreadcrumbsProps) {
   const pathNames = paths.split("/").filter((path: string) => path)
   // Exclude locale-like strings from the pathNames
   const filteredPathNames = pathNames.filter((path: string) => !path.match(/[a-z]{2}-[A-Z]{2}/))
-  const separator = <span className="text-ecommerce-500">/</span>
+  const separator = <span className="text-ecommerce-500 rtl:scale-x-[-1]">/</span>
   const listClasses = "hover:underline mx-2"
   const activeClasses = "hover:no-underline !font-medium"
 

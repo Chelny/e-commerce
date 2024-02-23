@@ -21,14 +21,14 @@ export function SignUpForm({ locale }: TForm) {
       noValidate
       action={formAction}
     >
-      <div className="grid md:grid-cols-[1fr_1fr] md:space-x-2">
+      <div className="grid md:grid-cols-[1fr_1fr] md:space-x-2 rtl:md:space-x-reverse">
         <div className="flex flex-col">
           <label htmlFor="firstName">{t("form:label.first_name")}</label>
           <input
             type="text"
             id="firstName"
             name="firstName"
-            className={`${state?.errors?.firstName && "invalid-form-field"}`}
+            className={`${state?.errors?.firstName ? "invalid-form-field" : ""}`}
             autoFocus
             required
           />
@@ -40,7 +40,7 @@ export function SignUpForm({ locale }: TForm) {
             type="text"
             id="lastName"
             name="lastName"
-            className={`${state?.errors?.lastName && "invalid-form-field"}`}
+            className={`${state?.errors?.lastName ? "invalid-form-field" : ""}`}
             required
           />
           <FieldErrorMessage locale={locale} field={state?.errors?.lastName} />
@@ -48,25 +48,25 @@ export function SignUpForm({ locale }: TForm) {
       </div>
       <label htmlFor="gender">{t("form:label.gender")}</label>
       <div className="grid md:grid-cols-[1fr_1fr_1fr]">
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 rtl:space-x-reverse">
           <label className="radio-button" htmlFor="genderMale">
             <input type="radio" id="genderMale" name="gender" value="M" required />
             {t("form:label.gender_male")}
-            <span className={`${state?.errors?.gender && "invalid-form-field"}`}></span>
+            <span className={`${state?.errors?.gender ? "invalid-form-field" : ""}`}></span>
           </label>
         </div>
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 rtl:space-x-reverse">
           <label className="radio-button" htmlFor="genderFemale">
             <input type="radio" id="genderFemale" name="gender" value="F" />
             {t("form:label.gender_female")}
-            <span className={`${state?.errors?.gender && "invalid-form-field"}`}></span>
+            <span className={`${state?.errors?.gender ? "invalid-form-field" : ""}`}></span>
           </label>
         </div>
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 rtl:space-x-reverse">
           <label className="radio-button" htmlFor="genderOther">
             <input type="radio" id="genderOther" name="gender" value="O" />
             {t("form:label.gender_other")}
-            <span className={`${state?.errors?.gender && "invalid-form-field"}`}></span>
+            <span className={`${state?.errors?.gender ? "invalid-form-field" : ""}`}></span>
           </label>
         </div>
       </div>
@@ -76,7 +76,7 @@ export function SignUpForm({ locale }: TForm) {
         type="date"
         id="birthDate"
         name="birthDate"
-        className={`${state?.errors?.birthDate && "invalid-form-field"}`}
+        className={`${state?.errors?.birthDate ? "invalid-form-field" : ""}`}
         required
       />
       <FieldHintMessage locale={locale} keyName="birth_date" />
@@ -86,18 +86,18 @@ export function SignUpForm({ locale }: TForm) {
         type="email"
         id="email"
         name="email"
-        className={`${state?.errors?.email && "invalid-form-field"}`}
+        className={`${state?.errors?.email ? "invalid-form-field" : ""}`}
         required
       />
       <FieldErrorMessage locale={locale} field={state?.errors?.email} />
-      <div className="grid md:grid-cols-[1fr_1fr] md:space-x-2 space-y-2 md:space-y-0">
+      <div className="grid md:grid-cols-[1fr_1fr] md:space-x-2 rtl:space-x-reverse space-y-2 md:space-y-0">
         <div className="flex flex-col">
           <label htmlFor="password">{t("form:label.password")}</label>
           <input
             type="password"
             id="password"
             name="password"
-            className={`${state?.errors?.password && "invalid-form-field"}`}
+            className={`${state?.errors?.password ? "invalid-form-field" : ""}`}
             required
           />
           <FieldErrorMessage locale={locale} field={state?.errors?.password} />
@@ -108,7 +108,7 @@ export function SignUpForm({ locale }: TForm) {
             type="password"
             id="confirmPassword"
             name="confirmPassword"
-            className={`${state?.errors?.confirmPassword && "invalid-form-field"}`}
+            className={`${state?.errors?.confirmPassword ? "invalid-form-field" : ""}`}
             required
           />
           <FieldErrorMessage locale={locale} field={state?.errors?.confirmPassword} />

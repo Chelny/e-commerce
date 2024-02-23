@@ -51,7 +51,7 @@ export function ItemCarousel({ locale }: TItemCarouselProps) {
           slides: { perView: 3.5 },
         },
         "(min-width: 1200px)": {
-          slides: { perView: 4.3 },
+          slides: { perView: 4.9 },
         },
       },
       slides: {
@@ -69,18 +69,8 @@ export function ItemCarousel({ locale }: TItemCarouselProps) {
 
   return (
     <div className="relative">
-      <div className="keen-slider pb-2" ref={sliderRef}>
-        <Suspense fallback={<ItemCarouselSkeleton />}>
-          {slides.map((src: string, index: number) => (
-            <div key={index} className="keen-slider__slide">
-              <ItemCard locale={locale} item={{ id: index, imagePath: src }}></ItemCard>
-            </div>
-          ))}
-        </Suspense>
-      </div>
-
       {loaded && instanceRef.current && (
-        <>
+        <div className="hidden md:flex md:justify-end md:items-center md:space-x-4 rtl:md:space-x-reverse md:pb-2">
           <Arrow
             left
             onClick={(e: any) => e.stopPropagation() || instanceRef.current?.prev()}
@@ -91,8 +81,18 @@ export function ItemCarousel({ locale }: TItemCarouselProps) {
             onClick={(e: any) => e.stopPropagation() || instanceRef.current?.next()}
             disabled={currentSlide === instanceRef.current.track.details.maxIdx}
           />
-        </>
+        </div>
       )}
+
+      <div className="keen-slider pb-2" ref={sliderRef}>
+        <Suspense fallback={<ItemCarouselSkeleton />}>
+          {slides.map((src: string, index: number) => (
+            <div key={index} className="keen-slider__slide">
+              <ItemCard locale={locale} item={{ id: index, imagePath: src }}></ItemCard>
+            </div>
+          ))}
+        </Suspense>
+      </div>
     </div>
   )
 }
@@ -100,14 +100,14 @@ export function ItemCarousel({ locale }: TItemCarouselProps) {
 function Arrow(props: { disabled: boolean; left?: boolean; onClick: (e: any) => void }) {
   return (
     <button
-      className={`appearance-none absolute z-10 top-1/2 flex items-center hidden md:block w-16 h-16 p-0 border-0 bg-transparent text-ecommerce-900 no-underline translate-y-[-50%] disabled:opacity-30 cursor-pointer touch-manipulation ${
+      className={`appearance-none w-6 h-6 p-0 border-0 bg-transparent text-ecommerce-600 dark:text-ecommerce-400 no-underline disabled:opacity-30 cursor-pointer touch-manipulation ${
         props.left ? "start-0" : "end-0"
       }`}
       type="button"
       disabled={props.disabled}
       onClick={props.onClick}
     >
-      <svg className="w-[50%] h-[50%]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         {props.left && (
           <path fill="currentColor" d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
         )}

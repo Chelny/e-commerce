@@ -3,9 +3,7 @@
 import { Suspense } from "react"
 // import Image from 'next/image'
 import { useRouter } from "next/navigation"
-import { faHeart as faHeartOutline } from "@fortawesome/free-regular-svg-icons"
-// import { faHeart } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { FaHeart, FaRegHeart } from "react-icons/fa6"
 import { Currency } from "@/app/[locale]/_components/Currency"
 import { ROUTE_SHOP } from "@/app/[locale]/_lib/site-map"
 import { useTranslation } from "@/app/i18n/client"
@@ -34,8 +32,8 @@ export function ItemCard({ locale, item }: TItemCardProps) {
         style={{ backgroundImage: `url(${item.imagePath})` }}
       >
         <button className={styles.addFavouriteButton} type="button">
-          <FontAwesomeIcon icon={faHeartOutline} />
-          {/* <FontAwesomeIcon icon={faHeart} /> */}
+          <FaRegHeart />
+          {/* <FaHeart /> */}
         </button>
         <button className={styles.viewItemButton} type="button" onClick={() => handleViewItemDetails(item.id)}>
           {t("shop:item.view_item")}
@@ -51,7 +49,7 @@ export function ItemCard({ locale, item }: TItemCardProps) {
             <Currency locale={locale} value={499.99} />
           </span>
         </div>
-        {/* <div className="grid grid-cols-[1fr_1fr] space-x-2 text-white">
+        {/* <div className="grid grid-cols-[1fr_1fr] space-x-2 rtl:space-x-reverse text-white">
           <button type="button" className="p-1 bg-ecommerce-700">
             {t("shop:add_to_cart")}
           </button>

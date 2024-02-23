@@ -1,5 +1,5 @@
 export const defaultLocale = "en-US"
-export const supportedLocales = [defaultLocale, "en-CA", "fr-CA"]
+export const supportedLocales = [defaultLocale, "en-CA", "fr-CA", "ar-SA"]
 export const defaultNamespace = "common"
 export const cookieName = "e_commerce_locale"
 

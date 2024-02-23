@@ -30,14 +30,14 @@ export function BannerCarousel({ locale }: TBannerCarouselProps) {
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
     {
       slides: slides.length,
-      loop: true,
+      // loop: true,
       rtl: dir(locale) === "rtl",
       initial: 0,
       created() {
         setLoaded(true)
       },
       slideChanged(slider) {
-        setCurrentSlide(slider.track.details.rel)
+        // setCurrentSlide(slider.track.details.rel)
       },
       animationEnded(slider) {
         setCurrentSlide(slider.track.details.rel)
@@ -96,15 +96,17 @@ export function BannerCarousel({ locale }: TBannerCarouselProps) {
       </div>
 
       {loaded && instanceRef.current && (
-        <div className="absolute z-10 start-1/2 bottom-0 flex justify-center items-center translate-x-[-50%]">
+        <div className="absolute z-10 start-0 end-0 bottom-0 flex justify-center items-center">
           {Array.from({ length: instanceRef.current.track.details.slides.length }, (_, idx) => (
             <button
               key={idx}
               onClick={() => {
                 instanceRef.current?.moveToIdx(idx)
               }}
-              className={"carousel-navigation-button appearance-none flex items-center w-10 after:w-full h-10 after:h-1.5 p-0 border-0 after:rounded m-0 ml-3 mr-3 bg-transparent after:border after:border-ecommerce-800 no-underline cursor-pointer touch-manipulation after:content-['']".concat(
-                currentSlide === idx ? " after:bg-ecommerce-300" : ""
+              className={"carousel-navigation-button appearance-none flex items-center w-10 h-10 border-0 bg-transparent after:rounded-full no-underline cursor-pointer touch-manipulation after:content-['']".concat(
+                currentSlide === idx
+                  ? " after:w-8 after:h-4 after:border after:border-ecommerce-500 after:bg-ecommerce-300 dark:after:bg-ecommerce-500"
+                  : " after:w-3 after:h-3 hover:after:w-8 hover:after:h-4 after:bg-ecommerce-500 dark:after:bg-ecommerce-700"
               )}
             ></button>
           ))}

@@ -24,6 +24,7 @@
     "privacy_policy": "Politique de confidentialité"
   },
   "app_menu": {
+    "toggle_menu": "Basculer le menu",
     "search": "Recherche"
   },
   "app_footer": {
@@ -35,8 +36,7 @@
   "theme": {
     "toggle_theme": "Changer le thème",
     "light": "Clair",
-    "dark": "Foncé",
-    "system": "Système"
+    "dark": "Foncé"
   },
   "ui": {
     "alert": {

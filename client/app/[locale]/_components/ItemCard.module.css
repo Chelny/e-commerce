@@ -18,9 +18,9 @@
 
 .addFavouriteButton {
   top: 0;
-  right: 0;
   padding: 0.5rem;
   color: var(--color-black);
+  inset-inline-end: 0;
 }
 
 .viewItemButton {

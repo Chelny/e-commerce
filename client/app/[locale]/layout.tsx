@@ -1,16 +1,12 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { dir } from "i18next"
-import { config } from "@fortawesome/fontawesome-svg-core"
 import { Breadcrumbs } from "@/app/[locale]/_components/Breadcrumbs"
 import { Footer } from "@/app/[locale]/_components/Footer"
 import { Header } from "@/app/[locale]/_components/Header"
 import { supportedLocales } from "@/app/i18n/settings"
 import { ThemeProvider } from "@/app/[locale]/_providers/theme-provider"
-import "@fortawesome/fontawesome-svg-core/styles.css"
 import "@/app/globals.css"
-
-config.autoAddCss = false
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -27,7 +23,7 @@ export default function LocaleLayout({ children, params }: { children: React.Rea
   return (
     <html lang={params.locale} dir={dir(params.locale)} suppressHydrationWarning>
       <body className={`${inter.className} grid grid-rows-app`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" enableSystem={false} disableTransitionOnChange>
           <Header locale={params.locale}></Header>
           <main className="overflow-x-hidden flex flex-col">
             <Breadcrumbs locale={params.locale} />

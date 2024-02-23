@@ -24,6 +24,7 @@
     "privacy_policy": "Privacy Policy"
   },
   "app_menu": {
+    "toggle_menu": "Toggle menu",
     "search": "Search"
   },
   "app_footer": {
@@ -33,10 +34,9 @@
     "view_all": "View All"
   },
   "theme": {
-    "toggle_theme": "Toggle Theme",
+    "toggle_theme": "Toggle theme",
     "light": "Light",
-    "dark": "Dark",
-    "system": "System"
+    "dark": "Dark"
   },
   "ui": {
     "alert": {

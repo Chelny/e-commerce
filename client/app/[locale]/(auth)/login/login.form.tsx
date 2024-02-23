@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useFormState, useFormStatus } from "react-dom"
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons"
+import { FaCircleExclamation } from "react-icons/fa6"
 import { Alert, AlertDescription, AlertTitle } from "@/app/[locale]/_components/ui/alert"
 import { FieldErrorMessage } from "@/app/[locale]/_components/FieldErrorMessage"
 import { ROUTE_FORGOT_PASSWORD, ROUTE_SIGN_UP } from "@/app/[locale]/_lib/site-map"
@@ -27,7 +27,7 @@ export function LoginForm({ locale }: TForm) {
       >
         {state?.errors?.form && (
           <Alert variant="destructive">
-            <ExclamationTriangleIcon className="h-4 w-4" />
+            <FaCircleExclamation className="h-4 w-4" />
             <AlertTitle>{t("ui.alert.error.title")}</AlertTitle>
             <AlertDescription>{t("errors.login")}</AlertDescription>
           </Alert>
@@ -59,7 +59,7 @@ export function LoginForm({ locale }: TForm) {
         </button>
         <hr />
       </form>
-      <div className="flex justify-center space-x-4 py-4">
+      <div className="flex justify-center space-x-4 rtl:space-x-reverse py-4">
         <Link href={`/${locale}${ROUTE_SIGN_UP.PATH}`} aria-label={t(ROUTE_SIGN_UP.TITLE)}>
           {t("form:sign_up")}
         </Link>

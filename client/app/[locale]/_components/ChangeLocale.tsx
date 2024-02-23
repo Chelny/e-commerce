@@ -2,7 +2,7 @@
 
 import { useParams, useRouter, useSelectedLayoutSegments } from "next/navigation"
 
-export function ChangeLocale({ className }: { className: string }) {
+export function ChangeLocale({ className }: { className?: string }) {
   const router = useRouter()
   const params = useParams()
   const urlSegments = useSelectedLayoutSegments()
@@ -26,6 +26,9 @@ export function ChangeLocale({ className }: { className: string }) {
           <option value="en-CA">🇨🇦 Canada (English)</option>
           <option value="fr-CA">🇨🇦 Canada (Français)</option>
           <option value="en-US">🇺🇸 United States</option>
+        </optgroup>
+        <optgroup label="Asia">
+          <option value="ar-SA">🇸🇦 Saudi Arabia (عربي)</option>
         </optgroup>
       </select>
     </div>

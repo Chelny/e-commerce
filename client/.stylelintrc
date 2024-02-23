@@ -17,7 +17,6 @@
       }
     ],
     "color-function-notation": "modern",
-    "color-no-hex": true,
     "function-no-unknown": [
       true,
       {
