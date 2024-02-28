@@ -52,7 +52,6 @@
       "required": "La confirmation du mot de passe est requise",
       "pattern": "Confirmation du mot de passe non valide",
       "match": "Les mot de passes ne sont pas identiques"
-    },
-    "login": "Informations d'identification invalides"
+    }
   }
 }

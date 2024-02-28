@@ -33,16 +33,23 @@ git clone git@github.com:Chelny/e-commerce.git
 
 On the `server/` directory, set `.env` file from the provided `.env.example` file.
 
-Open a terminal and go to the server directory:
+Open a terminal and go to the `server/` directory:
 
 ```
 cd server
 ```
 
-Activate virtual environment with:
+Create and activate virtual environment with:
 
 ```
-source venv/bin/activate
+python<version> -m venv <virtual-environment-name>
+source <virtual-environment-name>/bin/activate
+```
+
+Install dependencies:
+
+```
+pip install -r requirements.txt
 ```
 
 Apply migration (the project uses a database):
@@ -62,7 +69,7 @@ python manage.py runserver
 
 On the `client/` directory, set `.env` file from the provided `.env.example` file.
 
-Open a new terminal and go to the client directory:
+Open a new terminal and go to the `client/` directory:
 
 ```
 cd client
@@ -91,11 +98,5 @@ python manage.py test # Run all tests
 python manage.py test your_app_name # Run tests for a specific app or module
 python manage.py test your_app_name.tests.test_module # Run tests for a specific test file or for a specific test class or method
 ```
-
-<p align="end">(<a href="#readme-top">back to top</a>)</p>
-
-## Donation
-
-<a href="https://www.paypal.me/ChelnyD">Donate on Paypal</a>
 
 <p align="end">(<a href="#readme-top">back to top</a>)</p>

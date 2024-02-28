@@ -1,8 +1,8 @@
 import ItemGrid from "@/app/[locale]/_components/ItemsGrid"
 import { useTranslation } from "@/app/i18n"
 
-export default async function PopularPage({ params, searchParams }: TPageProps) {
-  const { t } = await useTranslation(params.locale, "shop")
+export default async function PopularPage(props: TPage) {
+  const { t } = await useTranslation(props.params.locale, "shop")
 
-  return <ItemGrid locale={params.locale} />
+  return <ItemGrid locale={props.params.locale} />
 }

@@ -1,17 +1,19 @@
 "use client"
 
 import { useFormState, useFormStatus } from "react-dom"
+import { Alert } from "@/app/[locale]/_components/Alert"
 import { FieldErrorMessage } from "@/app/[locale]/_components/FieldErrorMessage"
+import { FieldHintMessage } from "@/app/[locale]/_components/FieldHintMessage"
+import { EVariant } from "@/app/[locale]/_lib/definition/enums"
 import { signUp } from "@/app/[locale]/(auth)/sign-up/sign-up.actions"
 import { useTranslation } from "@/app/i18n/client"
-import { FieldHintMessage } from "@/app/[locale]/_components/FieldHintMessage"
 
 const initialState = {
   message: "",
 }
 
-export function SignUpForm({ locale }: TForm) {
-  const { t } = useTranslation(locale, ["form"])
+export function SignUpForm(props: TForm) {
+  const { t } = useTranslation(props.page.params.locale, ["form"])
   const [state, formAction] = useFormState(signUp, initialState)
   const { pending } = useFormStatus()
 
@@ -21,6 +23,7 @@ export function SignUpForm({ locale }: TForm) {
       noValidate
       action={formAction}
     >
+      {state?.status && <Alert variant={state?.status} locale={props.page.params.locale} message={state?.message} />}
       <div className="grid md:grid-cols-[1fr_1fr] md:space-x-2 rtl:md:space-x-reverse">
         <div className="flex flex-col">
           <label htmlFor="firstName">{t("form:label.first_name")}</label>
@@ -28,11 +31,11 @@ export function SignUpForm({ locale }: TForm) {
             type="text"
             id="firstName"
             name="firstName"
-            className={`${state?.errors?.firstName ? "invalid-form-field" : ""}`}
+            className={`${state?.data?.errors?.firstName || state?.status === EVariant.ERROR ? "invalid" : ""}`}
             autoFocus
             required
           />
-          <FieldErrorMessage locale={locale} field={state?.errors?.firstName} />
+          <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.firstName} />
         </div>
         <div className="flex flex-col">
           <label htmlFor="lastName">{t("form:label.last_name")}</label>
@@ -40,10 +43,10 @@ export function SignUpForm({ locale }: TForm) {
             type="text"
             id="lastName"
             name="lastName"
-            className={`${state?.errors?.lastName ? "invalid-form-field" : ""}`}
+            className={`${state?.data?.errors?.lastName || state?.status === EVariant.ERROR ? "invalid" : ""}`}
             required
           />
-          <FieldErrorMessage locale={locale} field={state?.errors?.lastName} />
+          <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.lastName} />
         </div>
       </div>
       <label htmlFor="gender">{t("form:label.gender")}</label>
@@ -52,44 +55,50 @@ export function SignUpForm({ locale }: TForm) {
           <label className="radio-button" htmlFor="genderMale">
             <input type="radio" id="genderMale" name="gender" value="M" required />
             {t("form:label.gender_male")}
-            <span className={`${state?.errors?.gender ? "invalid-form-field" : ""}`}></span>
+            <span
+              className={`${state?.data?.errors?.gender || state?.status === EVariant.ERROR ? "invalid" : ""}`}
+            ></span>
           </label>
         </div>
         <div className="flex space-x-2 rtl:space-x-reverse">
           <label className="radio-button" htmlFor="genderFemale">
             <input type="radio" id="genderFemale" name="gender" value="F" />
             {t("form:label.gender_female")}
-            <span className={`${state?.errors?.gender ? "invalid-form-field" : ""}`}></span>
+            <span
+              className={`${state?.data?.errors?.gender || state?.status === EVariant.ERROR ? "invalid" : ""}`}
+            ></span>
           </label>
         </div>
         <div className="flex space-x-2 rtl:space-x-reverse">
           <label className="radio-button" htmlFor="genderOther">
             <input type="radio" id="genderOther" name="gender" value="O" />
             {t("form:label.gender_other")}
-            <span className={`${state?.errors?.gender ? "invalid-form-field" : ""}`}></span>
+            <span
+              className={`${state?.data?.errors?.gender || state?.status === EVariant.ERROR ? "invalid" : ""}`}
+            ></span>
           </label>
         </div>
       </div>
-      <FieldErrorMessage locale={locale} field={state?.errors?.gender} />
+      <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.gender} />
       <label htmlFor="birthDate">{t("form:label.birth_date")}</label>
       <input
         type="date"
         id="birthDate"
         name="birthDate"
-        className={`${state?.errors?.birthDate ? "invalid-form-field" : ""}`}
+        className={`${state?.data?.errors?.birthDate || state?.status === EVariant.ERROR ? "invalid" : ""}`}
         required
       />
-      <FieldHintMessage locale={locale} keyName="birth_date" />
-      <FieldErrorMessage locale={locale} field={state?.errors?.birthDate} />
+      <FieldHintMessage locale={props.page.params.locale} keyName="birth_date" />
+      <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.birthDate} />
       <label htmlFor="email">{t("form:label.email")}</label>
       <input
         type="email"
         id="email"
         name="email"
-        className={`${state?.errors?.email ? "invalid-form-field" : ""}`}
+        className={`${state?.data?.errors?.email || state?.status === EVariant.ERROR ? "invalid" : ""}`}
         required
       />
-      <FieldErrorMessage locale={locale} field={state?.errors?.email} />
+      <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.email} />
       <div className="grid md:grid-cols-[1fr_1fr] md:space-x-2 rtl:space-x-reverse space-y-2 md:space-y-0">
         <div className="flex flex-col">
           <label htmlFor="password">{t("form:label.password")}</label>
@@ -97,10 +106,10 @@ export function SignUpForm({ locale }: TForm) {
             type="password"
             id="password"
             name="password"
-            className={`${state?.errors?.password ? "invalid-form-field" : ""}`}
+            className={`${state?.data?.errors?.password || state?.status === EVariant.ERROR ? "invalid" : ""}`}
             required
           />
-          <FieldErrorMessage locale={locale} field={state?.errors?.password} />
+          <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.password} />
         </div>
         <div className="flex flex-col">
           <label htmlFor="confirmPassword">{t("form:label.confirm_password")}</label>
@@ -108,14 +117,14 @@ export function SignUpForm({ locale }: TForm) {
             type="password"
             id="confirmPassword"
             name="confirmPassword"
-            className={`${state?.errors?.confirmPassword ? "invalid-form-field" : ""}`}
+            className={`${state?.data?.errors?.confirmPassword || state?.status === EVariant.ERROR ? "invalid" : ""}`}
             required
           />
-          <FieldErrorMessage locale={locale} field={state?.errors?.confirmPassword} />
+          <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.confirmPassword} />
         </div>
       </div>
-      <FieldHintMessage locale={locale} keyName="password" />
-      <button type="submit" aria-disabled={pending}>
+      <FieldHintMessage locale={props.page.params.locale} keyName="password" />
+      <button type="submit" disabled={pending}>
         {t("form:sign_up")}
       </button>
       <p className="text-sm text-gray-500">{t("form:agreement_text")}</p>

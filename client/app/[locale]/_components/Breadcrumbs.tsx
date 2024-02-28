@@ -7,7 +7,7 @@ import { ROUTE_HOME, SITE_MAP, TSiteMap } from "@/app/[locale]/_lib/site-map"
 import { useTranslation } from "@/app/i18n/client"
 
 type TBreadcrumbsProps = {
-  locale: string
+  locale: TLocale
 }
 
 export function Breadcrumbs({ locale }: TBreadcrumbsProps) {

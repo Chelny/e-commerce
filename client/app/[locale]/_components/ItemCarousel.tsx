@@ -8,7 +8,7 @@ import ItemCarouselSkeleton from "@/app/[locale]/_components/ItemCarousel.skelet
 import "keen-slider/keen-slider.min.css"
 
 type TItemCarouselProps = {
-  locale: string
+  locale: TLocale
 }
 
 export function ItemCarousel({ locale }: TItemCarouselProps) {

@@ -1,4 +1,4 @@
-function toMoneyValue(locale: string, value: number, currency: string = "USD", decimals: number = 2) {
+function toMoneyValue(locale: TLocale, value: number, currency: string = "USD", decimals: number = 2) {
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
@@ -13,7 +13,7 @@ export function Currency({
   currency,
   decimals,
 }: {
-  locale: string
+  locale: TLocale
   value: number
   currency?: string
   decimals?: number

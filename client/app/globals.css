@@ -282,8 +282,24 @@ textarea:disabled {
   cursor: not-allowed;
 }
 
-.invalid-form-field {
+input:user-invalid,
+select:user-invalid,
+textarea:user-invalid,
+input.invalid,
+input + span.invalid,
+select.invalid,
+textarea.invalid {
   border: 0.125rem solid theme("colors.red.500");
+}
+
+html.dark input:user-invalid,
+html.dark select:user-invalid,
+html.dark textarea:user-invalid,
+html.dark input.invalid,
+html.dark input + span.invalid,
+html.dark select.invalid,
+html.dark textarea.invalid {
+  border-color: theme("colors.red.800");
 }
 
 button {

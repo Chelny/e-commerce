@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-28 00:34+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: user_api/views.py:151
+msgid "The email or the password is invalid."
+msgstr ""
+
+#: user_api/views.py:153 user_api/views.py:195 user_api/views.py:224
+msgid "Something went wrong. Verify your data and submit again."
+msgstr ""
+
+#: user_api/views.py:165
+msgid "The account does not exist."
+msgstr ""
+
+#: user_api/views.py:182
+msgid "Hello %(name)s,\n\nWe've received a request to reset the password for the account associated with the email %(email)s.\n\nYou can reset your password by copy-paste the following URL in a browser: %(reset_password_link)s.\n\nIf you did not request a new password, please let us know immediately by replying to this email.\n\n-- E-Commerce Team"
+msgstr ""
+
+#: user_api/views.py:186
+msgid "Password Reset"
+msgstr ""
+
+#: user_api/views.py:193
+#, python-format
+msgid "A reset password link has been sent to %(email)s."
+msgstr ""
+
+#: user_api/views.py:212
+msgid "The token is invalid or expired."
+msgstr ""
+
+#: user_api/views.py:222
+msgid "The password has been reset successfully!"
+msgstr ""

@@ -18,7 +18,7 @@ import {
 import { useTranslation } from "@/app/i18n/client"
 
 type TFooterProps = {
-  locale: string
+  locale: TLocale
 }
 
 export function Footer({ locale }: TFooterProps) {

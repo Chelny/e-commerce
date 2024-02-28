@@ -37,11 +37,9 @@ class ProductApiView(APIView):
             'name': request.data.get('name'),
             'description': request.data.get('description'),
             'sku': request.data.get('sku'),
-            'colors': request.data.get('colors'),
             'category_id': request.data.get('category_id'),
-            'inventory_id': request.data.get('inventory_id'),
+            'colors': request.data.get('colors'),
             'price': request.data.get('price'),
-            'discount_id': request.data.get('discount_id'),
             'image': request.data.get('image')
         }
         serializer = ProductSerializer(data=data)
@@ -60,11 +58,9 @@ class ProductApiView(APIView):
             'name': request.data.get('name'),
             'description': request.data.get('description'),
             'sku': request.data.get('sku'),
-            'colors': request.data.get('colors'),
             'category_id': request.data.get('category_id'),
-            'inventory_id': request.data.get('inventory_id'),
+            'colors': request.data.get('colors'),
             'price': request.data.get('price'),
-            'discount_id': request.data.get('discount_id'),
             'image': request.data.get('image')
         }
         serializer = ProductSerializer(instance=product_instance, data=data, partial=True)
@@ -140,7 +136,7 @@ class ProductCategoryApiView(APIView):
 
 class ProductDiscountApiView(APIView):
     # Add permission to check if user is authenticated
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, id):
         try:
@@ -165,6 +161,8 @@ class ProductDiscountApiView(APIView):
 
     def post(self, request, *args, **kwargs):
         data = {
+            'product': request.data.get('product'),
+            'name': request.data.get('name'),
             'description': request.data.get('description'),
             'discount_percent': request.data.get('discount_percent'),
             'active': request.data.get('active')
@@ -181,8 +179,11 @@ class ProductDiscountApiView(APIView):
         if not product_discount_instance:
             return error_response(message='Product discount with this ID does not exist', status=status.HTTP_400_BAD_REQUEST)
         data = {
+            'product': request.data.get('product'),
             'name': request.data.get('name'),
-            'description': request.data.get('description')
+            'description': request.data.get('description'),
+            'discount_percent': request.data.get('discount_percent'),
+            'active': request.data.get('active')
         }
         serializer = ProductDiscountSerializer(instance=product_discount_instance, data=data, partial=True)
         if serializer.is_valid():
@@ -224,6 +225,7 @@ class ProductInventoryApiView(APIView):
 
     def post(self, request, *args, **kwargs):
         data = {
+            'product': request.data.get('product'),
             'quantity': request.data.get('quantity')
         }
         serializer = ProductInventorySerializer(data=data)
@@ -238,8 +240,8 @@ class ProductInventoryApiView(APIView):
         if not product_inventory_instance:
             return error_response(message='Inventory with this ID does not exist', status=status.HTTP_400_BAD_REQUEST)
         data = {
-            'name': request.data.get('name'),
-            'description': request.data.get('description')
+            'product': request.data.get('product'),
+            'quantity': request.data.get('quantity')
         }
         serializer = ProductInventorySerializer(instance=product_inventory_instance, data=data, partial=True)
         if serializer.is_valid():

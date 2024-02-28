@@ -38,11 +38,15 @@
     "light": "Light",
     "dark": "Dark"
   },
-  "ui": {
-    "alert": {
-      "error": {
-        "title": "Error"
-      }
+  "alert": {
+    "title": {
+      "info": "Information",
+      "success": "Success",
+      "warning": "Warning",
+      "error": "Error"
+    },
+    "message": {
+      "500": "An error occurred. Please try again later."
     }
   }
 }

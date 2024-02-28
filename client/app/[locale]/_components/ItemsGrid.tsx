@@ -4,7 +4,7 @@ import { ItemCard } from "@/app/[locale]/_components/ItemCard"
 import { useTranslation } from "@/app/i18n/client"
 
 type TItemGridProps = {
-  locale: string
+  locale: TLocale
 }
 
 export default function ItemGrid({ locale }: TItemGridProps) {

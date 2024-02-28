@@ -6,23 +6,23 @@ import { NAME_REGEX, PASSWORD_REGEX } from "@/app/[locale]/_lib/constants"
 import { POST } from "@/app/[locale]/(auth)/sign-up/api/route"
 import { ROUTE_LOGIN } from "@/app/[locale]/_lib/site-map"
 
-export async function signUp(prevState: TFormPreviousState, formData: FormData) {
+export async function signUp(_: TFormState, formData: FormData) {
   // The user must be at least 18 years old
   const currentDate = new Date()
   const birthYear = currentDate.getFullYear() - 18
   const birthdate = new Date(birthYear, currentDate.getMonth(), currentDate.getDate())
 
   const schema = object({
-    firstName: string([minLength(1, "first_name.required"), regex(NAME_REGEX, "first_name.pattern")]),
-    lastName: string([minLength(1, "last_name.required"), regex(NAME_REGEX, "last_name.pattern")]),
+    first_name: string([minLength(1, "first_name.required"), regex(NAME_REGEX, "first_name.pattern")]),
+    last_name: string([minLength(1, "last_name.required"), regex(NAME_REGEX, "last_name.pattern")]),
     gender: string("gender.required"),
-    birthDate: string([
+    birth_date: string([
       minLength(1, "birth_date.required"),
       custom((input: string) => new Date(input) <= birthdate, "birth_date.max"),
     ]),
     email: string([minLength(1, "email.required"), email("email.pattern")]),
     password: string([minLength(1, "password.required"), regex(PASSWORD_REGEX, "password.pattern")]),
-    confirmPassword: string([
+    confirm_password: string([
       minLength(1, "confirm_password.required"),
       regex(PASSWORD_REGEX, "confirm_password.pattern"),
       custom((input: string) => formData.get("password") === input, "confirm_password.match"),
@@ -32,23 +32,34 @@ export async function signUp(prevState: TFormPreviousState, formData: FormData) 
   type SignUpData = Output<typeof schema>
 
   const result = safeParse(schema, {
-    firstName: formData.get("firstName"),
-    lastName: formData.get("lastName"),
+    first_name: formData.get("firstName"),
+    last_name: formData.get("lastName"),
     gender: formData.get("gender"),
-    birthDate: formData.get("birthDate"),
+    birth_date: formData.get("birthDate"),
     email: formData.get("email"),
     password: formData.get("password"),
-    confirmPassword: formData.get("confirmPassword"),
+    confirm_password: formData.get("confirmPassword"),
   })
 
   if (!result.success) {
     return {
-      ...prevState,
       message: "Invalid field(s)",
-      errors: flatten(result.issues).nested,
+      data: {
+        errors: flatten(result.issues).nested,
+      },
     }
   }
 
   const response = await POST<SignUpData>(result.output)
-  if (response.status === "success") redirect(ROUTE_LOGIN.PATH)
+  const data = await response.json()
+
+  if (!response.ok) {
+    return {
+      status: "error",
+      code: response.status,
+      message: data.message,
+    }
+  }
+
+  redirect(ROUTE_LOGIN.PATH)
 }

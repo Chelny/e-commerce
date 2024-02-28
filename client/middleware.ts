@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
 
   // Redirect if locale in path is not supported
   if (
-    !supportedLocales.some((locale: string) => request.nextUrl.pathname.startsWith(`/${locale}`)) &&
+    !supportedLocales.some((locale: TLocale) => request.nextUrl.pathname.startsWith(`/${locale}`)) &&
     !request.nextUrl.pathname.startsWith('/_next')
   ) {
     return NextResponse.redirect(new URL(`/${locale}${request.nextUrl.pathname}`, request.url))
@@ -25,7 +25,7 @@ export function middleware(request: NextRequest) {
 
     if (referer) {
       const refererUrl = new URL(referer)
-      localeInReferer = supportedLocales.find((locale: string) => refererUrl.pathname.startsWith(`/${locale}`))
+      localeInReferer = supportedLocales.find((locale: TLocale) => refererUrl.pathname.startsWith(`/${locale}`))
     }
 
     const response = NextResponse.next()

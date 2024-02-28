@@ -1,11 +1,14 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 import { flatten, minLength, object, type Output, safeParse, string, regex, EMAIL_REGEX, custom } from "valibot"
 import { PASSWORD_REGEX } from "@/app/[locale]/_lib/constants"
+import { POST } from "@/app/[locale]/(auth)/reset-password/api/route"
+import { ROUTE_LOGIN } from "@/app/[locale]/_lib/site-map"
 
-export async function resetPassword(prevState: TFormPreviousState, formData: FormData) {
+export async function resetPassword(_: TFormState, formData: FormData) {
   const schema = object({
+    token: string([minLength(1)]),
     email: string([minLength(1, "email.required"), regex(EMAIL_REGEX, "email.pattern")]),
     password: string([minLength(1, "password.required"), regex(PASSWORD_REGEX, "password.pattern")]),
     confirmPassword: string([
@@ -18,6 +21,7 @@ export async function resetPassword(prevState: TFormPreviousState, formData: For
   type ResetPasswordData = Output<typeof schema>
 
   const result = safeParse(schema, {
+    token: formData.get("token"),
     email: formData.get("email"),
     password: formData.get("password"),
     confirmPassword: formData.get("confirmPassword"),
@@ -25,17 +29,23 @@ export async function resetPassword(prevState: TFormPreviousState, formData: For
 
   if (!result.success) {
     return {
-      ...prevState,
       message: "Invalid email or password",
-      errors: flatten(result.issues).nested,
+      data: {
+        errors: flatten(result.issues).nested,
+      },
     }
   }
 
-  // Mutate data
-  console.log(result.output)
-  revalidatePath("/")
+  const response = await POST<ResetPasswordData>(result.output)
+  const data = await response.json()
 
-  return {
-    message: "The password has been updated successfully",
+  if (!response.ok) {
+    return {
+      status: "error",
+      code: response.status,
+      message: data.message,
+    }
   }
+
+  redirect(ROUTE_LOGIN.PATH)
 }

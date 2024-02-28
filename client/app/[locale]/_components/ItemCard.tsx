@@ -10,7 +10,7 @@ import { useTranslation } from "@/app/i18n/client"
 import styles from "./ItemCard.module.css"
 
 type TItemCardProps = {
-  locale: string
+  locale: TLocale
   item: {
     id: number
     imagePath: string

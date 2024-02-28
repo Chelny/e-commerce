@@ -2,8 +2,10 @@
 
 import { revalidatePath } from "next/cache"
 import { flatten, minLength, object, type Output, safeParse, string, regex, EMAIL_REGEX } from "valibot"
+import { POST } from "@/app/[locale]/(auth)/forgot-password/api/route"
+import { ROUTE_FORGOT_PASSWORD } from "@/app/[locale]/_lib/site-map"
 
-export async function sendEmail(prevState: TFormPreviousState, formData: FormData) {
+export async function sendEmail(_: TFormState, formData: FormData) {
   const schema = object({
     email: string([minLength(1, "email.required"), regex(EMAIL_REGEX, "email.pattern")]),
   })
@@ -16,17 +18,29 @@ export async function sendEmail(prevState: TFormPreviousState, formData: FormDat
 
   if (!result.success) {
     return {
-      ...prevState,
       message: "Invalid email",
-      errors: flatten(result.issues).nested,
+      data: {
+        errors: flatten(result.issues).nested,
+      },
     }
   }
 
-  // Mutate data
-  console.log(result.output)
-  revalidatePath("/")
+  const response = await POST<ForgotPasswordData>(result.output)
+  const data = await response.json()
+
+  if (!response.ok) {
+    return {
+      status: "error",
+      code: response.status,
+      message: data.message,
+    }
+  }
+
+  revalidatePath(ROUTE_FORGOT_PASSWORD.PATH)
 
   return {
-    message: "Email sent with temporary password",
+    status: "success",
+    code: response.status,
+    message: data.message,
   }
 }

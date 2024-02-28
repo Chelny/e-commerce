@@ -7,8 +7,8 @@ import { ItemImageGallery } from "@/app/[locale]/_components/ItemImageGallery"
 import ItemGrid from "@/app/[locale]/_components/ItemsGrid"
 import { dir } from "i18next"
 
-export default async function ShopPage({ params, searchParams }: TPageProps) {
-  const { t } = await useTranslation(params.locale, "shop")
+export default async function ShopPage(props: TPage) {
+  const { t } = await useTranslation(props.params.locale, "shop")
 
   /**************************************************
    *
@@ -16,7 +16,7 @@ export default async function ShopPage({ params, searchParams }: TPageProps) {
    *
    **************************************************/
 
-  if (searchParams.item) {
+  if (props.searchParams.item) {
     // TODO: Move logic to client component
     // const handleSize = () => {
     //   console.log("handleSize")
@@ -27,7 +27,7 @@ export default async function ShopPage({ params, searchParams }: TPageProps) {
         <div className="flex flex-col space-y-16">
           <div className="grid md:grid-cols-[25rem_2fr_1.5fr] md:space-x-8 rtl:md:space-x-reverse space-y-8 md:space-y-0">
             <div>
-              <ItemImageGallery locale={params.locale} />
+              <ItemImageGallery locale={props.params.locale} />
             </div>
             <div>
               <div className="flex justify-between items-center space-x-2 rtl:space-x-reverse">
@@ -56,18 +56,6 @@ export default async function ShopPage({ params, searchParams }: TPageProps) {
                 </button>
               </div>
               <hr />
-              <h4>{t("shop:item.choose_size")}</h4>
-              <div className="radio-toolbar space-y-4">
-                <input type="radio" id="size16x20in" name="size" value="16x20" />
-                <label htmlFor="size16x20in">16x20in</label>
-
-                <input type="radio" id="size18x24in" name="size" value="18x24" />
-                <label htmlFor="size18x24in">18x24in</label>
-
-                <input type="radio" id="size30x40in" name="size" value="30x40" />
-                <label htmlFor="size30x40in">30x40in</label>
-              </div>
-              <hr />
               <h3>{t("shop:item.description")}</h3>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe esse aliquam deserunt et quaerat tempora
@@ -85,12 +73,12 @@ export default async function ShopPage({ params, searchParams }: TPageProps) {
                 aliquam consequuntur inventore quibusdam eveniet?
               </p>
             </div>
-            <Cart locale={params.locale} />
+            <Cart locale={props.params.locale} />
           </div>
           <hr />
           <section>
             <h2>{t("shop:recommendations")}</h2>
-            <ItemCarousel locale={params.locale} />
+            <ItemCarousel locale={props.params.locale} />
           </section>
           <hr />
           <section>
@@ -171,5 +159,5 @@ export default async function ShopPage({ params, searchParams }: TPageProps) {
    *
    **************************************************/
 
-  return <ItemGrid locale={params.locale} />
+  return <ItemGrid locale={props.params.locale} />
 }

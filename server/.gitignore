@@ -175,3 +175,6 @@ pyrightconfig.json
 
 # Commands helper
 commands.txt
+
+# Mailer test credentials
+ethereal.csv

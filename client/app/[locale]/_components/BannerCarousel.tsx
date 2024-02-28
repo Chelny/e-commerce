@@ -9,7 +9,7 @@ import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 
 type TBannerCarouselProps = {
-  locale: string
+  locale: TLocale
 }
 
 export function BannerCarousel({ locale }: TBannerCarouselProps) {

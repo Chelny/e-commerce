@@ -4,7 +4,7 @@ import { ChangeEvent, useState } from "react"
 import { useTranslation } from "@/app/i18n/client"
 
 type TCartProps = {
-  locale: string
+  locale: TLocale
 }
 
 export function Cart({ locale }: TCartProps) {

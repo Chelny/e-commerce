@@ -1,14 +1,22 @@
 from rest_framework import serializers
 from .models import CustomUser, UserAddress, ShoppingSession, CartItem, UserPayment
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ["first_name", "last_name", "gender", "birth_date", "email", "password", "active", "created_at", "updated_at"]
+
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ["first_name", "last_name", "birth_date", "gender", "email", "password", "active", "created_at", "updated_at"]
+class ForgotPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+class ResetPasswordSerializer(serializers.Serializer):
+    token = serializers.CharField()
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
 
 class UserAddressSerializer(serializers.ModelSerializer):
     class Meta:

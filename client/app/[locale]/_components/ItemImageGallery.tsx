@@ -15,7 +15,7 @@ import { useTranslation } from "@/app/i18n/client"
 import "keen-slider/keen-slider.min.css"
 
 type TItemImageGalleryProps = {
-  locale: string
+  locale: TLocale
 }
 
 export function ItemImageGallery({ locale }: TItemImageGalleryProps) {

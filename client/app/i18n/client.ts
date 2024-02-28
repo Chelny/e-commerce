@@ -25,7 +25,7 @@ i18next
     load: "currentOnly",
   })
 
-export function useTranslation(locale: string, namespaces: string | string[], options = {}) {
+export function useTranslation(locale: TLocale, namespaces: string | string[], options = {}) {
   const [cookies, setCookie] = useCookies([cookieName])
   const namespacesArray = Array.isArray(namespaces) ? namespaces : [namespaces]
   const ret = useTranslationOrg(namespacesArray, options)

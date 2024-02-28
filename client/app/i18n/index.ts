@@ -3,7 +3,7 @@ import resourcesToBackend from "i18next-resources-to-backend"
 import { initReactI18next } from "react-i18next/initReactI18next"
 import { getOptions } from "./settings"
 
-const initI18next = async (locale: string, namespaces: string[]) => {
+const initI18next = async (locale: TLocale, namespaces: string[]) => {
   const i18nInstance = createInstance()
   await i18nInstance
     .use(initReactI18next)
@@ -12,7 +12,7 @@ const initI18next = async (locale: string, namespaces: string[]) => {
   return i18nInstance
 }
 
-export async function useTranslation(locale: string, namespaces: string | string[], options: any = {}) {
+export async function useTranslation(locale: TLocale, namespaces: string | string[], options: any = {}) {
   const namespacesArray = Array.isArray(namespaces) ? namespaces : [namespaces]
   const i18nextInstance = await initI18next(locale, namespacesArray)
   return {

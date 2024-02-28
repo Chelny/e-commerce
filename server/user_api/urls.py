@@ -1,6 +1,9 @@
 from django.urls import path
 from .views import (
     UserApiView,
+    UserLoginApiView,
+    UserForgotPasswordApiView,
+    UserResetPasswordApiView,
     UserAddressApiView,
     ShoppingSessionApiView,
     CartItemApiView,
@@ -10,6 +13,9 @@ from .views import (
 urlpatterns = [
     path('', UserApiView.as_view(), name='user'),
     path('<int:id>/', UserApiView.as_view()),
+    path('login/', UserLoginApiView.as_view()),
+    path('forgot-password/', UserForgotPasswordApiView.as_view()),
+    path('reset-password/', UserResetPasswordApiView.as_view()),
     path('addresses/', UserAddressApiView.as_view()),
     path('addresses/<int:id>/', UserAddressApiView.as_view()),
     path('sessions/', ShoppingSessionApiView.as_view()),

@@ -18,7 +18,7 @@ import { useTranslation } from "@/app/i18n/client"
 import styles from "./Header.module.css"
 
 type THeaderProps = {
-  locale: string
+  locale: TLocale
 }
 
 export function Header({ locale }: THeaderProps) {

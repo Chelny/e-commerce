@@ -3,7 +3,7 @@ export const supportedLocales = [defaultLocale, "en-CA", "fr-CA", "ar-SA"]
 export const defaultNamespace = "common"
 export const cookieName = "e_commerce_locale"
 
-export function getOptions(locale: string = defaultLocale, namespaces: string | string[] = defaultNamespace) {
+export function getOptions(locale: TLocale = defaultLocale, namespaces: string | string[] = defaultNamespace) {
   const namespacesArray = Array.isArray(namespaces) ? namespaces : [namespaces]
   return {
     // debug: true,

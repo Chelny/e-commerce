@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from django.core.management.utils import get_random_secret_key
+from django.utils.translation import gettext_lazy as _
 from pathlib import Path
 from dotenv import load_dotenv
 import os
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'corsheaders',
+    "rosetta",
     'user_api',
     'order_api',
     'product_api',
@@ -60,8 +62,9 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -136,13 +139,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
 
+LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = [
+    ('en-us', 'English (United States)'),
+    ('en-ca', 'Canada (English)'),
+    ('fr-ca', 'Canada (French)'),
+]
+
 USE_TZ = True
+
+TIME_ZONE = 'UTC'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -150,7 +159,26 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Mailer
+# https://ethereal.email/
+
+# Use the SMTP Email backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# SMTP server details
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_USE_TLS = True # Use TLS if required, or set it to False
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')

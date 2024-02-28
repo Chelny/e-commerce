@@ -38,11 +38,15 @@
     "light": "Clair",
     "dark": "Foncé"
   },
-  "ui": {
-    "alert": {
-      "error": {
-        "title": "Erreur"
-      }
+  "alert": {
+    "title": {
+      "info": "Information",
+      "success": "Succès",
+      "warning": "Avertissement",
+      "error": "Erreur"
+    },
+    "message": {
+      "500": "Une erreur s'est produite. Veuillez réessayer plus tard."
     }
   }
 }

@@ -11,25 +11,25 @@ import "@/app/globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "E-Commerce Application",
-  description: "Buy everything at low price!",
+  title: "E-Commerce",
+  description: "E-Commerce Website!",
 }
 
 export async function generateStaticParams() {
-  return supportedLocales.map((locale: string) => ({ locale }))
+  return supportedLocales.map((locale: TLocale) => ({ locale }))
 }
 
-export default function LocaleLayout({ children, params }: { children: React.ReactNode; params: { locale: string } }) {
+export default function LocaleLayout(props: TLayout) {
   return (
-    <html lang={params.locale} dir={dir(params.locale)} suppressHydrationWarning>
+    <html lang={props.params.locale} dir={dir(props.params.locale)} suppressHydrationWarning>
       <body className={`${inter.className} grid grid-rows-app`}>
         <ThemeProvider attribute="class" enableSystem={false} disableTransitionOnChange>
-          <Header locale={params.locale}></Header>
+          <Header locale={props.params.locale}></Header>
           <main className="overflow-x-hidden flex flex-col">
-            <Breadcrumbs locale={params.locale} />
-            {children}
+            <Breadcrumbs locale={props.params.locale} />
+            {props.children}
           </main>
-          <Footer locale={params.locale}></Footer>
+          <Footer locale={props.params.locale}></Footer>
         </ThemeProvider>
       </body>
     </html>

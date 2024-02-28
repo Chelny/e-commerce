@@ -1,8 +1,12 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { useFormState, useFormStatus } from "react-dom"
+import { redirect } from "next/navigation"
+import { Alert } from "@/app/[locale]/_components/Alert"
 import { FieldErrorMessage } from "@/app/[locale]/_components/FieldErrorMessage"
 import { FieldHintMessage } from "@/app/[locale]/_components/FieldHintMessage"
+import { ROUTE_LOGIN } from "@/app/[locale]/_lib/site-map"
 import { resetPassword } from "@/app/[locale]/(auth)/reset-password/reset-password.actions"
 import { useTranslation } from "@/app/i18n/client"
 
@@ -10,10 +14,16 @@ const initialState = {
   message: "",
 }
 
-export function ResetPasswordForm({ locale }: TForm) {
-  const { t } = useTranslation(locale, ["form"])
+export function ResetPasswordForm(props: TForm) {
+  const { t } = useTranslation(props.page.params.locale, ["form"])
   const [state, formAction] = useFormState(resetPassword, initialState)
+  const [token, setToken] = useState(props.page?.searchParams.token)
   const { pending } = useFormStatus()
+
+  useEffect(() => {
+    if (!token) redirect(ROUTE_LOGIN.PATH)
+    setToken(token)
+  }, [token])
 
   return (
     <form
@@ -21,36 +31,38 @@ export function ResetPasswordForm({ locale }: TForm) {
       noValidate
       action={formAction}
     >
+      {state?.status && <Alert variant={state?.status} locale={props.page.params.locale} message={state?.message} />}
+      <input type="hidden" id="token" name="token" value={token} required />
       <label htmlFor="email">{t("form:label.email")}</label>
       <input
         type="email"
         id="email"
         name="email"
-        className={`${state?.errors?.email && "invalid-form-field"}`}
+        className={`${state?.data?.errors?.email ? "invalid" : ""}`}
         autoFocus
         required
       />
-      <FieldErrorMessage locale={locale} field={state?.errors?.email} />
+      <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.email} />
       <label htmlFor="password">{t("form:label.password")}</label>
       <input
         type="password"
         id="password"
         name="password"
-        className={`${state?.errors?.password && "invalid-form-field"}`}
+        className={`${state?.data?.errors?.password ? "invalid" : ""}`}
         required
       />
-      <FieldHintMessage locale={locale} keyName="password" />
-      <FieldErrorMessage locale={locale} field={state?.errors?.password} />
+      <FieldHintMessage locale={props.page.params.locale} keyName="password" />
+      <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.password} />
       <label htmlFor="confirmPassword">{t("form:label.confirm_password")}</label>
       <input
         type="password"
         id="confirmPassword"
         name="confirmPassword"
-        className={`${state?.errors?.confirmPassword && "invalid-form-field"}`}
+        className={`${state?.data?.errors?.confirmPassword ? "invalid" : ""}`}
         required
       />
-      <FieldErrorMessage locale={locale} field={state?.errors?.confirmPassword} />
-      <button type="submit" aria-disabled={pending}>
+      <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.confirmPassword} />
+      <button type="submit" disabled={pending}>
         {t("form:button.reset_password")}
       </button>
     </form>
