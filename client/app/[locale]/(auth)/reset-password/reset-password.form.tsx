@@ -6,7 +6,9 @@ import { redirect } from "next/navigation"
 import { Alert } from "@/app/[locale]/_components/Alert"
 import { FieldErrorMessage } from "@/app/[locale]/_components/FieldErrorMessage"
 import { FieldHintMessage } from "@/app/[locale]/_components/FieldHintMessage"
+import { EVariant } from "@/app/[locale]/_lib/definition/enums"
 import { ROUTE_LOGIN } from "@/app/[locale]/_lib/site-map"
+import { useToast } from "@/app/[locale]/_providers/toast-provider"
 import { resetPassword } from "@/app/[locale]/(auth)/reset-password/reset-password.actions"
 import { useTranslation } from "@/app/i18n/client"
 
@@ -19,11 +21,19 @@ export function ResetPasswordForm(props: TForm) {
   const [state, formAction] = useFormState(resetPassword, initialState)
   const [token, setToken] = useState(props.page?.searchParams.token)
   const { pending } = useFormStatus()
+  const { showToast } = useToast()
 
   useEffect(() => {
     if (!token) redirect(ROUTE_LOGIN.PATH)
     setToken(token)
   }, [token])
+
+  useEffect(() => {
+    if (state?.status === EVariant.SUCCESS) {
+      showToast(state?.message)
+      redirect(ROUTE_LOGIN.PATH)
+    }
+  }, [state, showToast])
 
   return (
     <form
@@ -33,7 +43,7 @@ export function ResetPasswordForm(props: TForm) {
     >
       {state?.status && <Alert variant={state?.status} locale={props.page.params.locale} message={state?.message} />}
       <input type="hidden" id="token" name="token" value={token} required />
-      <label htmlFor="email">{t("form:label.email")}</label>
+      <label htmlFor="email">{t("label.email")}</label>
       <input
         type="email"
         id="email"
@@ -43,7 +53,7 @@ export function ResetPasswordForm(props: TForm) {
         required
       />
       <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.email} />
-      <label htmlFor="password">{t("form:label.password")}</label>
+      <label htmlFor="password">{t("label.password")}</label>
       <input
         type="password"
         id="password"
@@ -53,7 +63,7 @@ export function ResetPasswordForm(props: TForm) {
       />
       <FieldHintMessage locale={props.page.params.locale} keyName="password" />
       <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.password} />
-      <label htmlFor="confirmPassword">{t("form:label.confirm_password")}</label>
+      <label htmlFor="confirmPassword">{t("label.confirm_password")}</label>
       <input
         type="password"
         id="confirmPassword"
@@ -63,7 +73,7 @@ export function ResetPasswordForm(props: TForm) {
       />
       <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.confirmPassword} />
       <button type="submit" disabled={pending}>
-        {t("form:button.reset_password")}
+        {t("button.reset_password")}
       </button>
     </form>
   )

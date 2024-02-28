@@ -2,8 +2,9 @@
 
 import { revalidatePath } from "next/cache"
 import { flatten, minLength, object, type Output, safeParse, string, regex, EMAIL_REGEX } from "valibot"
-import { POST } from "@/app/[locale]/(auth)/forgot-password/api/route"
+import { EVariant } from "@/app/[locale]/_lib/definition/enums"
 import { ROUTE_FORGOT_PASSWORD } from "@/app/[locale]/_lib/site-map"
+import { POST } from "@/app/[locale]/(auth)/forgot-password/api/route"
 
 export async function sendEmail(_: TFormState, formData: FormData) {
   const schema = object({
@@ -30,7 +31,7 @@ export async function sendEmail(_: TFormState, formData: FormData) {
 
   if (!response.ok) {
     return {
-      status: "error",
+      status: EVariant.ERROR,
       code: response.status,
       message: data.message,
     }
@@ -39,7 +40,7 @@ export async function sendEmail(_: TFormState, formData: FormData) {
   revalidatePath(ROUTE_FORGOT_PASSWORD.PATH)
 
   return {
-    status: "success",
+    status: EVariant.SUCCESS,
     code: response.status,
     message: data.message,
   }

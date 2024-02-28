@@ -6,7 +6,7 @@ export default async function SignUp(props: TPage) {
 
   return (
     <>
-      <h1>{t("form:sign_up")}</h1>
+      <h1>{t("sign_up")}</h1>
       <SignUpForm page={props} />
     </>
   )

@@ -6,7 +6,7 @@ export default async function ForgotPassword(props: TPage) {
 
   return (
     <>
-      <h1>{t("form:forgot_password")}</h1>
+      <h1>{t("forgot_password")}</h1>
       <ForgotPasswordForm page={props} />
     </>
   )

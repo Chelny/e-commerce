@@ -6,7 +6,7 @@ export default async function Login(props: TPage) {
 
   return (
     <>
-      <h1>{t("form:login")}</h1>
+      <h1>{t("login")}</h1>
       <LoginForm page={props} />
     </>
   )

@@ -48,5 +48,12 @@
     "message": {
       "500": "An error occurred. Please try again later."
     }
+  },
+  "page": {
+    "not_found": {
+      "title": "Page Not Found",
+      "message": "The page you were looking for doesn't exist.",
+      "return_home": "Return to home page"
+    }
   }
 }

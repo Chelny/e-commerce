@@ -3,6 +3,7 @@
 import React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { LOCALE_REGEX } from "@/app/[locale]/_lib/constants"
 import { ROUTE_HOME, SITE_MAP, TSiteMap } from "@/app/[locale]/_lib/site-map"
 import { useTranslation } from "@/app/i18n/client"
 
@@ -15,7 +16,7 @@ export function Breadcrumbs({ locale }: TBreadcrumbsProps) {
   const paths = usePathname()
   const pathNames = paths.split("/").filter((path: string) => path)
   // Exclude locale-like strings from the pathNames
-  const filteredPathNames = pathNames.filter((path: string) => !path.match(/[a-z]{2}-[A-Z]{2}/))
+  const filteredPathNames = pathNames.filter((path: string) => !path.match(LOCALE_REGEX))
   const separator = <span className="text-ecommerce-500 rtl:scale-x-[-1]">/</span>
   const listClasses = "hover:underline mx-2"
   const activeClasses = "hover:no-underline !font-medium"

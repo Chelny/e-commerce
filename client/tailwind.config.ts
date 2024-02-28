@@ -4,13 +4,6 @@ const config: Config = {
   content: ["./app/**/*.{ts,tsx}"],
   darkMode: "class",
   theme: {
-    // container: {
-    //   center: true,
-    //   padding: "2rem",
-    //   screens: {
-    //     "2xl": "1400px",
-    //   },
-    // },
     extend: {
       gridTemplateRows: {
         "app": "max-content auto max-content",
@@ -28,6 +21,9 @@ const config: Config = {
       },
       borderRadius: {
         DEFAULT: "0.25rem",
+      },
+      boxShadow: {
+        "card": "inset 0 0 0.5px 1px hsl(0 0% 100% / 7.5%), 0 0 0 1px hsl(0 0% 0% / 5%), 0 0.3px 0.4px hsl(0 0% 0 % / 2%), 0 0.9px 1.5px hsl(0 0% 0% / 4.5%), 0 3.5px 6px hsl(0 0% 0 % / 9%)"
       },
       colors: {
         ecommerce: {
@@ -74,6 +70,9 @@ const config: Config = {
           DEFAULT: "var(--card)",
           foreground: "var(--card-foreground)",
         },
+      },
+      transitionProperty: {
+        'toast': 'bottom, opacity',
       },
       keyframes: {
         "accordion-down": {

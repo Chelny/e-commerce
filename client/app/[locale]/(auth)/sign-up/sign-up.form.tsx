@@ -1,10 +1,14 @@
 "use client"
 
+import { useEffect } from "react"
 import { useFormState, useFormStatus } from "react-dom"
+import { redirect } from "next/navigation"
 import { Alert } from "@/app/[locale]/_components/Alert"
 import { FieldErrorMessage } from "@/app/[locale]/_components/FieldErrorMessage"
 import { FieldHintMessage } from "@/app/[locale]/_components/FieldHintMessage"
 import { EVariant } from "@/app/[locale]/_lib/definition/enums"
+import { ROUTE_LOGIN } from "@/app/[locale]/_lib/site-map"
+import { useToast } from "@/app/[locale]/_providers/toast-provider"
 import { signUp } from "@/app/[locale]/(auth)/sign-up/sign-up.actions"
 import { useTranslation } from "@/app/i18n/client"
 
@@ -16,6 +20,14 @@ export function SignUpForm(props: TForm) {
   const { t } = useTranslation(props.page.params.locale, ["form"])
   const [state, formAction] = useFormState(signUp, initialState)
   const { pending } = useFormStatus()
+  const { showToast } = useToast()
+
+  useEffect(() => {
+    if (state?.status === EVariant.SUCCESS) {
+      showToast(state?.message)
+      redirect(ROUTE_LOGIN.PATH)
+    }
+  }, [state, showToast])
 
   return (
     <form
@@ -26,7 +38,7 @@ export function SignUpForm(props: TForm) {
       {state?.status && <Alert variant={state?.status} locale={props.page.params.locale} message={state?.message} />}
       <div className="grid md:grid-cols-[1fr_1fr] md:space-x-2 rtl:md:space-x-reverse">
         <div className="flex flex-col">
-          <label htmlFor="firstName">{t("form:label.first_name")}</label>
+          <label htmlFor="firstName">{t("label.first_name")}</label>
           <input
             type="text"
             id="firstName"
@@ -38,7 +50,7 @@ export function SignUpForm(props: TForm) {
           <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.firstName} />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="lastName">{t("form:label.last_name")}</label>
+          <label htmlFor="lastName">{t("label.last_name")}</label>
           <input
             type="text"
             id="lastName"
@@ -49,12 +61,12 @@ export function SignUpForm(props: TForm) {
           <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.lastName} />
         </div>
       </div>
-      <label htmlFor="gender">{t("form:label.gender")}</label>
+      <label htmlFor="gender">{t("label.gender")}</label>
       <div className="grid md:grid-cols-[1fr_1fr_1fr]">
         <div className="flex space-x-2 rtl:space-x-reverse">
           <label className="radio-button" htmlFor="genderMale">
             <input type="radio" id="genderMale" name="gender" value="M" required />
-            {t("form:label.gender_male")}
+            {t("label.gender_male")}
             <span
               className={`${state?.data?.errors?.gender || state?.status === EVariant.ERROR ? "invalid" : ""}`}
             ></span>
@@ -63,7 +75,7 @@ export function SignUpForm(props: TForm) {
         <div className="flex space-x-2 rtl:space-x-reverse">
           <label className="radio-button" htmlFor="genderFemale">
             <input type="radio" id="genderFemale" name="gender" value="F" />
-            {t("form:label.gender_female")}
+            {t("label.gender_female")}
             <span
               className={`${state?.data?.errors?.gender || state?.status === EVariant.ERROR ? "invalid" : ""}`}
             ></span>
@@ -72,7 +84,7 @@ export function SignUpForm(props: TForm) {
         <div className="flex space-x-2 rtl:space-x-reverse">
           <label className="radio-button" htmlFor="genderOther">
             <input type="radio" id="genderOther" name="gender" value="O" />
-            {t("form:label.gender_other")}
+            {t("label.gender_other")}
             <span
               className={`${state?.data?.errors?.gender || state?.status === EVariant.ERROR ? "invalid" : ""}`}
             ></span>
@@ -80,7 +92,7 @@ export function SignUpForm(props: TForm) {
         </div>
       </div>
       <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.gender} />
-      <label htmlFor="birthDate">{t("form:label.birth_date")}</label>
+      <label htmlFor="birthDate">{t("label.birth_date")}</label>
       <input
         type="date"
         id="birthDate"
@@ -90,7 +102,7 @@ export function SignUpForm(props: TForm) {
       />
       <FieldHintMessage locale={props.page.params.locale} keyName="birth_date" />
       <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.birthDate} />
-      <label htmlFor="email">{t("form:label.email")}</label>
+      <label htmlFor="email">{t("label.email")}</label>
       <input
         type="email"
         id="email"
@@ -101,7 +113,7 @@ export function SignUpForm(props: TForm) {
       <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.email} />
       <div className="grid md:grid-cols-[1fr_1fr] md:space-x-2 rtl:space-x-reverse space-y-2 md:space-y-0">
         <div className="flex flex-col">
-          <label htmlFor="password">{t("form:label.password")}</label>
+          <label htmlFor="password">{t("label.password")}</label>
           <input
             type="password"
             id="password"
@@ -112,7 +124,7 @@ export function SignUpForm(props: TForm) {
           <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.password} />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="confirmPassword">{t("form:label.confirm_password")}</label>
+          <label htmlFor="confirmPassword">{t("label.confirm_password")}</label>
           <input
             type="password"
             id="confirmPassword"
@@ -125,9 +137,9 @@ export function SignUpForm(props: TForm) {
       </div>
       <FieldHintMessage locale={props.page.params.locale} keyName="password" />
       <button type="submit" disabled={pending}>
-        {t("form:sign_up")}
+        {t("sign_up")}
       </button>
-      <p className="text-sm text-gray-500">{t("form:agreement_text")}</p>
+      <p className="text-sm text-gray-500">{t("agreement_text")}</p>
     </form>
   )
 }

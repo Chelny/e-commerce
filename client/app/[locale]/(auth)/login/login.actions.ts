@@ -3,8 +3,9 @@
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { flatten, minLength, object, type Output, safeParse, string, regex, EMAIL_REGEX } from "valibot"
-import { POST } from "@/app/[locale]/(auth)/login/api/route"
+import { EVariant } from "@/app/[locale]/_lib/definition/enums"
 import { ROUTE_HOME } from "@/app/[locale]/_lib/site-map"
+import { POST } from "@/app/[locale]/(auth)/login/api/route"
 
 export async function login(_: TFormState, formData: FormData) {
   const cookieStore = cookies()
@@ -35,7 +36,7 @@ export async function login(_: TFormState, formData: FormData) {
 
   if (!response.ok) {
     return {
-      status: "error",
+      status: EVariant.ERROR,
       code: response.status,
       message: data.message,
     }

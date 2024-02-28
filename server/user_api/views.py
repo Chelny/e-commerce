@@ -59,7 +59,7 @@ class UserApiView(APIView):
 
     def post(self, request, *args, **kwargs):
         self.action = 'post'
-        print(request.data)
+
         data = {
             'first_name': request.data.get('first_name'),
             'last_name': request.data.get('last_name'),
@@ -83,7 +83,7 @@ class UserApiView(APIView):
                 'access': str(refresh.access_token),
             }
 
-            return success_response(data={'user': serializer.data, 'tokens': tokens}, status=status.HTTP_201_CREATED)
+            return success_response(data={'user': serializer.data, 'tokens': tokens}, message=_('The account has been successfully created!'), status=status.HTTP_201_CREATED)
 
         return error_response(errors=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -176,7 +176,7 @@ class UserForgotPasswordApiView(APIView):
 
             reset_password_link = f'http://localhost:3000/fr-CA/reset-password?token={token}'
 
-            email_message = _("Hello %(name)s,\n\nWe've received a request to reset the password for the account associated with the email %(email)s.\n\nYou can reset your password by copy-paste the following URL in a browser: %(reset_password_link)s.\n\nIf you did not request a new password, please let us know immediately by replying to this email.\n\n-- E-Commerce Team") % { 'name': user.first_name, 'email': user.email, 'reset_password_link': reset_password_link }
+            email_message = _("Hello %(name)s,\n\nWe've received a request to reset the password for the account associated with the email %(email)s.\n\nYou can reset your password by copy-paste the following URL in a browser:\n%(reset_password_link)s\nPlease note that the password will expire 20 minutes after receiving this message.\n\nIf you did not request a new password, please let us know immediately by replying to this email.\n\n-- E-Commerce Team") % { 'name': user.first_name, 'email': user.email, 'reset_password_link': reset_password_link }
 
             send_mail(
                 _('Password Reset'),

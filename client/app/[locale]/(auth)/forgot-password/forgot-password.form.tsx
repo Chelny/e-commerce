@@ -23,7 +23,7 @@ export function ForgotPasswordForm(props: TForm) {
       action={formAction}
     >
       {state?.status && <Alert variant={state?.status} locale={props.page.params.locale} message={state?.message} />}
-      <label htmlFor="email">{t("form:label.email")}</label>
+      <label htmlFor="email">{t("label.email")}</label>
       <input
         type="email"
         id="email"
@@ -34,7 +34,7 @@ export function ForgotPasswordForm(props: TForm) {
       />
       <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.email} />
       <button type="submit" disabled={pending}>
-        {t("form:button.send_email")}
+        {t("button.send_email")}
       </button>
     </form>
   )

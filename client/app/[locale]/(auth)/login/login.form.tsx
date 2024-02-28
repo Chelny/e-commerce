@@ -26,7 +26,7 @@ export function LoginForm(props: TForm) {
         action={formAction}
       >
         {state?.status && <Alert variant={state?.status} locale={props.page.params.locale} message={state?.message} />}
-        <label htmlFor="email">{t("form:label.email")}</label>
+        <label htmlFor="email">{t("label.email")}</label>
         <input
           type="email"
           id="email"
@@ -36,7 +36,7 @@ export function LoginForm(props: TForm) {
           required
         />
         <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.email} />
-        <label htmlFor="password">{t("form:label.password")}</label>
+        <label htmlFor="password">{t("label.password")}</label>
         <input
           type="password"
           id="password"
@@ -46,19 +46,19 @@ export function LoginForm(props: TForm) {
         />
         <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.password} />
         <button type="submit" disabled={pending}>
-          {t("form:login")}
+          {t("login")}
         </button>
         <hr />
       </form>
       <div className="flex justify-center space-x-4 rtl:space-x-reverse py-4">
         <Link href={`/${props.page.params.locale}${ROUTE_SIGN_UP.PATH}`} aria-label={t(ROUTE_SIGN_UP.TITLE)}>
-          {t("form:sign_up")}
+          {t("sign_up")}
         </Link>
         <Link
           href={`/${props.page.params.locale}${ROUTE_FORGOT_PASSWORD.PATH}`}
           aria-label={t(ROUTE_FORGOT_PASSWORD.TITLE)}
         >
-          {t("form:forgot_password")}
+          {t("forgot_password")}
         </Link>
       </div>
     </>

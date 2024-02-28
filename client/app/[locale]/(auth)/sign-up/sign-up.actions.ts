@@ -1,10 +1,9 @@
 "use server"
 
-import { redirect } from "next/navigation"
 import { email, flatten, minLength, object, type Output, safeParse, string, regex, custom } from "valibot"
 import { NAME_REGEX, PASSWORD_REGEX } from "@/app/[locale]/_lib/constants"
+import { EVariant } from "@/app/[locale]/_lib/definition/enums"
 import { POST } from "@/app/[locale]/(auth)/sign-up/api/route"
-import { ROUTE_LOGIN } from "@/app/[locale]/_lib/site-map"
 
 export async function signUp(_: TFormState, formData: FormData) {
   // The user must be at least 18 years old
@@ -55,11 +54,15 @@ export async function signUp(_: TFormState, formData: FormData) {
 
   if (!response.ok) {
     return {
-      status: "error",
+      status: EVariant.ERROR,
       code: response.status,
       message: data.message,
     }
   }
 
-  redirect(ROUTE_LOGIN.PATH)
+  return {
+    status: EVariant.SUCCESS,
+    code: response.status,
+    message: data.message,
+  }
 }

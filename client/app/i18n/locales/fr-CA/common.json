@@ -48,5 +48,12 @@
     "message": {
       "500": "Une erreur s'est produite. Veuillez réessayer plus tard."
     }
+  },
+  "page": {
+    "not_found": {
+      "title": "Page non trouvée",
+      "message": "La page que vous recherchez n'existe pas.",
+      "return_home": "Retour à la page d'accueil"
+    }
   }
 }
