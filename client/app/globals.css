@@ -396,16 +396,12 @@ footer a:focus {
   color: theme("colors.ecommerce.500");
 }
 
-#breadcrumbs a {
-  font-weight: 400;
-}
-
 footer #copyright a {
   color: theme("colors.ecommerce.500");
 }
 
 section {
-  padding: 1rem;
+  padding-block: 1rem;
 }
 
 footer h3 {

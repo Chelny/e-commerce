@@ -1,3 +1,3 @@
-export default function AuthTemplate({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+export default function AuthTemplate(props: TLayout) {
+  return <>{props.children}</>
 }

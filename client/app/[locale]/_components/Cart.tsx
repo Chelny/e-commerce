@@ -1,37 +1,47 @@
 "use client"
 
 import { ChangeEvent, useState } from "react"
+import { INVENTORY_WARNING_COUNT, Product } from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n/client"
 
 type TCartProps = {
   locale: TLocale
+  product: Product
 }
 
-export function Cart({ locale }: TCartProps) {
-  const { t } = useTranslation(locale, ["shop"])
+export function Cart(props: TCartProps) {
+  const { t } = useTranslation(props.locale, ["shop"])
   const [quantity, setQuantity] = useState<number>(1)
 
   const handleQuantity = (event: ChangeEvent<HTMLInputElement>) => {
-    // TODO: Make sure that value <= number of stock
-    console.log("handleQuantity", event.target.value)
-    setQuantity(+event.target.value)
+    const quantity = +event.target.value
+
+    if (quantity < props.product.inventory.quantity) {
+      setQuantity(quantity)
+    }
   }
 
   return (
     <div className="flex flex-col md:space-y-4">
       <div>deliver to address: 111 main street</div>
-      <span>in stock: 15</span>
+      {props.product.inventory.quantity <= INVENTORY_WARNING_COUNT && (
+        <div className="text-red-500">
+          {t("cart.in_stock")} <span>{props.product.inventory.quantity}</span>
+        </div>
+      )}
       <input
         type="number"
         value={quantity}
         onChange={(event: ChangeEvent<HTMLInputElement>) => handleQuantity(event)}
       />
-      <button className="secondary-action" type="button">
-        {t("item.add_to_cart")}
-      </button>
-      <button className="primary-action" type="button">
-        {t("item.buy_now")}
-      </button>
+      <div className="flex flex-col md:flex-row md:gap-2">
+        <button type="button" className="secondary-action flex-1">
+          {t("item.add_to_cart")}
+        </button>
+        <button type="button" className="primary-action flex-1">
+          {t("item.buy_now")}
+        </button>
+      </div>
     </div>
   )
 }

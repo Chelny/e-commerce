@@ -9,15 +9,13 @@ export const ROUTE_POPULAR = { TITLE: "site_map.popular", PATH: `${ROUTE_SHOP.PA
 export const ROUTE_SALE = { TITLE: "site_map.sale", PATH: `${ROUTE_SHOP.PATH}/sale` }
 export const ROUTE_CART = { TITLE: "site_map.cart", PATH: "/cart" }
 export const ROUTE_CHECKOUT = { TITLE: "site_map.checkout", PATH: "/checkout" }
-export const ROUTE_ABOUT = { TITLE: "site_map.about", PATH: "/about" }
-export const ROUTE_COMPANY = { TITLE: "site_map.company", PATH: `${ROUTE_ABOUT.PATH}/company` }
-export const ROUTE_TEAM = { TITLE: "site_map.team", PATH: `${ROUTE_ABOUT.PATH}/team` }
-export const ROUTE_CAREERS = { TITLE: "site_map.careers", PATH: `${ROUTE_ABOUT.PATH}/careers` }
-export const ROUTE_CONTACT = { TITLE: "site_map.contact", PATH: `${ROUTE_ABOUT.PATH}/contact` }
-export const ROUTE_SUPPORT = { TITLE: "site_map.support", PATH: "/support" }
-export const ROUTE_FAQS = { TITLE: "site_map.faqs", PATH: `${ROUTE_SUPPORT.PATH}/faqs` }
-export const ROUTE_SHIPPING = { TITLE: "site_map.shipping", PATH: `${ROUTE_SUPPORT.PATH}/shipping` }
-export const ROUTE_RETURNS = { TITLE: "site_map.returns", PATH: `${ROUTE_SUPPORT.PATH}/returns` }
+export const ROUTE_COMPANY = { TITLE: "site_map.company", PATH: "/company" }
+export const ROUTE_TEAM = { TITLE: "site_map.team", PATH: "/team" }
+export const ROUTE_CAREERS = { TITLE: "site_map.careers", PATH: "/careers" }
+export const ROUTE_CONTACT = { TITLE: "site_map.contact", PATH: "/contact" }
+export const ROUTE_FAQ = { TITLE: "site_map.faq", PATH: "/faq" }
+export const ROUTE_SHIPPING = { TITLE: "site_map.shipping", PATH: "/shipping" }
+export const ROUTE_RETURNS = { TITLE: "site_map.returns", PATH: "/returns" }
 export const ROUTE_TERMS_OF_SERVICE = { TITLE: "site_map.terms_of_service", PATH: "/terms-of-service" }
 export const ROUTE_PRIVACY_POLICY = { TITLE: "site_map.privacy_policy", PATH: "/privacy-policy" }
 
@@ -84,44 +82,32 @@ export const SITE_MAP = [
         path: ROUTE_CHECKOUT.PATH,
       },
       {
-        title: ROUTE_ABOUT.TITLE,
-        path: ROUTE_ABOUT.PATH,
-        children: [
-          {
-            title: ROUTE_COMPANY.TITLE,
-            path: ROUTE_COMPANY.PATH,
-          },
-          {
-            title: ROUTE_TEAM.TITLE,
-            path: ROUTE_TEAM.PATH,
-          },
-          {
-            title: ROUTE_CAREERS.TITLE,
-            path: ROUTE_CAREERS.PATH,
-          },
-          {
-            title: ROUTE_CONTACT.TITLE,
-            path: ROUTE_CONTACT.PATH,
-          },
-        ],
+        title: ROUTE_COMPANY.TITLE,
+        path: ROUTE_COMPANY.PATH,
       },
       {
-        title: ROUTE_SUPPORT.TITLE,
-        path: ROUTE_SUPPORT.PATH,
-        children: [
-          {
-            title: ROUTE_FAQS.TITLE,
-            path: ROUTE_FAQS.PATH,
-          },
-          {
-            title: ROUTE_SHIPPING.TITLE,
-            path: ROUTE_SHIPPING.PATH,
-          },
-          {
-            title: ROUTE_RETURNS.TITLE,
-            path: ROUTE_RETURNS.PATH,
-          },
-        ],
+        title: ROUTE_TEAM.TITLE,
+        path: ROUTE_TEAM.PATH,
+      },
+      {
+        title: ROUTE_CAREERS.TITLE,
+        path: ROUTE_CAREERS.PATH,
+      },
+      {
+        title: ROUTE_CONTACT.TITLE,
+        path: ROUTE_CONTACT.PATH,
+      },
+      {
+        title: ROUTE_FAQ.TITLE,
+        path: ROUTE_FAQ.PATH,
+      },
+      {
+        title: ROUTE_SHIPPING.TITLE,
+        path: ROUTE_SHIPPING.PATH,
+      },
+      {
+        title: ROUTE_RETURNS.TITLE,
+        path: ROUTE_RETURNS.PATH,
       },
       {
         title: ROUTE_TERMS_OF_SERVICE.TITLE,

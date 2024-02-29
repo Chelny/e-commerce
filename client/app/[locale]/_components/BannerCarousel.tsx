@@ -1,21 +1,15 @@
 "use client"
 
 import React, { useState } from "react"
-// import Image from 'next/image'
-import { useParams } from "next/navigation"
 import { dir } from "i18next"
 import { useKeenSlider } from "keen-slider/react"
-// import { useTranslation } from '@/app/i18n/client'
 import "keen-slider/keen-slider.min.css"
 
 type TBannerCarouselProps = {
   locale: TLocale
 }
 
-export function BannerCarousel({ locale }: TBannerCarouselProps) {
-  const params = useParams()
-  // const { t } = await useTranslation(locale, 'common')
-
+export function BannerCarousel(props: TBannerCarouselProps) {
   const slides = [
     "https://picsum.photos/id/237/1600/900",
     "https://picsum.photos/id/564/1600/900",
@@ -31,7 +25,7 @@ export function BannerCarousel({ locale }: TBannerCarouselProps) {
     {
       slides: slides.length,
       // loop: true,
-      rtl: dir(locale) === "rtl",
+      rtl: dir(props.locale) === "rtl",
       initial: 0,
       created() {
         setLoaded(true)
@@ -89,9 +83,7 @@ export function BannerCarousel({ locale }: TBannerCarouselProps) {
             key={index}
             className="keen-slider__slide !min-w-full !max-w-full h-96"
             style={{ backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center center" }}
-          >
-            {/* <Image src={src} width={1600} height={900} priority={true} alt={src} /> */}
-          </div>
+          ></div>
         ))}
       </div>
 

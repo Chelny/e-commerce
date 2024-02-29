@@ -2,8 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LOCALE_REGEX } from "@/app/[locale]/_lib/constants"
-import { ROUTE_HOME } from "@/app/[locale]/_lib/site-map"
+import { LOCALE_REGEX, ROUTE_HOME } from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n/client"
 
 export default function NotFound() {

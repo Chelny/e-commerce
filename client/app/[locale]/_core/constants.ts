@@ -2,6 +2,8 @@ import XRegExp from "xregexp"
 
 export const SERVER_URL = "http://localhost:8000/api"
 
+export const INVENTORY_WARNING_COUNT = 10
+
 export const LOCALE_REGEX = /[a-z]{2}-[A-Z]{2}/
 
 export const BIRTH_DATE_REGEX = /^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[0-9]|[1-2][0-9]|3[0-1])$/

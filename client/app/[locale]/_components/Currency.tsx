@@ -1,22 +1,12 @@
-function toMoneyValue(locale: TLocale, value: number, currency: string = "USD", decimals: number = 2) {
+function toMoneyValue(locale: TLocale, value: number, currency: string = "USD") {
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
-    maximumFractionDigits: decimals,
-    minimumFractionDigits: decimals,
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
   }).format(value)
 }
 
-export function Currency({
-  locale,
-  value,
-  currency,
-  decimals,
-}: {
-  locale: TLocale
-  value: number
-  currency?: string
-  decimals?: number
-}) {
-  return <>{toMoneyValue(locale, value, currency, decimals)}</>
+export function Currency({ locale, value, currency }: { locale: TLocale; value: number; currency?: string }) {
+  return <>{toMoneyValue(locale, value, currency)}</>
 }

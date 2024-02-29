@@ -1,6 +1,6 @@
 import Skeleton from "@/app/[locale]/_components/Skeleton"
 
-export default function ItemCarouselSkeleton() {
+export default function ProductCarouselSkeleton() {
   return (
     <div className="keen-slider pb-2">
       {Array(10)

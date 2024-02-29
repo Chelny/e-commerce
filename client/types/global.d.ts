@@ -23,9 +23,9 @@ type TFormState = {
   errors?: Partial<Record<string, [string, ...string[]]>>
 }
 
-type TApiResponse = {
+type TApiResponse<T> = {
   status: string
   code: number
   message: string
-  data: Record<string, any> | null
+  data: T
 }

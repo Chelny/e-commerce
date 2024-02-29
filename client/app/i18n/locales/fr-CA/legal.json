@@ -1,0 +1,70 @@
+{
+  "terms_of_service": {
+    "introduction": {
+      "title": "Bienvenue sur E-Commerce",
+      "content": "En utilisant notre site web, vous acceptez de respecter et d'être lié par les termes et conditions suivants. Veuillez lire attentivement ces termes avant d'utiliser notre site."
+    },
+    "acceptance": {
+      "title": "En accédant ou en utilisant nos services",
+      "content": "Vous reconnaissez avoir lu, compris et accepté d'être lié par ces termes."
+    },
+    "use_of_website": {
+      "title": "Utilisation du site",
+      "content": "Tout le contenu de ce site web, y compris le texte, les graphiques, les logos, les images et les logiciels, est la propriété de E-Commerce et est protégé par les lois sur le droit d'auteur."
+    },
+    "user_responsibility": {
+      "title": "Responsabilité de l'utilisateur",
+      "content": "Si vous créez un compte chez nous, vous êtes responsable de maintenir la confidentialité de votre compte et de votre mot de passe, et de restreindre l'accès à votre ordinateur."
+    },
+    "account_termination": {
+      "title": "Résiliation du compte",
+      "content": "Nous nous réservons le droit de résilier ou de suspendre votre compte et l'accès au site pour n'importe quelle raison sans préavis."
+    },
+    "changes_to_terms": {
+      "title": "Changements aux termes",
+      "content": "E-Commerce se réserve le droit de modifier ou de remplacer ces termes à tout moment. Votre utilisation continue du site après tout changement constitue une acceptation de ces changements."
+    },
+    "contact_us": {
+      "title": "Contactez-nous",
+      "content": "Si vous avez des questions concernant ces termes, veuillez nous contacter."
+    }
+  },
+  "privacy_policy": {
+    "collection_of_information": {
+      "title": "Collecte d'informations",
+      "content": "Nous recueillons des informations lorsque vous vous inscrivez sur notre site, passez une commande ou remplissez un formulaire. Les informations collectées incluent votre nom, votre adresse e-mail, votre numéro de téléphone et votre adresse."
+    },
+    "use_of_information": {
+      "title": "Utilisation des informations",
+      "content": "Toutes les informations que nous recueillons auprès de vous peuvent être utilisées pour personnaliser votre expérience, traiter les transactions de manière sécurisée et vous envoyer des courriels promotionnels."
+    },
+    "protection_of_information": {
+      "title": "Protection des informations",
+      "content": "Nous mettons en œuvre une variété de mesures de sécurité pour préserver la sécurité de vos informations personnelles. Nous ne vendons, n'échangeons ni ne transférons d'aucune autre manière vos informations personnelles à des tiers."
+    },
+    "cookie_usage": {
+      "title": "Utilisation de cookies",
+      "content": "Nous utilisons des cookies pour vous offrir une meilleure expérience utilisateur. Ces cookies sont utilisés pour conserver vos préférences et vous fournir des informations personnalisées."
+    },
+    "disclosure_to_third_parties": {
+      "title": "Divulgation à des tiers",
+      "content": "Nous ne vendons, n'échangeons ni ne transférons d'aucune autre manière vos informations personnelles à des tiers. Cela n'inclut pas les tierces parties de confiance qui nous aident à exploiter notre site Web ou à mener nos affaires, tant qu'elles acceptent de garder ces informations confidentielles."
+    },
+    "third_party_links": {
+      "title": "Liens vers des tiers",
+      "content": "Occasionnellement, à notre discrétion, nous pouvons inclure ou offrir des produits ou services de tiers sur notre site web. Ces sites tiers ont des politiques de confidentialité séparées et indépendantes. Nous n'assumons aucune responsabilité pour le contenu et les activités de ces sites liés."
+    },
+    "data_retention": {
+      "title": "Conservation des données",
+      "content": "Nous conservons vos informations personnelles aussi longtemps que nécessaire aux fins pour lesquelles elles ont été collectées."
+    },
+    "privacy_policy_changes": {
+      "title": "Changements à la politique de confidentialité",
+      "content": "Si nous décidons de changer notre politique de confidentialité, nous afficherons ces changements sur cette page."
+    },
+    "contact_information": {
+      "title": "Informations de contact",
+      "content": "Si vous avez des questions concernant cette politique de confidentialité, vous pouvez nous contacter en utilisant les informations ci-dessous."
+    }
+  }
+}

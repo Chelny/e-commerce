@@ -1,5 +1,5 @@
 import { FaCircleCheck, FaCircleExclamation, FaCircleInfo, FaTriangleExclamation } from "react-icons/fa6"
-import { EVariant } from "@/app/[locale]/_lib/definition/enums"
+import { EVariant } from "@/app/[locale]/_core/enums"
 import { useTranslation } from "@/app/i18n/client"
 import styles from "./Alert.module.css"
 

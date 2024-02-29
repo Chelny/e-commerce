@@ -21,6 +21,7 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     gender = models.CharField(max_length=10, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')], null=True, blank=True)
@@ -45,6 +46,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 class ResetPasswordToken(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     token = models.CharField(max_length=32, unique=True)
     expires_at = models.DateTimeField()
@@ -55,6 +57,7 @@ class ResetPasswordToken(models.Model):
         return timezone.now() > self.expires_at
 
 class UserAddress(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     address_line1 = models.CharField(max_length=50)
     address_line2 = models.CharField(max_length=50)
@@ -73,6 +76,7 @@ class UserAddress(models.Model):
         return f"{self.user.email}'s Address: {self.address_line1}, {self.city}, {self.state} {self.postal_code}"
 
 class ShoppingSession(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     total = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -84,6 +88,7 @@ class ShoppingSession(models.Model):
         return f"{self.total}"
 
 class CartItem(models.Model):
+    id = models.AutoField(primary_key=True)
     session = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True, related_name='products')
     quantity = models.IntegerField(default=0)
@@ -96,6 +101,7 @@ class CartItem(models.Model):
         return f"{self.quantity}"
 
 class UserPayment(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     payment_type = models.CharField(max_length=255, null=True)
     provider = models.CharField(max_length=255, null=True)

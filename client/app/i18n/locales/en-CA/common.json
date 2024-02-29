@@ -11,13 +11,11 @@
     "sale": "Sale",
     "cart": "Cart",
     "checkout": "Checkout",
-    "about": "About",
     "company": "Company",
     "team": "Meet The Team",
     "careers": "Careers",
     "contact": "Contact Us",
-    "support": "Support",
-    "faqs": "FAQs",
+    "faq": "Frequently Asked Questions",
     "shipping": "Shipping",
     "returns": "Exchanges and Returns",
     "terms_of_service": "Terms of Service",
@@ -28,6 +26,8 @@
     "search": "Search"
   },
   "app_footer": {
+    "about": "About",
+    "support": "Support",
     "copyright": "Copyright © {{year}} E-commerce. All rights reserved."
   },
   "button": {

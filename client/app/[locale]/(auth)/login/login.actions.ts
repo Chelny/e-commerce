@@ -3,8 +3,8 @@
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { flatten, minLength, object, type Output, safeParse, string, regex, EMAIL_REGEX } from "valibot"
-import { EVariant } from "@/app/[locale]/_lib/definition/enums"
-import { ROUTE_HOME } from "@/app/[locale]/_lib/site-map"
+import { EVariant } from "@/app/[locale]/_core/enums"
+import { ROUTE_HOME } from "@/app/[locale]/_core/site-map"
 import { POST } from "@/app/[locale]/(auth)/login/api/route"
 
 export async function login(_: TFormState, formData: FormData) {

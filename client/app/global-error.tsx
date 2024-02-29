@@ -4,7 +4,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
   return (
     <html>
       <body>
-        <h2>Something went wrong!</h2>
+        <h1>Something went wrong!</h1>
         <button onClick={() => reset()}>Try again</button>
       </body>
     </html>

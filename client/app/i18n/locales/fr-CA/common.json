@@ -11,13 +11,11 @@
     "sale": "Vente",
     "cart": "Panier",
     "checkout": "Caisse",
-    "about": "À Propos",
     "company": "Compagnie",
     "team": "L'équipe",
     "careers": "Carrières",
     "contact": "Contactez nous",
-    "support": "Support",
-    "faqs": "FAQ",
+    "faq": "Foire aux questions",
     "shipping": "Expédition",
     "returns": "Échanges et retours",
     "terms_of_service": "Conditions d'utilisation",
@@ -28,6 +26,8 @@
     "search": "Recherche"
   },
   "app_footer": {
+    "about": "À Propos",
+    "support": "Support",
     "copyright": "Copyright © {{year}} E-commerce. Tous droits réservés."
   },
   "button": {

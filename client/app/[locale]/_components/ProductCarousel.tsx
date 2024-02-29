@@ -3,38 +3,23 @@
 import { Suspense, useState } from "react"
 import { dir } from "i18next"
 import { KeenSliderPlugin, useKeenSlider } from "keen-slider/react"
-import { ItemCard } from "@/app/[locale]/_components/ItemCard"
-import ItemCarouselSkeleton from "@/app/[locale]/_components/ItemCarousel.skeleton"
+import { ProductCard } from "@/app/[locale]/_components/ProductCard"
+import ProductCarouselSkeleton from "@/app/[locale]/_components/ProductCarousel.skeleton"
+import { Product } from "@/app/[locale]/_core"
 import "keen-slider/keen-slider.min.css"
 
-type TItemCarouselProps = {
+type TProductCarouselProps = {
   locale: TLocale
+  products: Product[]
 }
 
-export function ItemCarousel({ locale }: TItemCarouselProps) {
-  const slides = [
-    "https://picsum.photos/id/10/275/300",
-    "https://picsum.photos/id/18/275/300",
-    "https://picsum.photos/id/39/275/300",
-    "https://picsum.photos/id/40/275/300",
-    "https://picsum.photos/id/53/275/300",
-    "https://picsum.photos/id/54/275/300",
-    "https://picsum.photos/id/56/275/300",
-    "https://picsum.photos/id/82/275/300",
-    "https://picsum.photos/id/145/275/300",
-    "https://picsum.photos/id/149/275/300",
-    "https://picsum.photos/id/184/275/300",
-    "https://picsum.photos/id/185/275/300",
-    "https://picsum.photos/id/210/275/300",
-    "https://picsum.photos/id/218/275/300",
-    "https://picsum.photos/id/235/275/300",
-  ]
-
+export function ProductCarousel(props: TProductCarouselProps) {
+  const [products] = useState<Product[]>(props.products)
   const [currentSlide, setCurrentSlide] = useState<number>(0)
   const [loaded, setLoaded] = useState<boolean>(false)
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
     {
-      rtl: dir(locale) === "rtl",
+      rtl: dir(props.locale) === "rtl",
       initial: 0,
       mode: "free-snap",
       breakpoints: {
@@ -85,10 +70,10 @@ export function ItemCarousel({ locale }: TItemCarouselProps) {
       )}
 
       <div className="keen-slider pb-2" ref={sliderRef}>
-        <Suspense fallback={<ItemCarouselSkeleton />}>
-          {slides.map((src: string, index: number) => (
-            <div key={index} className="keen-slider__slide">
-              <ItemCard locale={locale} item={{ id: index, imagePath: src }}></ItemCard>
+        <Suspense fallback={<ProductCarouselSkeleton />}>
+          {products.map((product: Product) => (
+            <div key={product.id} className="keen-slider__slide">
+              <ProductCard locale={props.locale} product={product} />
             </div>
           ))}
         </Suspense>

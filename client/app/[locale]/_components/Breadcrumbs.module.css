@@ -1,0 +1,47 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
+
+.list {
+  display: flex;
+}
+
+.list.padding {
+  padding-inline: 1rem;
+  padding-block-start: 1rem;
+  padding-block-end: 1.5rem;
+}
+
+.listItem:first-of-type {
+  margin-inline-end: 0.5rem;
+}
+
+.listItem:last-of-type {
+  margin-inline-start: 0.5rem;
+}
+
+.listItem:not(:first-of-type):not(:last-of-type) {
+  margin-inline: 0.5rem;
+}
+
+.listItemLink {
+  font-weight: 400;
+}
+
+.listItemLink:hover {
+  text-decoration: underline;
+}
+
+.listItemLinkActive {
+  font-weight: 500;
+}
+
+.listItemLinkActive:hover {
+  text-decoration: none;
+}
+
+.separator {
+  color: theme("colors.ecommerce.500");
+}
+
+:global([dir="rtl"]) .separator {
+  transform: scaleX(-1);
+}

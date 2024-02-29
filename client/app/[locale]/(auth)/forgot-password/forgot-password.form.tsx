@@ -3,7 +3,7 @@
 import { useFormState, useFormStatus } from "react-dom"
 import { Alert } from "@/app/[locale]/_components/Alert"
 import { FieldErrorMessage } from "@/app/[locale]/_components/FieldErrorMessage"
-import { EVariant } from "@/app/[locale]/_lib/definition/enums"
+import { EVariant } from "@/app/[locale]/_core/enums"
 import { sendEmail } from "@/app/[locale]/(auth)/forgot-password/forgot-password.actions"
 import { useTranslation } from "@/app/i18n/client"
 

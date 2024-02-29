@@ -14,19 +14,19 @@ import {
 import { useTranslation } from "@/app/i18n/client"
 import "keen-slider/keen-slider.min.css"
 
-type TItemImageGalleryProps = {
+type TProductImageGalleryProps = {
   locale: TLocale
 }
 
-export function ItemImageGallery({ locale }: TItemImageGalleryProps) {
-  const { t } = useTranslation(locale, "shop")
+export function ProductImageGallery(props: TProductImageGalleryProps) {
+  const { t } = useTranslation(props.locale, "shop")
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-    rtl: dir(locale) === "rtl",
+    rtl: dir(props.locale) === "rtl",
     initial: 0,
   })
   const [thumbnailRef] = useKeenSlider<HTMLDivElement>(
     {
-      rtl: dir(locale) === "rtl",
+      rtl: dir(props.locale) === "rtl",
       initial: 0,
       slides: {
         perView: 4,
@@ -37,7 +37,7 @@ export function ItemImageGallery({ locale }: TItemImageGalleryProps) {
   )
 
   return (
-    <div className="space-y-6">
+    <div className="overflow-hidden space-y-6">
       <div ref={sliderRef} className="keen-slider">
         <div className="keen-slider__slide number-slide1">
           <Image

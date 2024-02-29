@@ -9,7 +9,7 @@ from .serializers import ProductSerializer, ProductCategorySerializer, ProductDi
 # Create your views here.
 class ProductApiView(APIView):
     # Add permission to check if user is authenticated
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, id):
         try:
@@ -27,7 +27,7 @@ class ProductApiView(APIView):
             return success_response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             # List all products
-            products = Product.objects.all()
+            products = Product.objects.all().select_related('category', 'discount', 'inventory')
             serializer = ProductSerializer(products, many=True)
             return success_response(data=serializer.data, status=status.HTTP_200_OK)
 
@@ -78,7 +78,7 @@ class ProductApiView(APIView):
 
 class ProductCategoryApiView(APIView):
     # Add permission to check if user is authenticated
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, id):
         try:
@@ -200,7 +200,7 @@ class ProductDiscountApiView(APIView):
 
 class ProductInventoryApiView(APIView):
     # Add permission to check if user is authenticated
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, id):
         try:

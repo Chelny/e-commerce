@@ -1,8 +1,8 @@
 "use server"
 
 import { email, flatten, minLength, object, type Output, safeParse, string, regex, custom } from "valibot"
-import { NAME_REGEX, PASSWORD_REGEX } from "@/app/[locale]/_lib/constants"
-import { EVariant } from "@/app/[locale]/_lib/definition/enums"
+import { NAME_REGEX, PASSWORD_REGEX } from "@/app/[locale]/_core/constants"
+import { EVariant } from "@/app/[locale]/_core/enums"
 import { POST } from "@/app/[locale]/(auth)/sign-up/api/route"
 
 export async function signUp(_: TFormState, formData: FormData) {

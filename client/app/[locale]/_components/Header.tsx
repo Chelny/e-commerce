@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/app/[locale]/_components/ui/dropdown-menu"
 import { ChangeLocale } from "@/app/[locale]/_components/ChangeLocale"
-import { ROUTE_CART, ROUTE_LOGIN } from "@/app/[locale]/_lib/site-map"
+import { ROUTE_CART, ROUTE_LOGIN } from "@/app/[locale]/_core/site-map"
 import { useTranslation } from "@/app/i18n/client"
 import styles from "./Header.module.css"
 
@@ -21,9 +21,9 @@ type THeaderProps = {
   locale: TLocale
 }
 
-export function Header({ locale }: THeaderProps) {
+export function Header(props: THeaderProps) {
   const pathname = usePathname()
-  const { t } = useTranslation(locale, "common")
+  const { t } = useTranslation(props.locale, "common")
   const { setTheme } = useTheme()
   const [width, setWidth] = useState(0)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -57,15 +57,15 @@ export function Header({ locale }: THeaderProps) {
           <span className="sr-only">{t("app_menu.toggle_menu")}</span>
         </div>
       </div>
-      <h1 className={styles.title}>
+      <div className={styles.title}>
         <Link
-          className={`!text-ecommerce-800 dark:!text-ecommerce-100 ${pathname === `/${locale}` ? "active" : ""}`}
-          href={`/${locale}`}
+          className={`!text-ecommerce-800 dark:!text-ecommerce-100 ${pathname === `/${props.locale}` ? "active" : ""}`}
+          href={`/${props.locale}`}
           locale={false}
         >
           E-Commerce
         </Link>
-      </h1>
+      </div>
       <ul id="menu" className={styles.menu}>
         <li className={styles.menuItem}>
           <FaMagnifyingGlass className={styles.menuItemIcon} aria-label={t("app_menu.search")} />
@@ -73,8 +73,8 @@ export function Header({ locale }: THeaderProps) {
         </li>
         <li className={styles.menuItem}>
           <Link
-            className={`app-menu-link ${pathname === `/${locale}${ROUTE_CART.PATH}` ? "active" : ""}`}
-            href={`/${locale}${ROUTE_CART.PATH}`}
+            className={`app-menu-link ${pathname === `/${props.locale}${ROUTE_CART.PATH}` ? "active" : ""}`}
+            href={`/${props.locale}${ROUTE_CART.PATH}`}
             locale={false}
             aria-label={t(ROUTE_CART.TITLE)}
           >
@@ -84,8 +84,8 @@ export function Header({ locale }: THeaderProps) {
         </li>
         <li className={styles.menuItem}>
           <Link
-            className={`app-menu-link ${pathname === `/${locale}${ROUTE_LOGIN.PATH}` ? "active" : ""}`}
-            href={`/${locale}${ROUTE_LOGIN.PATH}`}
+            className={`app-menu-link ${pathname === `/${props.locale}${ROUTE_LOGIN.PATH}` ? "active" : ""}`}
+            href={`/${props.locale}${ROUTE_LOGIN.PATH}`}
             locale={false}
             aria-label={t(ROUTE_LOGIN.TITLE)}
           >

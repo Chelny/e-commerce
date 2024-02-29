@@ -1,6 +1,6 @@
 import { cookies } from "next/headers"
 import { NextResponse } from "next/server"
-import { SERVER_URL } from "@/app/[locale]/_lib/constants"
+import { SERVER_URL } from "@/app/[locale]/_core/constants"
 import { cookieName, defaultLocale } from "@/app/i18n/settings"
 
 export async function POST<T>(body: T) {

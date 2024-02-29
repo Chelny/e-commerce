@@ -1,3 +1,3 @@
-export default function ShopLayout({ children, params }: { children: React.ReactNode; params: { locale: TLocale } }) {
-  return <div className="flex flex-col h-full p-4">{children}</div>
+export default function ShopLayout(props: TLayout) {
+  return <div className="flex flex-col h-full p-4">{props.children}</div>
 }

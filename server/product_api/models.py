@@ -10,6 +10,7 @@ class ProductCategory(models.Model):
         return self.name
 
 class Product(models.Model):
+    id = models.AutoField(primary_key=True)
     brand = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -25,7 +26,8 @@ class Product(models.Model):
         return f"{self.brand} {self.name} ({self.sku})"
 
 class ProductDiscount(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='discounts', default=None)
+    id = models.AutoField(primary_key=True)
+    product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name='discount')
     name = models.CharField(max_length=100)
     description = models.TextField()
     discount_percent = models.DecimalField(max_digits=3, decimal_places=2, default=0.10)
@@ -37,7 +39,8 @@ class ProductDiscount(models.Model):
         return self.name
 
 class ProductInventory(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='inventories', default=None)
+    id = models.AutoField(primary_key=True)
+    product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name='inventory')
     quantity = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

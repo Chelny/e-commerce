@@ -1,44 +1,67 @@
 import Link from "next/link"
 import { FaShare, FaRegStar, FaStar, FaStarHalfStroke } from "react-icons/fa6"
-import { useTranslation } from "@/app/i18n"
 import { Cart } from "@/app/[locale]/_components/Cart"
-import { ItemCarousel } from "@/app/[locale]/_components/ItemCarousel"
-import { ItemImageGallery } from "@/app/[locale]/_components/ItemImageGallery"
-import ItemGrid from "@/app/[locale]/_components/ItemsGrid"
-import { dir } from "i18next"
+import { Currency } from "@/app/[locale]/_components/Currency"
+import { ProductCarousel } from "@/app/[locale]/_components/ProductCarousel"
+import { ProductImageGallery } from "@/app/[locale]/_components/ProductImageGallery"
+import ProductGrid from "@/app/[locale]/_components/ProductsGrid"
+import { Product, calculateReducedPrice } from "@/app/[locale]/_core"
+import { GET } from "@/app/[locale]/(shop)/shop/api/route"
+import { useTranslation } from "@/app/i18n"
+
+const fetchProduct = async (id: number): Promise<TApiResponse<Product>> => {
+  const response = await GET(id)
+  return response.json()
+}
+
+const fetchProducts = async (): Promise<TApiResponse<Product[]>> => {
+  const response = await GET()
+  return response.json()
+}
 
 export default async function ShopPage(props: TPage) {
   const { t } = await useTranslation(props.params.locale, "shop")
 
   /**************************************************
    *
-   * Item Details
+   * Product Details
    *
    **************************************************/
 
-  if (props.searchParams.item) {
-    // TODO: Move logic to client component
-    // const handleSize = () => {
-    //   console.log("handleSize")
-    // }
+  if (props.searchParams.product) {
+    const productJson = await fetchProduct(+props.searchParams.product)
+    const product = productJson.data
+
+    const relatedProductsJson = await fetchProducts()
+    const relatedProducts = relatedProductsJson.data
 
     return (
       <>
         <div className="flex flex-col space-y-16">
-          <div className="grid md:grid-cols-[25rem_2fr_1.5fr] md:space-x-8 rtl:md:space-x-reverse space-y-8 md:space-y-0">
-            <div>
-              <ItemImageGallery locale={props.params.locale} />
-            </div>
+          <div className="grid md:grid-cols-[25rem_2fr_1.75fr] md:space-x-8 rtl:md:space-x-reverse space-y-8 md:space-y-0">
+            <ProductImageGallery locale={props.params.locale} />
             <div>
               <div className="flex justify-between items-center space-x-2 rtl:space-x-reverse">
-                <h1>item name</h1>
+                <h1>{product.name}</h1>
                 <button className="link-button" type="button">
                   <FaShare />
                 </button>
               </div>
               <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                <h2>$59.00</h2>
-                <span className="text-ecommerce-500 line-through">$129.98</span>
+                <span className="text-2xl">
+                  <Currency
+                    locale={props.params.locale}
+                    value={calculateReducedPrice(
+                      product.price,
+                      product.discount && product.discount.active ? product.discount.discount_percent : 0
+                    )}
+                  />
+                </span>{" "}
+                {product.discount && product.discount.active && (
+                  <span className="text-ecommerce-500 line-through">
+                    <Currency locale={props.params.locale} value={product.price} />
+                  </span>
+                )}
               </div>
               <div className="flex justify-between">
                 <div className="flex items-center space-x-2 rtl:space-x-reverse">
@@ -57,30 +80,22 @@ export default async function ShopPage(props: TPage) {
               </div>
               <hr />
               <h3>{t("shop:item.description")}</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe esse aliquam deserunt et quaerat tempora
-                ipsa! Nobis dolores voluptatibus laudantium ab excepturi nesciunt, libero amet adipisci enim impedit
-                laboriosam fugiat! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem error vitae
-                incidunt minima, vero cupiditate ea asperiores rerum porro recusandae mollitia ipsam id ut quidem
-                aliquam consequuntur inventore quibusdam eveniet?
-              </p>
-              <br />
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe esse aliquam deserunt et quaerat tempora
-                ipsa! Nobis dolores voluptatibus laudantium ab excepturi nesciunt, libero amet adipisci enim impedit
-                laboriosam fugiat! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem error vitae
-                incidunt minima, vero cupiditate ea asperiores rerum porro recusandae mollitia ipsam id ut quidem
-                aliquam consequuntur inventore quibusdam eveniet?
-              </p>
+              <p>{product.description}</p>
             </div>
-            <Cart locale={props.params.locale} />
+            <Cart locale={props.params.locale} product={product} />
           </div>
+
           <hr />
+
+          {/* RECOMMENDATIONS */}
           <section>
             <h2>{t("shop:recommendations")}</h2>
-            <ItemCarousel locale={props.params.locale} />
+            <ProductCarousel locale={props.params.locale} products={relatedProducts} />
           </section>
+
           <hr />
+
+          {/* REVIEWS */}
           <section>
             <h2 id="reviews">{t("shop:reviews")}</h2>
             <div className="grid md:grid-cols-[1fr_3fr] md:space-x-16 rtl:md:space-x-reverse space-y-8 md:space-y-0">
@@ -141,7 +156,7 @@ export default async function ShopPage(props: TPage) {
               </div>
               <div>
                 <div>
-                  <div>picture and name</div>
+                  <div>name</div>
                   <div>rating and title</div>
                   <div>comment</div>
                 </div>
@@ -155,9 +170,12 @@ export default async function ShopPage(props: TPage) {
 
   /**************************************************
    *
-   * Items List
+   * Products List
    *
    **************************************************/
 
-  return <ItemGrid locale={props.params.locale} />
+  const productsJson = await fetchProducts()
+  const products = productsJson.data
+
+  return <ProductGrid locale={props.params.locale} products={products} />
 }
