@@ -8,13 +8,9 @@ import { EVariant, ROUTE_FORGOT_PASSWORD, ROUTE_SIGN_UP } from "@/app/[locale]/_
 import { login } from "@/app/[locale]/(auth)/login/login.actions"
 import { useTranslation } from "@/app/i18n/client"
 
-const initialState = {
-  message: "",
-}
-
 export function LoginForm(props: TForm) {
-  const { t } = useTranslation(props.page.params.locale, ["form"])
-  const [state, formAction] = useFormState(login, initialState)
+  const { t } = useTranslation(props.page.params.locale, "form")
+  const [state, formAction] = useFormState(login, undefined)
   const { pending } = useFormStatus()
 
   return (

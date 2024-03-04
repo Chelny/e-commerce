@@ -11,13 +11,9 @@ import { useToast } from "@/app/[locale]/_providers/toast-provider"
 import { resetPassword } from "@/app/[locale]/(auth)/reset-password/reset-password.actions"
 import { useTranslation } from "@/app/i18n/client"
 
-const initialState = {
-  message: "",
-}
-
 export function ResetPasswordForm(props: TForm) {
-  const { t } = useTranslation(props.page.params.locale, ["form"])
-  const [state, formAction] = useFormState(resetPassword, initialState)
+  const { t } = useTranslation(props.page.params.locale, "form")
+  const [state, formAction] = useFormState(resetPassword, undefined)
   const [token, setToken] = useState(props.page?.searchParams.token)
   const { pending } = useFormStatus()
   const { showToast } = useToast()

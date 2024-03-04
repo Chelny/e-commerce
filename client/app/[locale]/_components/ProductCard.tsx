@@ -4,13 +4,13 @@ import { Suspense, useState } from "react"
 import { useRouter } from "next/navigation"
 import { FaHeart, FaRegHeart } from "react-icons/fa6"
 import { Currency } from "@/app/[locale]/_components/Currency"
-import { Product, ROUTE_SHOP, calculateReducedPrice } from "@/app/[locale]/_core"
+import { IProduct, ROUTE_SHOP, calculateReducedPrice } from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n/client"
 import styles from "./ProductCard.module.css"
 
 type TProductCardProps = {
   locale: TLocale
-  product: Product
+  product: IProduct
 }
 
 export function ProductCard(props: TProductCardProps) {

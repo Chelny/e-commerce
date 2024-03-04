@@ -2,6 +2,10 @@ import XRegExp from "xregexp"
 
 export const SERVER_URL = "http://localhost:8000/api"
 
+export const PRODUCT_REVIEW_MAX_TITLE_CHARS = 50
+
+export const PRODUCT_REVIEW_MAX_COMMENT_CHARS = 500
+
 export const INVENTORY_WARNING_COUNT = 10
 
 export const LOCALE_REGEX = /[a-z]{2}-[A-Z]{2}/
@@ -62,3 +66,5 @@ export const POSTAL_CODE_US_REGEX = /^(?!0{5})(\d{5})(?!-?0{4})(|-\d{1,4})?$/
  * Source: https://stackoverflow.com/a/12019115
  */
 export const USERNAME_REGEX = /^(?=[a-zA-Z0-9._]{5,16})(?!.*[_.]{2})[^_.].*[^_.]$/
+
+export const RATING_REGEX = /[1-5]/

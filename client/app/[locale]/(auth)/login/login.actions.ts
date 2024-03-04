@@ -3,8 +3,7 @@
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { flatten, minLength, object, type Output, safeParse, string, regex, EMAIL_REGEX } from "valibot"
-import { EVariant } from "@/app/[locale]/_core/enums"
-import { ROUTE_HOME } from "@/app/[locale]/_core/site-map"
+import { EVariant, ROUTE_HOME } from "@/app/[locale]/_core"
 import { POST } from "@/app/[locale]/(auth)/login/api/route"
 
 export async function login(_: TFormState, formData: FormData) {
@@ -42,7 +41,7 @@ export async function login(_: TFormState, formData: FormData) {
     }
   }
 
-  cookieStore.set("accessToken", data.access_token, { maxAge: 7200, httpOnly: true })
-  cookieStore.set("refreshToken", data.refresh_token, { maxAge: 2592000, httpOnly: true })
+  cookieStore.set("accessToken", data.data.access_token, { maxAge: 7200, httpOnly: true })
+  cookieStore.set("refreshToken", data.data.refresh_token, { maxAge: 2592000, httpOnly: true })
   redirect(ROUTE_HOME.PATH)
 }

@@ -1,26 +1,26 @@
-import { NextRequest, NextResponse } from 'next/server'
-import acceptLanguage from 'accept-language'
-import { cookieName, defaultLocale, supportedLocales } from '@/app/i18n/settings'
-// import { isAuthenticated } from '@lib/authentication'
+import { NextRequest, NextResponse } from "next/server"
+import acceptLanguage from "accept-language"
+import { cookieName, defaultLocale, supportedLocales } from "@/app/i18n/settings"
+// import { isAuthenticated } from "@lib/authentication"
 
 acceptLanguage.languages(supportedLocales)
 
 export function middleware(request: NextRequest) {
   let locale
   if (request.cookies.has(cookieName)) locale = acceptLanguage.get(request.cookies.get(cookieName)?.value)
-  if (!locale) locale = acceptLanguage.get(request.headers.get('Accept-Language'))
+  if (!locale) locale = acceptLanguage.get(request.headers.get("Accept-Language"))
   if (!locale) locale = defaultLocale
 
   // Redirect if locale in path is not supported
   if (
     !supportedLocales.some((locale: TLocale) => request.nextUrl.pathname.startsWith(`/${locale}`)) &&
-    !request.nextUrl.pathname.startsWith('/_next')
+    !request.nextUrl.pathname.startsWith("/_next")
   ) {
     return NextResponse.redirect(new URL(`/${locale}${request.nextUrl.pathname}`, request.url))
   }
 
-  if (request.headers.has('referer')) {
-    const referer = request.headers.get('referer')
+  if (request.headers.has("referer")) {
+    const referer = request.headers.get("referer")
     let localeInReferer
 
     if (referer) {
@@ -37,7 +37,7 @@ export function middleware(request: NextRequest) {
   // if (!isAuthenticated(request)) {
   //   // Respond with JSON indicating an error message
   //   return NextResponse.json(
-  //     { success: false, message: 'Authentication failed' },
+  //     { success: false, message: "Authentication failed" },
   //     { status: 401 }
   //   )
   // }
@@ -56,7 +56,7 @@ export const config = {
      * - favicon.ico (favicon file)
      * - manifest.webmanifest (manifest file)
      */
-    '/((?!api|_next/static|_next/image|assets|favicon.ico|manifest.webmanifest).*)',
-    { source: '/' },
+    "/((?!api|_next/static|_next/image|assets|favicon.ico|manifest.webmanifest).*)",
+    { source: "/" },
   ],
 }

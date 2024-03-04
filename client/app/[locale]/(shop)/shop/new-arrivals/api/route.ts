@@ -1,19 +1,6 @@
-import { cookies } from "next/headers"
-import { NextResponse } from "next/server"
-import { SERVER_URL } from "@/app/[locale]/_core/constants"
-import { cookieName, defaultLocale } from "@/app/i18n/settings"
+import { EProductFilterType } from "@/app/[locale]/_core"
+import { fetchData } from "@/app/[locale]/api/fetch"
 
-export async function GET() {
-  const cookiesList = cookies()
-  const acceptLanguage = cookiesList.get(cookieName)?.value ?? defaultLocale
-  const response = await fetch(`${SERVER_URL}/products/`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept-Language": acceptLanguage,
-    },
-  })
-  const data = await response.json()
-
-  return NextResponse.json(data, { status: response.status })
+export async function GET_PRODUCTS(page: number = 1) {
+  return fetchData(`products/?filter=${EProductFilterType.NEW_ARRIVALS}&page=${page}`)
 }

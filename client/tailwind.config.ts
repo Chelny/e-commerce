@@ -72,7 +72,7 @@ const config: Config = {
         },
       },
       transitionProperty: {
-        'toast': 'bottom, opacity',
+        "toast": "bottom, opacity",
       },
       keyframes: {
         "accordion-down": {

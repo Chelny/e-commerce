@@ -2,8 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 import { flatten, minLength, object, type Output, safeParse, string, regex, EMAIL_REGEX } from "valibot"
-import { EVariant } from "@/app/[locale]/_core/enums"
-import { ROUTE_FORGOT_PASSWORD } from "@/app/[locale]/_core/site-map"
+import { EVariant, ROUTE_FORGOT_PASSWORD } from "@/app/[locale]/_core"
 import { POST } from "@/app/[locale]/(auth)/forgot-password/api/route"
 
 export async function sendEmail(_: TFormState, formData: FormData) {

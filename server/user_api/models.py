@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 from django.db import models
 from django.utils import timezone
-from product_api.models import Product
 
 # Create your models here.
 class CustomUserManager(BaseUserManager):
@@ -24,7 +23,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    gender = models.CharField(max_length=10, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')], null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=[('M', 'Male'), ('F', 'Female'), ('X', 'Other')], null=True, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
@@ -86,19 +85,6 @@ class ShoppingSession(models.Model):
 
     def __str__(self):
         return f"{self.total}"
-
-class CartItem(models.Model):
-    id = models.AutoField(primary_key=True)
-    session = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True, related_name='products')
-    quantity = models.IntegerField(default=0)
-
-    # Timestamps
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.quantity}"
 
 class UserPayment(models.Model):
     id = models.AutoField(primary_key=True)

@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/app/[locale]/_components/ui/dropdown-menu"
 import { ChangeLocale } from "@/app/[locale]/_components/ChangeLocale"
-import { ROUTE_CART, ROUTE_LOGIN } from "@/app/[locale]/_core/site-map"
+import { ROUTE_CART, ROUTE_LOGIN } from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n/client"
 import styles from "./Header.module.css"
 

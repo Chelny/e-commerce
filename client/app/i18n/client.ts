@@ -6,7 +6,7 @@ import LanguageDetector from "i18next-browser-languagedetector"
 import resourcesToBackend from "i18next-resources-to-backend"
 import { useCookies } from "react-cookie"
 import { initReactI18next, useTranslation as useTranslationOrg } from "react-i18next"
-import { ROUTE_HOME } from "@/app/[locale]/_core/site-map"
+import { ROUTE_HOME } from "@/app/[locale]/_core"
 import { cookieName, getOptions, supportedLocales } from "./settings"
 
 const runsOnServerSide = typeof window === "undefined"

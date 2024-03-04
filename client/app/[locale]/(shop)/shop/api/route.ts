@@ -1,23 +1,21 @@
-import { cookies } from "next/headers"
-import { NextResponse } from "next/server"
-import { SERVER_URL } from "@/app/[locale]/_core/constants"
-import { cookieName, defaultLocale } from "@/app/i18n/settings"
+import { EApiMethod } from "@/app/[locale]/_core"
+import { fetchData } from "@/app/[locale]/api/fetch"
 
 export async function GET(id?: number) {
-  const cookiesList = cookies()
-  const acceptLanguage = cookiesList.get(cookieName)?.value ?? defaultLocale
+  let endpoint = "products"
+  if (id) endpoint += `/${id}`
+  return fetchData(endpoint)
+}
 
-  let endpoint = "products/"
-  if (id) endpoint += `${id}/`
+export async function GET_PRODUCT_RATING(id: number) {
+  return fetchData(`products/reviews-by-product-id/${id}`)
+}
 
-  const response = await fetch(`${SERVER_URL}/${endpoint}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept-Language": acceptLanguage,
-    },
-  })
-  const data = await response.json()
+// TODO: Get product reviews by product ID
+// export async function POST_PRODUCT_REVIEWS() {
+//   return fetchData("products/reviews")
+// }
 
-  return NextResponse.json(data, { status: response.status })
+export async function POST_PRODUCT_REVIEW<T>(body: T) {
+  return fetchData("products/reviews", { method: EApiMethod.POST, body: JSON.stringify(body) })
 }

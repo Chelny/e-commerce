@@ -1,19 +1,29 @@
 import Link from "next/link"
 import { BannerCarousel } from "@/app/[locale]/_components/BannerCarousel"
 import { ProductCarousel } from "@/app/[locale]/_components/ProductCarousel"
-import { Product, ROUTE_NEW_ARRIVALS, ROUTE_POPULAR, ROUTE_SALE } from "@/app/[locale]/_core"
-import { GET } from "@/app/[locale]/api/route"
+import {
+  EProductFilterType,
+  IProductsApiResponse,
+  ROUTE_NEW_ARRIVALS,
+  ROUTE_POPULAR,
+  ROUTE_SALE,
+} from "@/app/[locale]/_core"
+import { GET_PRODUCTS } from "@/app/[locale]/api/route"
 import { useTranslation } from "@/app/i18n"
 
-const fetchProducts = async (): Promise<TApiResponse<Product[]>> => {
-  const response = await GET()
+const fetchProducts = async (filter: string): Promise<TApiResponse<IProductsApiResponse>> => {
+  const response = await GET_PRODUCTS(filter)
   return response.json()
 }
 
 export default async function HomePage(props: TPage) {
   const { t } = await useTranslation(props.params.locale, ["common", "shop"])
-  const json = await fetchProducts()
-  const products = json.data
+  const jsonNewArrivals = await fetchProducts(EProductFilterType.NEW_ARRIVALS)
+  const productsNewArrivals = jsonNewArrivals.data.products
+  // const jsonPopular = await fetchProducts(EProductFilterType.POPULAR)
+  // const productsPopular = jsonPopular.data.products
+  const jsonSales = await fetchProducts(EProductFilterType.SALES)
+  const productsSales = jsonSales.data.products
 
   return (
     <>
@@ -30,9 +40,10 @@ export default async function HomePage(props: TPage) {
               {t("button.view_all")}
             </Link>
           </div>
-          <ProductCarousel locale={props.params.locale} products={products} />
+          <ProductCarousel locale={props.params.locale} products={productsNewArrivals} />
         </section>
-        <section>
+        {/* FIXME: Fix popular logic in back-end */}
+        {/* <section>
           <div className="flex justify-between align-center mb-6">
             <h2 className="text-xl uppercase">{t(ROUTE_POPULAR.TITLE)}</h2>
             <Link
@@ -43,8 +54,8 @@ export default async function HomePage(props: TPage) {
               {t("button.view_all")}
             </Link>
           </div>
-          <ProductCarousel locale={props.params.locale} products={products} />
-        </section>
+          <ProductCarousel locale={props.params.locale} products={productsPopular} />
+        </section> */}
         <section>
           <div className="flex justify-between align-center mb-6">
             <h2 className="text-xl uppercase">{t(ROUTE_SALE.TITLE)}</h2>
@@ -52,7 +63,7 @@ export default async function HomePage(props: TPage) {
               {t("button.view_all")}
             </Link>
           </div>
-          <ProductCarousel locale={props.params.locale} products={products} />
+          <ProductCarousel locale={props.params.locale} products={productsSales} />
         </section>
       </div>
     </>

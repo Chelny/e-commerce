@@ -11,13 +11,9 @@ import { useToast } from "@/app/[locale]/_providers/toast-provider"
 import { signUp } from "@/app/[locale]/(auth)/sign-up/sign-up.actions"
 import { useTranslation } from "@/app/i18n/client"
 
-const initialState = {
-  message: "",
-}
-
 export function SignUpForm(props: TForm) {
-  const { t } = useTranslation(props.page.params.locale, ["form"])
-  const [state, formAction] = useFormState(signUp, initialState)
+  const { t } = useTranslation(props.page.params.locale, "form")
+  const [state, formAction] = useFormState(signUp, undefined)
   const { pending } = useFormStatus()
   const { showToast } = useToast()
 
@@ -82,7 +78,7 @@ export function SignUpForm(props: TForm) {
         </div>
         <div className="flex space-x-2 rtl:space-x-reverse">
           <label className="radio-button" htmlFor="genderOther">
-            <input type="radio" id="genderOther" name="gender" value="O" />
+            <input type="radio" id="genderOther" name="gender" value="X" />
             {t("label.gender_other")}
             <span
               className={`${state?.data?.errors?.gender || state?.status === EVariant.ERROR ? "invalid" : ""}`}

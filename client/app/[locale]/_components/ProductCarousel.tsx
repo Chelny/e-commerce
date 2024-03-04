@@ -5,16 +5,16 @@ import { dir } from "i18next"
 import { KeenSliderPlugin, useKeenSlider } from "keen-slider/react"
 import { ProductCard } from "@/app/[locale]/_components/ProductCard"
 import ProductCarouselSkeleton from "@/app/[locale]/_components/ProductCarousel.skeleton"
-import { Product } from "@/app/[locale]/_core"
+import { IProduct } from "@/app/[locale]/_core"
 import "keen-slider/keen-slider.min.css"
 
 type TProductCarouselProps = {
   locale: TLocale
-  products: Product[]
+  products: IProduct[]
 }
 
 export function ProductCarousel(props: TProductCarouselProps) {
-  const [products] = useState<Product[]>(props.products)
+  const [products] = useState<IProduct[]>(props.products)
   const [currentSlide, setCurrentSlide] = useState<number>(0)
   const [loaded, setLoaded] = useState<boolean>(false)
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
@@ -71,7 +71,7 @@ export function ProductCarousel(props: TProductCarouselProps) {
 
       <div className="keen-slider pb-2" ref={sliderRef}>
         <Suspense fallback={<ProductCarouselSkeleton />}>
-          {products.map((product: Product) => (
+          {products.map((product: IProduct) => (
             <div key={product.id} className="keen-slider__slide">
               <ProductCard locale={props.locale} product={product} />
             </div>

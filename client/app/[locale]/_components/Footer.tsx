@@ -12,7 +12,7 @@ import {
   ROUTE_SHIPPING,
   ROUTE_TEAM,
   ROUTE_TERMS_OF_SERVICE,
-} from "@/app/[locale]/_core/site-map"
+} from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n/client"
 
 type TFooterProps = {

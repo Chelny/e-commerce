@@ -1,12 +1,12 @@
 "use client"
 
 import { ChangeEvent, useState } from "react"
-import { INVENTORY_WARNING_COUNT, Product } from "@/app/[locale]/_core"
+import { INVENTORY_WARNING_COUNT, IProduct } from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n/client"
 
 type TCartProps = {
   locale: TLocale
-  product: Product
+  product: IProduct
 }
 
 export function Cart(props: TCartProps) {
@@ -23,10 +23,10 @@ export function Cart(props: TCartProps) {
 
   return (
     <div className="flex flex-col md:space-y-4">
-      <div>deliver to address: 111 main street</div>
+      <div>{t("shop:cart.ship_to")} 111 main street</div>
       {props.product.inventory.quantity <= INVENTORY_WARNING_COUNT && (
         <div className="text-red-500">
-          {t("cart.in_stock")} <span>{props.product.inventory.quantity}</span>
+          {t("shop:cart.in_stock")} <span>{props.product.inventory.quantity}</span>
         </div>
       )}
       <input

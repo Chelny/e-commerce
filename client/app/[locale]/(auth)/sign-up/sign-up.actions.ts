@@ -1,8 +1,7 @@
 "use server"
 
 import { email, flatten, minLength, object, type Output, safeParse, string, regex, custom } from "valibot"
-import { NAME_REGEX, PASSWORD_REGEX } from "@/app/[locale]/_core/constants"
-import { EVariant } from "@/app/[locale]/_core/enums"
+import { EVariant, NAME_REGEX, PASSWORD_REGEX } from "@/app/[locale]/_core"
 import { POST } from "@/app/[locale]/(auth)/sign-up/api/route"
 
 export async function signUp(_: TFormState, formData: FormData) {
@@ -42,7 +41,7 @@ export async function signUp(_: TFormState, formData: FormData) {
 
   if (!result.success) {
     return {
-      message: "Invalid field(s)",
+      message: "Invalid fields",
       data: {
         errors: flatten(result.issues).nested,
       },

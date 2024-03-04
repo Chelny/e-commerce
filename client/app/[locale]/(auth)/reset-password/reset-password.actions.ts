@@ -1,8 +1,7 @@
 "use server"
 
 import { flatten, minLength, object, type Output, safeParse, string, regex, EMAIL_REGEX, custom } from "valibot"
-import { PASSWORD_REGEX } from "@/app/[locale]/_core/constants"
-import { EVariant } from "@/app/[locale]/_core/enums"
+import { EVariant, PASSWORD_REGEX } from "@/app/[locale]/_core"
 import { POST } from "@/app/[locale]/(auth)/reset-password/api/route"
 
 export async function resetPassword(_: TFormState, formData: FormData) {

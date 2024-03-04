@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+from user_api.models import CustomUser
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=100)
@@ -36,7 +38,7 @@ class ProductDiscount(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} {self.discount_percent} (active: {self.active})"
 
 class ProductInventory(models.Model):
     id = models.AutoField(primary_key=True)
@@ -46,4 +48,17 @@ class ProductInventory(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.quantity)
+        return f"{self.product.name} {self.quantity}"
+
+class ProductReview(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='reviews')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    rating = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(5)])
+    title = models.CharField(max_length=100)
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.product.name} {self.rating} {self.title} {self.comment}"

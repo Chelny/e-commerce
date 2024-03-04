@@ -11,7 +11,10 @@
     "stars_one": "{{count}} star",
     "stars_other": "{{count}} stars"
   },
-  "in_stock": "In stock:",
+  "cart": {
+    "ship_to": "Ship to:",
+    "in_stock": "In stock:"
+  },
   "recommendations": "Recommendations",
   "reviews": "Reviews",
   "no_items_found": "No items found",

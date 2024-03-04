@@ -3,17 +3,13 @@
 import { useFormState, useFormStatus } from "react-dom"
 import { Alert } from "@/app/[locale]/_components/Alert"
 import { FieldErrorMessage } from "@/app/[locale]/_components/FieldErrorMessage"
-import { EVariant } from "@/app/[locale]/_core/enums"
+import { EVariant } from "@/app/[locale]/_core"
 import { sendEmail } from "@/app/[locale]/(auth)/forgot-password/forgot-password.actions"
 import { useTranslation } from "@/app/i18n/client"
 
-const initialState = {
-  message: "",
-}
-
 export function ForgotPasswordForm(props: TForm) {
-  const { t } = useTranslation(props.page.params.locale, ["form"])
-  const [state, formAction] = useFormState(sendEmail, initialState)
+  const { t } = useTranslation(props.page.params.locale, "form")
+  const [state, formAction] = useFormState(sendEmail, undefined)
   const { pending } = useFormStatus()
 
   return (

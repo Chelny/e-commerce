@@ -9,10 +9,11 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
   }, [error])
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center gap-4 h-full p-4">
       <h1>Something went wrong!</h1>
       <button
         type="button"
+        className="primary-action"
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()

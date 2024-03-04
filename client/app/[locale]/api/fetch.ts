@@ -1,17 +1,22 @@
 import { cookies } from "next/headers"
 import { NextResponse } from "next/server"
-import { SERVER_URL } from "@/app/[locale]/_core/constants"
+import { EApiMethod, SERVER_URL } from "@/app/[locale]/_core"
 import { cookieName, defaultLocale } from "@/app/i18n/settings"
 
-export async function GET() {
+export async function fetchData<T>(
+  endpoint: string,
+  request: RequestInit = { method: EApiMethod.GET } as RequestInit
+): Promise<NextResponse<T>> {
   const cookiesList = cookies()
   const acceptLanguage = cookiesList.get(cookieName)?.value ?? defaultLocale
-  const response = await fetch(`${SERVER_URL}/products/`, {
-    method: "GET",
+  const response = await fetch(`${SERVER_URL}/${endpoint}/`, {
+    method: request.method,
     headers: {
       "Content-Type": "application/json",
       "Accept-Language": acceptLanguage,
+      ...request.headers,
     },
+    body: request.body,
   })
   const data = await response.json()
 

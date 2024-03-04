@@ -1,0 +1,15 @@
+.starRating {
+  display: flex;
+  align-items: center;
+}
+
+.star svg {
+  width: 2rem;
+  height: 2rem;
+  stroke-width: 0;
+}
+
+.star.invalid svg {
+  stroke: var(--destructive);
+  stroke-width: 30;
+}

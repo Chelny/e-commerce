@@ -11,7 +11,10 @@
     "stars_one": "{{count}} étoile",
     "stars_other": "{{count}} étoiles"
   },
-  "in_stock": "En stock :",
+  "cart": {
+    "ship_to": "Expédier à :",
+    "in_stock": "En stock :"
+  },
   "recommendations": "Recommendations",
   "reviews": "Avis",
   "no_items_found": "Aucun article trouvé",
