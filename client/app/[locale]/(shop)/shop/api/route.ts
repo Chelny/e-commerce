@@ -1,10 +1,15 @@
-import { EApiMethod } from "@/app/[locale]/_core"
+"use server"
+
+import { EApiMethod, EProductFilterType } from "@/app/[locale]/_core"
 import { fetchData } from "@/app/[locale]/api/fetch"
 
-export async function GET(id?: number) {
-  let endpoint = "products"
-  if (id) endpoint += `/${id}`
-  return fetchData(endpoint)
+export async function GET_PRODUCTS(filter: EProductFilterType = EProductFilterType.NEW_ARRIVALS, page: number = 1) {
+  const response = await fetchData(`products/?filter=${filter}&page=${page}`)
+  return response.json()
+}
+
+export async function GET_PRODUCT(id: number) {
+  return fetchData(`products/${id}`)
 }
 
 export async function GET_PRODUCT_RATING(id: number) {

@@ -1,15 +1,14 @@
 import ProductGrid from "@/app/[locale]/_components/ProductsGrid"
-import { IProductsApiResponse } from "@/app/[locale]/_core"
-import { GET_PRODUCTS } from "@/app/[locale]/(shop)/shop/sales/api/route"
+import { EProductFilterType, IProductsApiResponse } from "@/app/[locale]/_core"
+import { GET_PRODUCTS } from "@/app/[locale]/(shop)/shop/api/route"
 
 const fetchProducts = async (): Promise<TApiResponse<IProductsApiResponse>> => {
-  const response = await GET_PRODUCTS()
-  return response.json()
+  return await GET_PRODUCTS(EProductFilterType.SALES)
 }
 
 export default async function SalePage(props: TPage) {
-  const json = await fetchProducts()
-  const products = json.data.products
+  const { data } = await fetchProducts()
+  const { products } = data
 
-  return <ProductGrid locale={props.params.locale} products={products} />
+  return <ProductGrid locale={props.params.locale} initialProducts={products} filter={EProductFilterType.SALES} />
 }

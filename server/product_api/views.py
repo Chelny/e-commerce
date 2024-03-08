@@ -29,10 +29,6 @@ class ProductApiView(APIView):
             return None
 
     def get(self, request, id=None, *args, **kwargs):
-        filter_param = request.query_params.get('filter', None)
-        page_param = request.query_params.get('page', 1)
-        per_page = 20
-
         if id is not None:
             # Retrieve a specific product
             product = self.get_object(id)
@@ -43,6 +39,10 @@ class ProductApiView(APIView):
             serializer = ProductSerializer(product)
             return success_response(data=serializer.data, status=status.HTTP_200_OK)
         else:
+            filter_param = request.query_params.get('filter', None)
+            page_param = request.query_params.get('page', 1).replace('/', '')
+            per_page = 20
+
             # List all products (with filtering)
             if filter_param == 'popular': # FIXME: Logic
                 products_queryset = Product.objects.annotate(total_orders=Sum('orders__quantity')).order_by('-total_orders')
@@ -51,26 +51,29 @@ class ProductApiView(APIView):
             else:
                 products_queryset = Product.objects.all().order_by('-created_at')
 
-            reviews_prefetch = Prefetch('reviews', queryset=ProductReview.objects.all())
-            products_queryset = products_queryset.prefetch_related(reviews_prefetch)
-
             paginator = Paginator(products_queryset, per_page)
 
             try:
-                products_page = paginator.page(page_param)
+                products = paginator.page(page_param)
             except PageNotAnInteger:
-                products_page = paginator.page(1)
+                products = paginator.page(1)
             except EmptyPage:
-                raise Http404('No more pages available')
+                data = {
+                    'products': [],
+                    'total_count': 0,
+                    'total_pages': paginator.num_pages,
+                    'current_page': int(page_param),
+                }
 
-            serializer_page = ProductSerializer(products_page, many=True)
+                return success_response(data=data, status=status.HTTP_200_OK)
 
-            # Return the paginated response
+            serializer = ProductSerializer(products, many=True)
+
             data = {
-                'products': serializer_page.data,
-                'total_count': len(serializer_page.data),
+                'products': serializer.data,
+                'total_count': len(serializer.data),
                 'total_pages': paginator.num_pages,
-                'current_page': products_page.number,
+                'current_page': products.number,
             }
 
             return success_response(data=data, status=status.HTTP_200_OK)

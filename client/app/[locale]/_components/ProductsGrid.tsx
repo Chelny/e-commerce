@@ -1,99 +1,53 @@
 "use client"
 
+import { useState, useEffect, Suspense } from "react"
+import { useInView } from "react-intersection-observer"
 import { ProductCard } from "@/app/[locale]/_components/ProductCard"
-import { IProduct } from "@/app/[locale]/_core"
-import { useTranslation } from "@/app/i18n/client"
+import ProductCardSkeleton from "@/app/[locale]/_components/ProductCard.skeleton"
+import { EProductFilterType, IProduct } from "@/app/[locale]/_core"
+import { GET_PRODUCTS } from "@/app/[locale]/(shop)/shop/api/route"
 
 type TProductGridProps = {
   locale: TLocale
-  products: IProduct[]
+  initialProducts: IProduct[]
+  filter?: EProductFilterType
 }
 
 export default function ProductGrid(props: TProductGridProps) {
-  const { t } = useTranslation(props.locale, "shop")
+  const [products, setProducts] = useState<IProduct[]>(props.initialProducts)
+  const [isLastPage, setIsLastPage] = useState<boolean>(false)
+  const [page, setPage] = useState<number>(1)
+  const { ref, inView } = useInView()
+
+  const loadMoreUsers = async () => {
+    const nextPage = page + 1
+    const { data } = await GET_PRODUCTS(props.filter, nextPage)
+    const { products: nextProducts, total_pages, current_page } = data
+
+    setProducts([...products, ...nextProducts])
+    setPage(nextPage)
+
+    if (current_page >= total_pages) {
+      setIsLastPage(true)
+    }
+  }
+
+  useEffect(() => {
+    if (inView && !isLastPage) {
+      loadMoreUsers()
+    }
+  }, [inView])
 
   return (
-    <div className="grid">
-      <div className="flex flex-wrap justify-evenly gap-2">
-        {props.products.map((product: IProduct) => (
-          <ProductCard key={product.id} locale={props.locale} product={product} />
+    <>
+      <div className="md:flex md:flex-wrap md:justify-evenly md:gap-2">
+        {products.map((product: IProduct) => (
+          <Suspense key={product.id} fallback={<ProductCardSkeleton />}>
+            <ProductCard locale={props.locale} product={product} />
+          </Suspense>
         ))}
       </div>
-      {/* <p className="justify-self-center my-16">{t("shop:no_items_found")}</p> */}
-      <p className="justify-self-center my-16">{t("shop:no_more_items")}</p>
-    </div>
+      {!isLastPage && <div id="infiniteScroll" ref={ref}></div>}
+    </>
   )
 }
-
-// import { useState, useRef, useEffect } from "react"
-// import { ProductCard } from "@/app/[locale]/_components/ProductCard"
-// import { IProduct } from "@/app/[locale]/_core"
-// import { useTranslation } from "@/app/i18n/client"
-
-// type TProductGridProps = {
-//   locale: TLocale
-//   // products?: IProduct[]
-//   fetchProducts?: (pageNumber: number) => Promise<IProduct[]>
-// }
-
-// export default function ProductGrid(props: TProductGridProps) {
-//   const { t } = useTranslation(props.locale, "shop")
-//   const [loadedProducts, setLoadedProducts] = useState<IProduct[]>([])
-//   const [pageNumber, setPageNumber] = useState<number>(1) // Initial page number
-//   const containerRef = useRef<HTMLDivElement>(null)
-
-//   useEffect(() => {
-//     // Load initial products when the component mounts
-//     loadProducts()
-//   }, [])
-
-//   const loadProducts = async () => {
-//     try {
-//       if (props.fetchProducts) {
-//         // Fetch products from the API using the provided function
-//         const newProducts = await props.fetchProducts(pageNumber)
-//         // Update loaded products
-//         setLoadedProducts((prevProducts) => [...prevProducts, ...newProducts])
-//       }
-//     } catch (error) {
-//       console.error("Error fetching products:", error)
-//     }
-//   }
-
-//   const handleScroll = () => {
-//     if (
-//       containerRef.current &&
-//       containerRef.current.scrollHeight - containerRef.current.scrollTop === containerRef.current.clientHeight
-//     ) {
-//       // User has scrolled to the bottom
-//       // Increment the page number and load more products
-//       setPageNumber((prevPage) => prevPage + 1)
-//       loadProducts()
-//     }
-//   }
-
-//   useEffect(() => {
-//     // Attach scroll event listener when the component mounts
-//     const container = containerRef.current
-//     if (container) {
-//       container.addEventListener("scroll", handleScroll)
-//     }
-
-//     // Remove the event listener when the component unmounts
-//     return () => {
-//       if (container) {
-//         container.removeEventListener("scroll", handleScroll)
-//       }
-//     }
-//   }, [])
-
-//   return (
-//     <div className="grid" ref={containerRef} style={{ overflowY: "auto", maxHeight: "400px" }}>
-//       <div className="flex flex-wrap justify-evenly gap-2">
-//         {loadedProducts.map((product: IProduct) => (
-//           <ProductCard key={product.id} locale={props.locale} product={product} />
-//         ))}
-//       </div>
-//     </div>
-//   )
-// }

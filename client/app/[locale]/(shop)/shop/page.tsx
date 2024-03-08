@@ -12,22 +12,21 @@ import {
   IProductsApiResponse,
   calculateReducedPrice,
 } from "@/app/[locale]/_core"
-import { GET, GET_PRODUCT_RATING } from "@/app/[locale]/(shop)/shop/api/route"
-import { useTranslation } from "@/app/i18n"
+import { GET_PRODUCT, GET_PRODUCT_RATING, GET_PRODUCTS } from "@/app/[locale]/(shop)/shop/api/route"
 import { ProductReviewForm } from "@/app/[locale]/(shop)/shop/product-review.form"
+import { useTranslation } from "@/app/i18n"
+
+const fetchProducts = async (): Promise<TApiResponse<IProductsApiResponse>> => {
+  return await GET_PRODUCTS()
+}
 
 const fetchProduct = async (id: number): Promise<TApiResponse<IProduct>> => {
-  const response = await GET(id)
+  const response = await GET_PRODUCT(id)
   return response.json()
 }
 
 const fetchProductRating = async (id: number): Promise<IProductReviewRating> => {
   const response = await GET_PRODUCT_RATING(id)
-  return response.json()
-}
-
-const fetchProducts = async (): Promise<TApiResponse<IProductsApiResponse>> => {
-  const response = await GET()
   return response.json()
 }
 
@@ -142,8 +141,8 @@ export default async function ShopPage(props: TPage) {
    *
    **************************************************/
 
-  const productsJson = await fetchProducts()
-  const products = productsJson.data.products
+  const { data } = await fetchProducts()
+  const { products } = data
 
-  return <ProductGrid locale={props.params.locale} products={products} />
+  return <ProductGrid locale={props.params.locale} initialProducts={products} />
 }
