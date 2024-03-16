@@ -76,7 +76,11 @@ export const GET_PRODUCT_REVIEWS = async (productId: string): Promise<TProductRe
     },
   })
 
-  const groupReviews = await prisma.productReview.groupBy({ by: ["rating"], _count: true })
+  const groupReviews = await prisma.productReview.groupBy({
+    where: { product_id: productId },
+    by: ["rating"],
+    _count: true,
+  })
 
   const productReviewRating = await prisma.productReview.aggregate({
     where: { product_id: productId },

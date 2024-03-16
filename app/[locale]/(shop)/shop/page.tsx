@@ -98,7 +98,7 @@ const ShopPage = async (props: TPage): Promise<JSX.Element> => {
 
                 {productReviews?.reviews?.map((review: TProductReview) => (
                   <div key={review.id} className="space-y-2">
-                    <ProductReviewStars locale={props.params.locale} ratings={productReviews.ratings} />
+                    <ProductReviewStars locale={props.params.locale} ratings={{ average_rating: review.rating }} />
                     <b>{review.title}</b>
                     <p>{review.comment}</p>
                     <div className="space-x-2 text-sm italic">

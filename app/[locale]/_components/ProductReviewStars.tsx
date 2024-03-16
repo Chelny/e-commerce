@@ -43,7 +43,9 @@ export const ProductReviewStars = (props: TProductReviewStars): JSX.Element => {
       <div className="flex items-center space-x-2 rtl:space-x-reverse">
         <div className="flex">{renderStars()}</div>
         {(props.ratings?.average_rating ?? 0) > 0 && <div>{props.ratings?.average_rating}/5</div>}
-        <Link href="#reviews">{t("shop:item.reviews", { count: props.ratings?.reviews_count })}</Link>
+        {props.ratings?.reviews_count && (
+          <Link href="#reviews">{t("shop:item.reviews", { count: props.ratings?.reviews_count })}</Link>
+        )}
       </div>
       {props.showProgressBar && <ProductReviewProgressBar locale={props.locale} {...props.ratings} />}
     </div>

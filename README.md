@@ -27,7 +27,43 @@ E-commerce website made with <a href="https://nextjs.org/" target="_blank">Next.
 git clone git@github.com:Chelny/e-commerce.git
 ```
 
+**Fill Environment File**
+
 Navigate to the root directory of the project. Create a new file named `.env` and fill it with the required environment variables based on the provided `.env.example` file.
+
+```
+AUTH_GITHUB_ID=
+AUTH_GITHUB_SECRET=
+AUTH_GOOGLE_ID=
+AUTH_GOOGLE_SECRET=
+AUTH_SECRET=
+DATABASE_URL="postgresql://<username>:<password>@<host>:<port>/<database_name>?schema=public&serverTimezone=UTC"
+RESEND_API_KEY=
+```
+
+- Register a OAuth application on Github to get the ID and secret
+- Register a OAuth application on Google to get the ID and secret
+- Generate an auth secret (Mac/Linux: `openssl rand -base64 32`)
+- Change the DATABASE_URL placeholders to your database info
+- Create an account at [resend.com](https://resend.com/) to send emails
+
+**Seed the Database**
+
+```
+pnpm exec prisma db seed
+```
+
+Add initial data in the database.
+
+**Browse Your Data**
+
+```
+pnpm exec prisma studio
+```
+
+This command opens Prisma Studio, a visual interface for exploring and managing your data. Use it to inspect the data in your database at http://localhost:5555.
+
+Then, on another terminal...
 
 **Install dependencies**
 
@@ -41,36 +77,6 @@ pnpm i
 pnpm run dev
 ```
 
-This command starts the development server, allowing you to access your application locally.
-
-Then, on another terminal...
-
-**Generate Prisma Artifacts**
-
-```
-pnpm dlx prisma generate
-```
-
-This command generates TypeScript types for your Prisma schema, which allows for type-safe database interactions in your code.
-
-**Push Prisma Schema State to the Database**
-
-```
-pnpm dlx prisma db push
-```
-
-This command applies the changes in your Prisma schema to the connected database. Ensure your database connection details are correctly configured in your .env file.
-
-**Run SQL Queries**
-
-Navigate to the root directory, where you'll find a folder named `sql/`. Inside this folder, you'll find .sql files designed to be executed in your preferred database GUI tool.
-
-**Browse Your Data**
-
-```
-prisma studio
-```
-
-This command opens Prisma Studio, a visual interface for exploring and managing your data. Use it to inspect the data in your database.
+This command starts the development server, allowing you to access your application locally at http://localhost:3000.
 
 <p align="end">(<a href="#readme-top">back to top</a>)</p>
