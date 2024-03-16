@@ -25,7 +25,7 @@ export const ProductCard = (props: TProductCardProps): JSX.Element => {
       <div
         className={`${styles.itemProductCardImage} bg-ecommerce-500`}
         // style={{ backgroundImage: `url(${props.product.image})` }}
-        style={{ backgroundImage: 'url("https://picsum.photos/272/288")' }}
+        style={{ backgroundImage: "url(https://picsum.photos/272/288)" }}
       >
         {/* <button className={styles.addFavouriteButton} type="button">
           <FaRegHeart />
