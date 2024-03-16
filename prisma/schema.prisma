@@ -1,0 +1,256 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                      String                 @id @default(cuid())
+  first_name              String?
+  last_name               String?
+  name                    String?
+  gender                  Gender                 @default(X)
+  birth_date              DateTime?              @db.Date
+  email                   String                 @unique
+  emailVerified           DateTime?              @map("email_verified")
+  password                String?
+  image                   String?
+  role                    UserRole               @default(USER)
+  two_factor_enabled      Boolean                @default(false)
+  active                  Boolean                @default(true)
+  created_at              DateTime               @default(now())
+  updated_at              DateTime               @updatedAt
+  accounts                Account[]
+  cart                    Cart[]
+  order                   Order[]
+  product_review          ProductReview[]
+  sessions                Session[]
+  two_factor_confirmation TwoFactorConfirmation?
+  user_address            UserAddress?
+  user_payment            UserPayment[]
+}
+
+model Account {
+  id                String   @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  identifier String   @id @default(cuid())
+  email      String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id         String   @id @default(cuid())
+  email      String
+  token      String   @unique
+  expires    DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([email, token])
+}
+
+model TwoFactorToken {
+  id         String   @id @default(cuid())
+  email      String
+  token      String   @unique
+  expires    DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+  id         String   @id @default(cuid())
+  user_id    String   @unique
+  expires    DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserAddress {
+  id            String   @id @default(cuid())
+  user_id       String   @unique
+  address_line1 String
+  address_line2 String
+  city          String
+  state         String
+  country       String
+  postal_code   String
+  telephone     String
+  mobile        String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+  user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model UserPayment {
+  id           String   @id @default(cuid())
+  user_id      String
+  payment_type String
+  provider     String
+  account_no   String
+  expiry       DateTime
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+  user         User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id], map: "idx_user_payment_user_id")
+}
+
+model Product {
+  id          String            @id @default(cuid())
+  brand       String
+  name        String
+  description String
+  sku         String            @unique
+  category_id String
+  colors      String
+  price       Float
+  image       String?
+  created_at  DateTime          @default(now())
+  updated_at  DateTime          @updatedAt
+  cart        Cart[]
+  order_items OrderItems[]
+  category    ProductCategory   @relation(fields: [category_id], references: [id])
+  discount    ProductDiscount?
+  inventory   ProductInventory?
+  reviews     ProductReview[]
+}
+
+model ProductCategory {
+  id          String    @id @default(cuid())
+  name        String
+  description String
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  products    Product[]
+}
+
+model ProductDiscount {
+  id               String   @id @default(cuid())
+  product_id       String   @unique
+  name             String
+  description      String
+  discount_percent Float    @default(0.10)
+  active           Boolean  @default(true)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+  product          Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@unique([product_id, active], name: "unique_active_discount_per_product")
+}
+
+model ProductInventory {
+  id         String   @id @default(cuid())
+  product_id String   @unique
+  quantity   Int      @default(0)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+}
+
+model ProductReview {
+  id         String   @id @default(cuid())
+  user_id    String
+  product_id String
+  rating     Int      @default(1)
+  title      String
+  comment    String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Cart {
+  id         String   @id @default(cuid())
+  session_id String
+  product_id String
+  quantity   Int      @default(0)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  session    User     @relation(fields: [session_id], references: [id], onDelete: Cascade)
+}
+
+model Order {
+  id            String         @id @default(cuid())
+  user_id       String
+  total         Float
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @updatedAt
+  user          User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  order_items   OrderItems?
+  order_payment OrderPayment[]
+}
+
+model OrderItems {
+  id         String   @id @default(cuid())
+  order_id   String   @unique
+  product_id String
+  quantity   Int      @default(0)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  order      Order    @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+}
+
+model OrderPayment {
+  id               String   @id @default(cuid())
+  order_payment_id String
+  amount           Int      @default(0)
+  provider         String
+  status           String
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+  order            Order    @relation(fields: [order_payment_id], references: [id], onDelete: Cascade)
+}
+
+enum Gender {
+  M
+  F
+  X
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}

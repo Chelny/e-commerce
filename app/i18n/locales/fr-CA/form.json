@@ -1,0 +1,121 @@
+{
+  "login": "Connexion",
+  "sign_up": "Vous n'avez pas de compte ?",
+  "forgot_password": "Mot de passe oublié?",
+  "reset_password": "Réinitialiser le mot de passe",
+  "comment": "Commentaire",
+  "label": {
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "gender": "Sexe",
+    "gender_male": "Homme",
+    "gender_female": "Femme",
+    "gender_other": "Autre",
+    "birth_date": "Date de naissance",
+    "email": "Courriel",
+    "password": "Mot de passe",
+    "confirm_password": "Confirmation du mot de passe",
+    "code": "Code d'authentification à 2 facteurs",
+    "title": "Titre",
+    "comment": "Commentaire"
+  },
+  "hint": {
+    "birth_date": "L'âge minimum est de 18 ans.",
+    "password": "Le mot de passe doit comporter au moins 8 caractères, doit contenir au moins un chiffre et doit contenir au moins un caractère spécial."
+  },
+  "comment_chars_count": "{{count}}/{{limit}}",
+  "agreement_text": "En cliquant sur « Créer un compte », j'accepte les termes et conditions, y compris la politique de confidentialité, et consens au traitement de mes données personnelles conformément aux directives spécifiées.",
+  "button": {
+    "login": "Connexion",
+    "sign_up": "Créer un compte",
+    "send_email": "Envoyer un courriel",
+    "reset_password": "Réinitialiser",
+    "confirm": "Confirmer",
+    "post_comment": "Publier le commentaire"
+  },
+  "error": {
+    "first_name": {
+      "required": "Le prénom est requis",
+      "pattern": "Prénom non valide"
+    },
+    "last_name": {
+      "required": "Le nom est requis",
+      "pattern": "Nom non valide"
+    },
+    "gender": {
+      "required": "Le sexe est requis"
+    },
+    "birth_date": {
+      "required": "La date de naissance est requise",
+      "max": "Date de naissance non valide"
+    },
+    "email": {
+      "required": "Le courriel est requis",
+      "pattern": "Courriel non valide"
+    },
+    "password": {
+      "required": "Le mot de passe est requis",
+      "pattern": "Mot de passe non valide"
+    },
+    "confirm_password": {
+      "required": "La confirmation du mot de passe est requise",
+      "pattern": "Confirmation du mot de passe non valide",
+      "match": "Les mot de passes ne sont pas identiques"
+    },
+    "rating": {
+      "required": "L'évaluation est requise"
+    },
+    "title": {
+      "required": "Le titre est requis",
+      "max_length": "Le titre a plus de 50 caractères"
+    },
+    "comment": {
+      "required": "Le commentaire est requis",
+      "max_length": "Le commentaire a plus de 500 caractères"
+    },
+    "duplicate_account": {
+      "message": "Un compte associé à ce courriel existe déjà."
+    },
+    "duplicate_email": {
+      "message": "Le courriel est déjà utilisé par un autre fournisseur."
+    },
+    "incorrect_credentials": {
+      "message": "Le courriel ou le mot de passe est incorrect."
+    },
+    "inactive_account": {
+      "message": "Le compte est désactivé. Veuillez contacter le service client pour réactiver votre compte."
+    },
+    "generic": {
+      "message": "Quelque chose s'est mal passé !"
+    },
+    "token_missing": {
+      "message": "Le jeton est manquant ou est invalide."
+    },
+    "token_expired": {
+      "message": "Le jeton est expiré."
+    },
+    "email_not_found": {
+      "message": "Le courriel n'existe pas."
+    },
+    "invalid_code": {
+      "message": "Le code est invalide."
+    },
+    "code_expired": {
+      "message": "Le code est expiré."
+    }
+  },
+  "success": {
+    "verify_email": {
+      "message": "Le courriel de confirmation a été envoyé !"
+    },
+    "verified_email": {
+      "message": "Le courriel a été confirmé !"
+    },
+    "reset_email_sent": {
+      "message": "Un hyperlien de réinitialisation du mot de passe a été envoyé par courriel !"
+    },
+    "password_updated": {
+      "message": "Le mot de passe a été réinitialisé avec succès !"
+    }
+  }
+}

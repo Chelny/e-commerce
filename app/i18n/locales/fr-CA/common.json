@@ -1,0 +1,66 @@
+{
+  "site_map": {
+    "home": "Accueil",
+    "login": "Connexion",
+    "sign_up": "Créer un compte",
+    "verify_email": "Vérifier le courriel",
+    "forgot_password": "Mot de passe oublié",
+    "reset_password": "Réinitialisation du mot de passe",
+    "auth_error": "Erreur d'authentification",
+    "shop": "Magasin",
+    "new_arrivals": "Nouveautés",
+    "popular": "Populaire",
+    "sales": "Ventes",
+    "cart": "Panier",
+    "checkout": "Caisse",
+    "company": "Compagnie",
+    "team": "L'équipe",
+    "careers": "Carrières",
+    "contact": "Contactez nous",
+    "faq": "Foire aux questions",
+    "shipping": "Expédition",
+    "returns": "Échanges et retours",
+    "terms_of_service": "Conditions d'utilisation",
+    "privacy_policy": "Politique de confidentialité"
+  },
+  "app_menu": {
+    "toggle_menu": "Basculer le menu",
+    "search": "Recherche"
+  },
+  "app_footer": {
+    "about": "À Propos",
+    "support": "Support",
+    "copyright": "Copyright © {{year}} E-commerce. Tous droits réservés."
+  },
+  "button": {
+    "view_all": "Voir tout",
+    "return_home": "Retour à la page d'accueil",
+    "return_login": "Retour à la page de connexion"
+  },
+  "theme": {
+    "toggle_theme": "Changer le thème",
+    "light": "Clair",
+    "dark": "Foncé"
+  },
+  "alert": {
+    "title": {
+      "info": "Information",
+      "success": "Succès",
+      "warning": "Avertissement",
+      "error": "Erreur"
+    },
+    "message": {
+      "400": "Erreur dans la requête",
+      "500": "Une erreur s'est produite. Veuillez réessayer plus tard."
+    }
+  },
+  "page": {
+    "not_found": {
+      "title": "Page non trouvée",
+      "message": "La page que vous recherchez n'existe pas."
+    },
+    "auth_error": {
+      "title": "Erreur d'authentification"
+    }
+  }
+}

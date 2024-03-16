@@ -1,102 +1,76 @@
 # E-commerce <a name="readme-top"></a>
 
-E-commerce website made with <a href="https://nextjs.org/" target="_blank">Next.js</a>, <a href="https://tailwindcss.com/" target="_blank">TailwindCSS</a>, <a href="https://www.python.org/" target="_blank">Python</a> (<a href="https://www.djangoproject.com/" target="_blank">Django</a> and <a href="https://www.django-rest-framework.org/" target="_blank">Django REST</a>) and <a href="https://www.sqlite.org/" target="_blank">SQLite</a>.
+E-commerce website made with <a href="https://nextjs.org/" target="_blank">Next.js</a>, <a href="https://tailwindcss.com/" target="_blank">TailwindCSS</a>, <a href="https://www.prisma.io/" target="_blank">Prisma</a> and <a href="https://www.postgresql.org/" target="_blank">PostgreSQL</a>.
 
-![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
-![PNPM](https://img.shields.io/badge/pnpm-%234a4a4a.svg?style=for-the-badge&logo=pnpm&logoColor=f69220)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
-![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)
-![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![PNPM](https://img.shields.io/badge/pnpm-%234a4a4a.svg?style=for-the-badge&logo=pnpm&logoColor=f69220)
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
 ![Visual Studio](https://img.shields.io/badge/Visual%20Studio-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
-| Home Page                                                            | Login Page                                                            |
-| -------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| <img src="client/public/assets/images/github/home-page-desktop.png"> | <img src="client/public/assets/images/github/login-page-desktop.png"> |
+| Home Page                                                     | Login Page                                                     |
+| ------------------------------------------------------------- | -------------------------------------------------------------- |
+| <img src="public/assets/images/github/home-page-desktop.png"> | <img src="public/assets/images/github/login-page-desktop.png"> |
 
 ## Installation
 
-Clone project
+**Clone project**
 
 ```
 git clone git@github.com:Chelny/e-commerce.git
 ```
 
-### Server
+Navigate to the root directory of the project. Create a new file named `.env` and fill it with the required environment variables based on the provided `.env.example` file.
 
-On the `server/` directory, set `.env` file from the provided `.env.example` file.
-
-Open a terminal and go to the `server/` directory:
-
-```
-cd server
-```
-
-Create and activate virtual environment with:
-
-```
-python<version> -m venv <virtual-environment-name>
-source <virtual-environment-name>/bin/activate
-```
-
-Install dependencies:
-
-```
-pip install -r requirements.txt
-```
-
-Apply migration (the project uses a database):
-
-```
-python manage.py makemigrations
-python manage.py migrate
-```
-
-Run server:
-
-```
-python manage.py runserver
-```
-
-### Client
-
-On the `client/` directory, set `.env` file from the provided `.env.example` file.
-
-Open a new terminal and go to the `client/` directory:
-
-```
-cd client
-```
-
-Install dependencies:
+**Install dependencies**
 
 ```
 pnpm i
 ```
 
-Run server:
+**Serve the Client**
 
 ```
 pnpm run dev
 ```
 
-<p align="end">(<a href="#readme-top">back to top</a>)</p>
+This command starts the development server, allowing you to access your application locally.
 
-## Tests
+Then, on another terminal...
 
-### Server
+**Generate Prisma Artifacts**
 
 ```
-python manage.py test # Run all tests
-python manage.py test your_app_name # Run tests for a specific app or module
-python manage.py test your_app_name.tests.test_module # Run tests for a specific test file or for a specific test class or method
+pnpm dlx prisma generate
 ```
+
+This command generates TypeScript types for your Prisma schema, which allows for type-safe database interactions in your code.
+
+**Push Prisma Schema State to the Database**
+
+```
+pnpm dlx prisma db push
+```
+
+This command applies the changes in your Prisma schema to the connected database. Ensure your database connection details are correctly configured in your .env file.
+
+**Run SQL Queries**
+
+Navigate to the root directory, where you'll find a folder named `sql/`. Inside this folder, you'll find .sql files designed to be executed in your preferred database GUI tool.
+
+**Browse Your Data**
+
+```
+prisma studio
+```
+
+This command opens Prisma Studio, a visual interface for exploring and managing your data. Use it to inspect the data in your database.
 
 <p align="end">(<a href="#readme-top">back to top</a>)</p>

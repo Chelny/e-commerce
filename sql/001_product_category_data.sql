@@ -1,0 +1,2 @@
+INSERT INTO "ProductCategory" VALUES ('cltqh1sf2000008l40pqp40yb', 'mens', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '2024-02-25 22:58:53.973291', '2024-02-25 22:58:53.973364');
+INSERT INTO "ProductCategory" VALUES ('cltqh22rz000108l4e1mq7ci6', 'womens', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '2024-02-25 22:59:10.302978', '2024-02-25 22:59:10.303001');

@@ -1,0 +1,121 @@
+{
+  "login": "Login",
+  "sign_up": "Don't have an account?",
+  "forgot_password": "Forgot Password?",
+  "reset_password": "Reset Password",
+  "comment": "Comment",
+  "label": {
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "gender": "Gender",
+    "gender_male": "Male",
+    "gender_female": "Female",
+    "gender_other": "Other",
+    "birth_date": "Birth Date",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "code": "Two-Factor Code",
+    "title": "Title",
+    "comment": "Comment"
+  },
+  "hint": {
+    "birth_date": "The minimum age is 18 years old.",
+    "password": "Password must be at least 8 characters long, must contain at least one digit and must contain at least one special character."
+  },
+  "comment_chars_count": "{{count}}/{{limit}}",
+  "agreement_text": "By clicking \"Sign Up\", I agree to the terms and conditions, including the privacy policy, and consent to the processing of my personal data in accordance with the specified guidelines.",
+  "button": {
+    "login": "Login",
+    "sign_up": "Sign Up",
+    "send_email": "Send Email",
+    "reset_password": "Reset",
+    "confirm": "Confirm",
+    "post_comment": "Post Comment"
+  },
+  "error": {
+    "first_name": {
+      "required": "First name is required",
+      "pattern": "Invalid first name"
+    },
+    "last_name": {
+      "required": "Last name is required",
+      "pattern": "Invalid last name"
+    },
+    "gender": {
+      "required": "Gender is required"
+    },
+    "birth_date": {
+      "required": "Birth date is required",
+      "max": "Age must be minimum of 18 years"
+    },
+    "email": {
+      "required": "Email is required",
+      "pattern": "Invalid email"
+    },
+    "password": {
+      "required": "Password is required",
+      "pattern": "Invalid password"
+    },
+    "confirm_password": {
+      "required": "Confirm password is required",
+      "pattern": "Invalid confirm password",
+      "match": "Passwords don't match"
+    },
+    "rating": {
+      "required": "Rating is required"
+    },
+    "title": {
+      "required": "Title is required",
+      "max_length": "Title has more than 50 characters"
+    },
+    "comment": {
+      "required": "Comment is required",
+      "max_length": "Comment has more than 500 characters"
+    },
+    "duplicate_account": {
+      "message": "An account associated with this email already exists."
+    },
+    "duplicate_email": {
+      "message": "The email is already in use with a different provider."
+    },
+    "incorrect_credentials": {
+      "message": "The email or the password is incorrect."
+    },
+    "inactive_account": {
+      "message": "The account is inactive. Please contact the customer support to reactivate your account."
+    },
+    "generic": {
+      "message": "Something went wrong!"
+    },
+    "token_missing": {
+      "message": "The token is missing or invalid."
+    },
+    "token_expired": {
+      "message": "The token is expired."
+    },
+    "email_not_found": {
+      "message": "The email does not exist."
+    },
+    "invalid_code": {
+      "message": "The code is invalid."
+    },
+    "code_expired": {
+      "message": "The code is expired."
+    }
+  },
+  "success": {
+    "verify_email": {
+      "message": "The confirmation email has been sent!"
+    },
+    "verified_email": {
+      "message": "The email has been verified!"
+    },
+    "reset_email_sent": {
+      "message": "A reset password link has been sent!"
+    },
+    "password_updated": {
+      "message": "The password has been successfully updated!"
+    }
+  }
+}

@@ -1,9 +1,9 @@
 {
-  "client/app/**/*.css": [
+  "app/**/*.css": [
     "pnpm run lint:css --fix",
     "prettier --write"
   ],
-  "client/app/**/*.{ts,tsx}": [
+  "app/**/*.{ts,tsx}": [
     "pnpm run lint:ts --fix",
     "prettier --write"
   ]
