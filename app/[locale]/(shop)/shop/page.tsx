@@ -58,7 +58,7 @@ const ShopPage = async (props: TPage): Promise<JSX.Element> => {
                     </span>
                   )}
                 </div>
-                <div className="flex flex-col md:flex-row justify-between items-start">
+                <div className="flex flex-col xl:flex-row justify-between items-start">
                   <ProductReviewStars locale={props.params.locale} ratings={productReviews?.ratings} />
                   <button type="button" className="button-link">
                     {t("shop:item.add_to_wish_list")}
@@ -90,23 +90,27 @@ const ShopPage = async (props: TPage): Promise<JSX.Element> => {
         {/* REVIEWS */}
         <Suspense fallback={<>Loading reviews...</>}>
           <section>
-            <h2 id="reviews">{t("shop:reviews")}</h2>
+            <h2 id="reviews">{t("shop:reviews.title")}</h2>
             <div className="grid md:grid-cols-[1fr_3fr] md:space-x-16 rtl:md:space-x-reverse space-y-8 md:space-y-0">
               <ProductReviewStars locale={props.params.locale} ratings={productReviews?.ratings} showProgressBar />
               <div className="space-y-8">
                 <ProductReviewForm page={props} />
 
-                {productReviews?.reviews?.map((review: TProductReview) => (
-                  <div key={review.id} className="space-y-2">
-                    <ProductReviewStars locale={props.params.locale} ratings={{ average_rating: review.rating }} />
-                    <b>{review.title}</b>
-                    <p>{review.comment}</p>
-                    <div className="space-x-2 text-sm italic">
-                      <span>{review.user?.name}</span>
-                      <span>{formatDate(review.created_at)}</span>
+                {productReviews?.reviews && productReviews.reviews.length > 0 ? (
+                  productReviews?.reviews?.map((review: TProductReview) => (
+                    <div key={review.id} className="space-y-2">
+                      <ProductReviewStars locale={props.params.locale} ratings={{ average_rating: review.rating }} />
+                      <b>{review.title}</b>
+                      <p>{review.comment}</p>
+                      <div className="flex space-x-1 rtl:space-x-reverse text-sm italic">
+                        <span>{review.user?.first_name ?? review.user?.name}</span>
+                        <span>{formatDate(review.created_at)}</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p>{t("shop:reviews.no_comments")}</p>
+                )}
               </div>
             </div>
           </section>

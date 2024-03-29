@@ -4,6 +4,7 @@
   "forgot_password": "Forgot Password?",
   "reset_password": "Reset Password",
   "comment": "Comment",
+  "comment_unauthenticated": "You must be <anchor>logged in</anchor> to write a comment.",
   "label": {
     "first_name": "First Name",
     "last_name": "Last Name",

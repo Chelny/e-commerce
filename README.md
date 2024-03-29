@@ -47,6 +47,13 @@ RESEND_API_KEY=
 - Change the DATABASE_URL placeholders to your database info
 - Create an account at [resend.com](https://resend.com/) to send emails
 
+**Start PostgreSQL Server**
+
+```
+# Mac and Linux Command
+sudo service postgresql start
+```
+
 **Seed the Database**
 
 ```
@@ -65,7 +72,7 @@ This command opens Prisma Studio, a visual interface for exploring and managing 
 
 Then, on another terminal...
 
-**Install dependencies**
+**Install Dependencies**
 
 ```
 pnpm i

@@ -40,8 +40,9 @@ const login = async (_: TFormState, formData: FormData): Promise<TFormActions | 
   if (existingUser) {
     // Check if user confirmed their email
     if (!existingUser.emailVerified) {
+      const name = existingUser.first_name ?? existingUser.name
       const verificationToken = await generateVerificationToken(existingUser.email)
-      await sendVerificationEmail(verificationToken.email, verificationToken.token)
+      await sendVerificationEmail(name, verificationToken.email, verificationToken.token)
 
       return {
         status: EHttpResponseStatus.SUCCESS,

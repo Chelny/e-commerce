@@ -1,6 +1,7 @@
 {
   "item": {
     "view_item": "Voir article",
+    "out_of_stock": "Cet article est en rupture de stock.",
     "add_to_cart": "Ajouter au panier",
     "buy_now": "Acheter maintenant",
     "description": "Description",
@@ -16,7 +17,10 @@
     "in_stock": "En stock :"
   },
   "recommendations": "Recommendations",
-  "reviews": "Avis",
+  "reviews": {
+    "title": "Avis",
+    "no_comments": "Aucun commentaire"
+  },
   "no_items_found": "Aucun article trouvé",
   "no_more_items": "Aucun autre article"
 }

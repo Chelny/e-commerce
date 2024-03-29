@@ -43,7 +43,7 @@ export const ProductReviewStars = (props: TProductReviewStars): JSX.Element => {
       <div className="flex items-center space-x-2 rtl:space-x-reverse">
         <div className="flex">{renderStars()}</div>
         {(props.ratings?.average_rating ?? 0) > 0 && <div>{props.ratings?.average_rating}/5</div>}
-        {props.ratings?.reviews_count && (
+        {typeof props.ratings?.reviews_count !== "undefined" && (
           <Link href="#reviews">{t("shop:item.reviews", { count: props.ratings?.reviews_count })}</Link>
         )}
       </div>
@@ -60,7 +60,7 @@ const ProductReviewProgressBar = (props: TProductReviewProgressBar): JSX.Element
     const percentage = reviews_count !== 0 ? (count / (reviews_count ?? 0)) * 100 : 0
 
     return (
-      <div key={rating} className="grid grid-cols-[2fr_4fr_1fr] items-center space-x-2 rtl:space-x-reverse">
+      <div key={rating} className="grid grid-cols-[3fr_5fr_2fr] items-center space-x-2 rtl:space-x-reverse">
         <div>{t("shop:item.stars", { count: rating })}</div>
         <progress value={percentage} max="100" aria-label={t("shop:item.stars", { count: rating })}>
           {percentage.toFixed(0)}%

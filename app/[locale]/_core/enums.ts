@@ -7,6 +7,11 @@ export enum EApiMethod {
 }
 
 export enum EHttpResponseStatus {
+  SUCCESS = "success",
+  ERROR = "error",
+}
+
+export enum EAlertVariant {
   INFO = "info",
   SUCCESS = "success",
   WARNING = "warning",

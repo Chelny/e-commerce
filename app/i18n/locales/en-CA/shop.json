@@ -1,6 +1,7 @@
 {
   "item": {
     "view_item": "View Item",
+    "out_of_stock": "This item is out of stock.",
     "add_to_cart": "Add to cart",
     "buy_now": "Buy Now",
     "description": "Description",
@@ -16,7 +17,10 @@
     "in_stock": "In stock:"
   },
   "recommendations": "Recommendations",
-  "reviews": "Reviews",
+  "reviews": {
+    "title": "Reviews",
+    "no_comments": "No comments"
+  },
   "no_items_found": "No items found",
   "no_more_items": "No more items"
 }

@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache"
 import { EMAIL_REGEX, flatten, minLength, object, type Output, regex, safeParse, string } from "valibot"
 import { POST } from "@/app/[locale]/(auth)/forgot-password/api/route"
-import { EHttpResponseStatus, ROUTE_FORGOT_PASSWORD } from "@/app/[locale]/_core"
+import { ROUTE_FORGOT_PASSWORD } from "@/app/[locale]/_core"
 
 const sendEmail = async (_: TFormState, formData: FormData): Promise<TFormActions> => {
   const schema = object({

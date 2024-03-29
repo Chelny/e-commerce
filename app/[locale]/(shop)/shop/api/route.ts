@@ -27,6 +27,7 @@ export const GET_PRODUCT = async (sku: string): Promise<TProduct | null> => {
   const productPromise = await prisma.product.findUnique({
     where: { sku },
     include: {
+      inventory: true,
       discount: true,
       reviews: true,
     },
@@ -47,7 +48,6 @@ export const GET_PRODUCT = async (sku: string): Promise<TProduct | null> => {
     take: 10,
     include: {
       discount: true,
-      reviews: true,
     },
     orderBy: {
       created_at: "desc",

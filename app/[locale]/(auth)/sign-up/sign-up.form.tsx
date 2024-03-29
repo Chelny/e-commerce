@@ -1,5 +1,6 @@
 "use client"
 
+// @ts-ignore
 import { useFormState, useFormStatus } from "react-dom"
 import { signUp } from "@/app/[locale]/(auth)/sign-up/sign-up.actions"
 import { Alert } from "@/app/[locale]/_components/Alert"

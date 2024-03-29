@@ -1,12 +1,13 @@
 "use client"
 
+// @ts-ignore
 import { useFormState, useFormStatus } from "react-dom"
 import { useSearchParams } from "next/navigation"
 import { resetPassword } from "@/app/[locale]/(auth)/reset-password/reset-password.actions"
 import { Alert } from "@/app/[locale]/_components/Alert"
 import { FieldErrorMessage } from "@/app/[locale]/_components/FieldErrorMessage"
 import { FieldHintMessage } from "@/app/[locale]/_components/FieldHintMessage"
-import { EHttpResponseStatus } from "@/app/[locale]/_core"
+import { EAlertVariant } from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n/client"
 
 export const ResetPasswordForm = (props: TForm): JSX.Element => {
@@ -24,7 +25,7 @@ export const ResetPasswordForm = (props: TForm): JSX.Element => {
     >
       {!token && (
         <Alert
-          variant={EHttpResponseStatus.ERROR}
+          variant={EAlertVariant.ERROR}
           locale={props.page.params.locale}
           message="form:error.token_missing.message"
         />

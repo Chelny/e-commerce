@@ -1,13 +1,13 @@
 import { FaCircleCheck, FaCircleExclamation, FaCircleInfo, FaTriangleExclamation } from "react-icons/fa6"
-import { EHttpResponseStatus } from "@/app/[locale]/_core"
+import { EAlertVariant } from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n/client"
 import styles from "./Alert.module.css"
 
 type TAlertProps = {
-  variant: EHttpResponseStatus
+  variant: EAlertVariant
   locale: TLocale
-  title?: string
-  message: string
+  message?: string
+  children?: React.ReactNode
 }
 
 export const Alert = (props: TAlertProps): JSX.Element => {
@@ -15,20 +15,22 @@ export const Alert = (props: TAlertProps): JSX.Element => {
 
   return (
     <div className={`${styles.alert} ${styles[props.variant]}`} role="alert">
-      <div className={styles.header}>
-        {props.variant === EHttpResponseStatus.INFO && <FaCircleInfo className={`${styles.icon} ${styles.infoIcon}`} />}
-        {props.variant === EHttpResponseStatus.SUCCESS && (
+      <div className={styles.iconWrapper}>
+        {props.variant === EAlertVariant.INFO && <FaCircleInfo className={`${styles.icon} ${styles.infoIcon}`} />}
+        {props.variant === EAlertVariant.SUCCESS && (
           <FaCircleCheck className={`${styles.icon} ${styles.successIcon}`} />
         )}
-        {props.variant === EHttpResponseStatus.WARNING && (
+        {props.variant === EAlertVariant.WARNING && (
           <FaTriangleExclamation className={`${styles.icon} ${styles.warningIcon}`} />
         )}
-        {props.variant === EHttpResponseStatus.ERROR && (
+        {props.variant === EAlertVariant.ERROR && (
           <FaCircleExclamation className={`${styles.icon} ${styles.errorIcon}`} />
         )}
-        <h4 className={styles.title}>{t(props.title ? props.title : `alert.title.${props.variant}`)}</h4>
       </div>
-      <p className={styles.message}>{t(props.message)}</p>
+      <div className={styles.message}>
+        {props.message && <p>{t(props.message)}</p>}
+        {props.children}
+      </div>
     </div>
   )
 }

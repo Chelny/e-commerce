@@ -4,6 +4,7 @@
   "forgot_password": "Mot de passe oublié?",
   "reset_password": "Réinitialiser le mot de passe",
   "comment": "Commentaire",
+  "comment_unauthenticated": "Vous devez être <anchor>connecté</anchor> pour écrire un commentaire.",
   "label": {
     "first_name": "Prénom",
     "last_name": "Nom",

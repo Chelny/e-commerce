@@ -22,12 +22,12 @@ export const ChangeLocale = (): JSX.Element => {
   return (
     <select className="bg-transparent border-0 px-0" value={params.locale} onChange={handleLocaleChange}>
       <optgroup label="Americas">
-        <option value="en-CA">🇨🇦 Canada - English (CAD $)</option>
-        <option value="fr-CA">🇨🇦 Canada - Français (CAD $)</option>
-        <option value="en-US">🇺🇸 United States (USD $)</option>
+        <option value="en-CA">🇨🇦 Canada - English</option>
+        <option value="fr-CA">🇨🇦 Canada - Français</option>
+        <option value="en-US">🇺🇸 United States</option>
       </optgroup>
       <optgroup label="Asia">
-        <option value="ar-SA">🇸🇦 Saudi Arabia - عربي (SAR)</option>
+        <option value="ar-SA">🇸🇦 Saudi Arabia - عربي </option>
       </optgroup>
     </select>
   )

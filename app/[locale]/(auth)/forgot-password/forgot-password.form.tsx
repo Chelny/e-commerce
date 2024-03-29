@@ -1,5 +1,6 @@
 "use client"
 
+// @ts-ignore
 import { useFormState, useFormStatus } from "react-dom"
 import { sendEmail } from "@/app/[locale]/(auth)/forgot-password/forgot-password.actions"
 import { Alert } from "@/app/[locale]/_components/Alert"

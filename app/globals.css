@@ -339,6 +339,11 @@ button.button-link {
   transition: unset;
 }
 
+button:disabled {
+  opacity: 75%;
+  cursor: not-allowed;
+}
+
 form button[type="submit"]:hover {
   box-shadow: inset 0 0 0 3.125rem var(--button-background-hover);
 }

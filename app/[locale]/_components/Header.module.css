@@ -189,6 +189,8 @@ body:has(.header.menuOpened) {
 @media screen and (min-width: 768px) {
   .menuItemIcon {
     display: block;
+    width: 1.1rem;
+    height: 1.1rem;
   }
 }
 

@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+// @ts-ignore
 import { useFormState, useFormStatus } from "react-dom"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
