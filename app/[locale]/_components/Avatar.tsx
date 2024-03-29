@@ -15,20 +15,18 @@ export const Avatar = (props: TAvatar): JSX.Element => {
 
   return (
     <>
-      <div className="relative w-8 h-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+      <div className="relative w-6 h-6 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
         {user?.email && user?.name && user?.image ? (
           <Image
-            className="w-8 h-8 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+            className="w-6 h-6 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
             data-dropdown-toggle="userDropdown"
             data-dropdown-placement="bottom-start"
             src={user?.image}
             alt={user?.name}
-            width={10}
-            height={10}
           />
         ) : (
           <svg
-            className="absolute w-10 h-10 text-gray-400 -left-1"
+            className="absolute w-8 h-8 text-gray-400 -left-1"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"

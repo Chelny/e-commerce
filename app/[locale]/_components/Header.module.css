@@ -145,6 +145,7 @@ body:has(.header.menuOpened) {
 @media screen and (min-width: 768px) {
   .menu {
     grid-auto-flow: column;
+    gap: 0;
     justify-content: end;
     align-items: center;
     width: auto;
@@ -165,12 +166,12 @@ body:has(.header.menuOpened) {
   transform: scale(1) translateY(0);
 }
 
-.header.menuOpened .menuItem:nth-of-type(1) {
-  order: 1;
+.header.menuOpened .menuItem:nth-last-of-type(1) {
+  order: 2;
 }
 
-.header.menuOpened .menuItem:nth-of-type(2) {
-  order: 2;
+.header.menuOpened .menuItem:nth-last-of-type(2) {
+  order: 1;
 }
 
 @media screen and (min-width: 768px) {
@@ -182,6 +183,17 @@ body:has(.header.menuOpened) {
   }
 }
 
+.iconContainer {
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border: 1px solid transparent;
+}
+
+.iconContainer:focus-within {
+  border-color: var(--border-color);
+  border-radius: 0.375rem;
+}
+
 .menuItemIcon {
   display: none;
 }
@@ -189,8 +201,8 @@ body:has(.header.menuOpened) {
 @media screen and (min-width: 768px) {
   .menuItemIcon {
     display: block;
-    width: 1.1rem;
-    height: 1.1rem;
+    width: 1.2rem;
+    height: 1.2rem;
   }
 }
 

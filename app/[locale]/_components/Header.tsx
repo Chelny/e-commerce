@@ -5,7 +5,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { signOut } from "next-auth/react"
 import { useTheme } from "next-themes"
-import { FaCartShopping, FaMagnifyingGlass, FaMoon, FaSun, FaUser } from "react-icons/fa6"
+import { FaCartShopping, FaMagnifyingGlass, FaUser } from "react-icons/fa6"
+import { FiMoon, FiSun } from "react-icons/fi"
 import { PiSignOutBold } from "react-icons/pi"
 import { Avatar } from "@/app/[locale]/_components/Avatar"
 import { ChangeLocale } from "@/app/[locale]/_components/ChangeLocale"
@@ -78,41 +79,49 @@ export const Header = (props: THeaderProps): JSX.Element => {
       <ul id="menu" className={styles.menu}>
         {user?.email ? (
           <li className={styles.menuItem}>
-            <button type="button" className="p-0 text-foreground" onClick={handleClickSignOut}>
+            <button type="button" className="p-4 text-foreground" onClick={handleClickSignOut}>
               <PiSignOutBold className={styles.menuItemIcon} />
               <span className={styles.menuItemLabel}>{t("sign_out")}</span>
             </button>
           </li>
         ) : (
           <li className={styles.menuItem}>
-            <Link
-              className={pathname === `/${props.locale}${ROUTE_LOGIN.PATH}` ? "active" : ""}
-              href={`/${props.locale}${ROUTE_LOGIN.PATH}`}
-              locale={false}
-              aria-label={t(ROUTE_LOGIN.TITLE)}
-            >
-              <FaUser className={styles.menuItemIcon} />
-              <span className={styles.menuItemLabel}>{t(ROUTE_LOGIN.TITLE)}</span>
-            </Link>
+            <div className={styles.iconContainer}>
+              <Link
+                className={pathname === `/${props.locale}${ROUTE_LOGIN.PATH}` ? "active" : ""}
+                href={`/${props.locale}${ROUTE_LOGIN.PATH}`}
+                locale={false}
+                aria-label={t(ROUTE_LOGIN.TITLE)}
+              >
+                <FaUser className={styles.menuItemIcon} />
+                <span className={styles.menuItemLabel}>{t(ROUTE_LOGIN.TITLE)}</span>
+              </Link>
+            </div>
           </li>
         )}
         {/* <li className={styles.menuItem}>
+          <div className={styles.iconContainer}>
             <Avatar locale={props.locale} />
+          </div>
         </li> */}
         <li className={styles.menuItem}>
-          <Link
-            className={pathname === `/${props.locale}${ROUTE_CART.PATH}` ? "active" : ""}
-            href={`/${props.locale}${ROUTE_CART.PATH}`}
-            locale={false}
-            aria-label={t(ROUTE_CART.TITLE)}
-          >
-            <FaCartShopping className={styles.menuItemIcon} />
-            <span className={styles.menuItemLabel}>{t(ROUTE_CART.TITLE)}</span>
-          </Link>
+          <div className={styles.iconContainer}>
+            <Link
+              className={pathname === `/${props.locale}${ROUTE_CART.PATH}` ? "active" : ""}
+              href={`/${props.locale}${ROUTE_CART.PATH}`}
+              locale={false}
+              aria-label={t(ROUTE_CART.TITLE)}
+            >
+              <FaCartShopping className={styles.menuItemIcon} />
+              <span className={styles.menuItemLabel}>{t(ROUTE_CART.TITLE)}</span>
+            </Link>
+          </div>
         </li>
         <li className={styles.menuItem}>
-          <FaMagnifyingGlass className={styles.menuItemIcon} aria-label={t("app_menu.search")} />
-          <span className={styles.menuItemLabel}>{t("app_menu.search")}</span>
+          <div className={styles.iconContainer}>
+            <FaMagnifyingGlass className={styles.menuItemIcon} aria-label={t("app_menu.search")} />
+            <span className={styles.menuItemLabel}>{t("app_menu.search")}</span>
+          </div>
         </li>
         <li className={styles.menuItem}>
           <ChangeLocale />
@@ -121,8 +130,8 @@ export const Header = (props: THeaderProps): JSX.Element => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button className="inline-flex md:flex hover:!bg-transparent text-foreground" variant="ghost" size="icon">
-                <FaSun className="absolute h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:rotate-90 dark:scale-0 dark:rtl:!scale-x-[-1]" />
-                <FaMoon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 rtl:!scale-x-[-1] transition-all dark:rotate-0 dark:scale-100" />
+                <FiSun className="absolute h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:rotate-90 dark:scale-0 dark:rtl:!scale-x-[-1]" />
+                <FiMoon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 rtl:!scale-x-[-1] transition-all dark:rotate-0 dark:scale-100" />
                 <span className="sr-only">{t("theme.toggle_theme")}</span>
               </Button>
             </DropdownMenuTrigger>
