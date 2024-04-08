@@ -4,14 +4,14 @@ import { custom, flatten, minLength, object, type Output, regex, safeParse, stri
 import { POST } from "@/app/[locale]/(auth)/reset-password/api/route"
 import { PASSWORD_REGEX } from "@/app/[locale]/_core"
 
-const resetPassword = async (_: TFormState, formData: FormData): Promise<TFormActions> => {
+export const resetPassword = async (_: TFormState, formData: FormData): Promise<TFormActions> => {
   const schema = object({
     token: string([minLength(1)]),
     password: string([minLength(1, "password.required"), regex(PASSWORD_REGEX, "password.pattern")]),
     confirmPassword: string([
       minLength(1, "confirm_password.required"),
       regex(PASSWORD_REGEX, "confirm_password.pattern"),
-      custom((input: string) => formData.get("password") === input, "confirm_password.match"),
+      custom((value: string) => formData.get("password") === value, "confirm_password.match"),
     ]),
   })
 
@@ -37,5 +37,3 @@ const resetPassword = async (_: TFormState, formData: FormData): Promise<TFormAc
 
   return data
 }
-
-export { resetPassword }

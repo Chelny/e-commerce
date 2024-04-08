@@ -11,7 +11,7 @@ import {
   ROUTE_SHOP,
 } from "@/app/[locale]/_core"
 
-const sendProductReview = async (_: TFormState, formData: FormData): Promise<TFormActions> => {
+export const sendProductReview = async (_: TFormState, formData: FormData): Promise<TFormActions> => {
   const schema = object({
     rating: string([regex(RATING_REGEX, "rating.required")]),
     title: string([minLength(1, "title.required"), maxLength(PRODUCT_REVIEW_MAX_TITLE_CHARS, "title.max_length")]),
@@ -60,5 +60,3 @@ const sendProductReview = async (_: TFormState, formData: FormData): Promise<TFo
     message: data.message,
   }
 }
-
-export { sendProductReview }

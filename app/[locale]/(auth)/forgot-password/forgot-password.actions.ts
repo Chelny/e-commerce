@@ -1,13 +1,13 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { EMAIL_REGEX, flatten, minLength, object, type Output, regex, safeParse, string } from "valibot"
+import { email, flatten, minLength, object, type Output, regex, safeParse, string } from "valibot"
 import { POST } from "@/app/[locale]/(auth)/forgot-password/api/route"
 import { ROUTE_FORGOT_PASSWORD } from "@/app/[locale]/_core"
 
-const sendEmail = async (_: TFormState, formData: FormData): Promise<TFormActions> => {
+export const sendEmail = async (_: TFormState, formData: FormData): Promise<TFormActions> => {
   const schema = object({
-    email: string([minLength(1, "email.required"), regex(EMAIL_REGEX, "email.pattern")]),
+    email: string([minLength(1, "email.required"), email("email.pattern")]),
   })
 
   type ForgotPasswordData = Output<typeof schema>
@@ -32,5 +32,3 @@ const sendEmail = async (_: TFormState, formData: FormData): Promise<TFormAction
 
   return data
 }
-
-export { sendEmail }

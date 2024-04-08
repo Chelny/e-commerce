@@ -7,6 +7,9 @@
     "forgot_password": "Mot de passe oublié",
     "reset_password": "Réinitialisation du mot de passe",
     "auth_error": "Erreur d'authentification",
+    "account": "Mon compte",
+    "profile": "Profil",
+    "settings": "Paramètres",
     "shop": "Magasin",
     "new_arrivals": "Nouveautés",
     "popular": "Populaire",
@@ -25,7 +28,8 @@
   },
   "app_menu": {
     "toggle_menu": "Basculer le menu",
-    "search": "Recherche"
+    "search": "Recherche",
+    "log_out": "Déconnexion"
   },
   "app_footer": {
     "about": "À Propos",
@@ -61,6 +65,87 @@
     },
     "auth_error": {
       "title": "Erreur d'authentification"
+    }
+  },
+  "countries": {
+    "CA": {
+      "country": "Canada",
+      "regions": {
+        "AB": "Alberta",
+        "BC": "Colombie-Britannique",
+        "MB": "Manitoba",
+        "NB": "Nouveau Brunswick",
+        "NL": "Terre-Neuve-et-Labrador",
+        "NT": "Territoires du Nord-Ouest",
+        "NS": "Nouvelle-Écosse",
+        "NU": "Nunavut",
+        "ON": "Ontario",
+        "PE": "Île-du-Prince-Édouard",
+        "QC": "Québec",
+        "SK": "Saskatchewan",
+        "YT": "Yukon"
+      }
+    },
+    "US": {
+      "country": "États-Unis",
+      "regions": {
+        "AL": "Alabama",
+        "AK": "Alaska",
+        "AS": "Samoa américaines",
+        "AZ": "Arizona",
+        "AR": "Arkansas",
+        "CA": "Californie",
+        "CO": "Colorado",
+        "CT": "Connecticut",
+        "DE": "Delaware",
+        "DC": "District de Columbia",
+        "FL": "Floride",
+        "GA": "Géorgie",
+        "GU": "Guam",
+        "HI": "Hawaï",
+        "ID": "Idaho",
+        "IL": "Illinois",
+        "IN": "Indiana",
+        "IA": "Iowa",
+        "KS": "Kansas",
+        "KY": "Kentucky",
+        "LA": "Louisiane",
+        "ME": "Maine",
+        "MD": "Maryland",
+        "MA": "Massachusetts",
+        "MI": "Michigan",
+        "MN": "Minnesota",
+        "MS": "Mississippi",
+        "MO": "Missouri",
+        "MT": "Montana",
+        "NE": "Nebraska",
+        "NV": "Nevada",
+        "NH": "New Hampshire",
+        "NJ": "New Jersey",
+        "NM": "Nouveau Mexique",
+        "NY": "New York",
+        "NC": "Caroline du Nord",
+        "ND": "Dakota du Nord",
+        "MP": "Îles Mariannes du Nord",
+        "OH": "Ohio",
+        "OK": "Oklahoma",
+        "OR": "Orégon",
+        "PA": "Pennsylvanie",
+        "PR": "Porto Rico",
+        "RI": "Rhode Island",
+        "SC": "Caroline du Sud",
+        "SD": "Dakota du Sud",
+        "TN": "Tennessee",
+        "TX": "Texas",
+        "UT": "Utah",
+        "VT": "Vermont",
+        "VA": "Virginie",
+        "VI": "Îles Vierges des États-Unis",
+        "WA": "Washington",
+        "WV": "Virginie occidentale",
+        "WI": "Wisconsin",
+        "WY": "Wyoming"
+      }
     }
   }
 }

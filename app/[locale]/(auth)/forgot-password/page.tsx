@@ -1,7 +1,7 @@
 import { ForgotPasswordForm } from "@/app/[locale]/(auth)/forgot-password/forgot-password.form"
 import { useTranslation } from "@/app/i18n"
 
-const ForgotPasswordPage = async (props: TPage): Promise<JSX.Element> => {
+const ForgotPasswordPage = async (props: TPageProps): Promise<JSX.Element> => {
   const { t } = await useTranslation(props.params.locale, "common")
 
   return (

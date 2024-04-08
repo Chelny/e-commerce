@@ -1,4 +1,4 @@
-const AuthTemplate = (props: TLayout): JSX.Element => {
+const AuthTemplate = (props: TLayoutProps): JSX.Element => {
   return <>{props.children}</>
 }
 

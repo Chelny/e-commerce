@@ -4,12 +4,16 @@ import { AuthError } from "next-auth"
 import { flatten, minLength, nullable, object, Output, regex, safeParse, string } from "valibot"
 import { DEFAULT_LOGIN_REDIRECT, EHttpResponseStatus, EMAIL_REGEX, EOAuthProvider } from "@/app/[locale]/_core"
 import { getTwoFactorConfirmationByUserId, getTwoFactorTokenByEmail, getUserByEmail } from "@/app/[locale]/_data"
-import { signIn } from "@/app/[locale]/_lib/authentication"
-import { sendTwoFactorEmail, sendVerificationEmail } from "@/app/[locale]/_lib/email"
+import {
+  generateTwoFactorToken,
+  generateVerificationToken,
+  sendTwoFactorEmail,
+  sendVerificationEmail,
+  signIn,
+} from "@/app/[locale]/_lib"
 import prisma from "@/app/[locale]/_lib/prisma"
-import { generateTwoFactorToken, generateVerificationToken } from "@/app/[locale]/_lib/tokens"
 
-const login = async (_: TFormState, formData: FormData): Promise<TFormActions | undefined> => {
+export const login = async (_: TFormState, formData: FormData): Promise<TFormActions | undefined> => {
   const schema = object({
     email: string([minLength(1, "email.required"), regex(EMAIL_REGEX, "email.pattern")]),
     password: string([minLength(1, "password.required")]),
@@ -42,7 +46,7 @@ const login = async (_: TFormState, formData: FormData): Promise<TFormActions | 
     if (!existingUser.emailVerified) {
       const name = existingUser.first_name ?? existingUser.name
       const verificationToken = await generateVerificationToken(existingUser.email)
-      await sendVerificationEmail(name, verificationToken.email, verificationToken.token)
+      await sendVerificationEmail(name!, verificationToken.email, verificationToken.token)
 
       return {
         status: EHttpResponseStatus.SUCCESS,
@@ -87,11 +91,16 @@ const login = async (_: TFormState, formData: FormData): Promise<TFormActions | 
         await prisma.twoFactorConfirmation.create({
           data: {
             user_id: existingUser.id,
+            expires: new Date(new Date().getTime() + 5 * 60 * 1000), // 5 minutes
           },
         })
       } else {
         const twoFactorToken = await generateTwoFactorToken(existingUser.email)
-        await sendTwoFactorEmail(existingUser.first_name, twoFactorToken.email, twoFactorToken.token)
+        await sendTwoFactorEmail(
+          existingUser.first_name ?? existingUser.name,
+          twoFactorToken.email,
+          twoFactorToken.token
+        )
 
         return { twoFactor: true }
       }
@@ -110,7 +119,7 @@ const login = async (_: TFormState, formData: FormData): Promise<TFormActions | 
         case "CredentialsSignin":
           return {
             status: EHttpResponseStatus.ERROR,
-            message: "form:error.incorrect_credentials.message",
+            message: "form:error.invalid_credentials.message",
           }
         default:
           return {
@@ -123,5 +132,3 @@ const login = async (_: TFormState, formData: FormData): Promise<TFormActions | 
     throw error
   }
 }
-
-export { login }

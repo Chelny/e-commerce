@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server"
+import { User } from "@prisma/client"
 import { EHttpResponseStatus } from "@/app/[locale]/_core"
 import { getUserByEmail } from "@/app/[locale]/_data"
-import { sendPasswordResetEmail } from "@/app/[locale]/_lib/email"
-import { generatePasswordResetToken } from "@/app/[locale]/_lib/tokens"
+import { generatePasswordResetToken, sendPasswordResetEmail } from "@/app/[locale]/_lib"
 
-const POST = async <T>(body: T): Promise<NextResponse<TApiResponse<TFormActions>>> => {
+export const POST = async <T extends User>(body: T): Promise<NextResponse<TApiResponse<TFormActions>>> => {
   const existingUser = await getUserByEmail(body.email)
 
   if (!existingUser) {
@@ -17,8 +17,9 @@ const POST = async <T>(body: T): Promise<NextResponse<TApiResponse<TFormActions>
     )
   }
 
+  const name = existingUser.first_name ?? existingUser.name
   const passwordResetToken = await generatePasswordResetToken(existingUser.email)
-  await sendPasswordResetEmail(existingUser.first_name, passwordResetToken.email, passwordResetToken.token)
+  await sendPasswordResetEmail(name!, passwordResetToken.email, passwordResetToken.token)
 
   return NextResponse.json(
     {
@@ -28,5 +29,3 @@ const POST = async <T>(body: T): Promise<NextResponse<TApiResponse<TFormActions>
     { status: 200 }
   )
 }
-
-export { POST }

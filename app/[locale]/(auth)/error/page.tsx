@@ -2,7 +2,7 @@ import Link from "next/link"
 import { ROUTE_LOGIN } from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n"
 
-const AuthErrorPage = async (props: TPage): Promise<JSX.Element> => {
+const AuthErrorPage = async (props: TPageProps): Promise<JSX.Element> => {
   const { t } = await useTranslation(props.params.locale, "common")
 
   return (

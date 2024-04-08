@@ -13,7 +13,7 @@ type TCartProps = {
 export const Cart = (props: TCartProps): JSX.Element => {
   const { t } = useTranslation(props.locale, "shop")
   const [quantity, setQuantity] = useState<number>(0)
-  const user = useCurrentUser()
+  const authUser = useCurrentUser()
 
   const handleQuantity = (event: ChangeEvent<HTMLInputElement>) => {
     const quantity = +event.target.value
@@ -33,7 +33,7 @@ export const Cart = (props: TCartProps): JSX.Element => {
 
   return (
     <div className="flex flex-col md:space-y-4">
-      {user?.email && <div>{t("shop:cart.ship_to")} 111 main street</div>}
+      {authUser?.email && <div>{t("shop:cart.ship_to")} 111 main street</div>}
       {props.product?.inventory && props.product?.inventory.quantity === 0 ? (
         <p className="text-red-500">{t("shop:item.out_of_stock")}</p>
       ) : (

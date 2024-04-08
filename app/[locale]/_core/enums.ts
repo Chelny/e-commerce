@@ -23,3 +23,8 @@ export enum EOAuthProvider {
   GOOGLE = "google",
   GITHUB = "github",
 }
+
+export enum ECountryCode {
+  CA = "CA",
+  US = "US",
+}

@@ -3,7 +3,7 @@ import { VerifyEmailForm } from "@/app/[locale]/(auth)/verify-email/verify-email
 import { ROUTE_LOGIN } from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n"
 
-const VerifyEmailPage = async (props: TPage) => {
+const VerifyEmailPage = async (props: TPageProps) => {
   const { t } = await useTranslation(props.params.locale, "common")
 
   return (

@@ -185,7 +185,6 @@ body:has(.header.menuOpened) {
 
 .iconContainer {
   padding-inline: 1rem;
-  padding-block: 0.5rem;
   border: 1px solid transparent;
 }
 
@@ -203,6 +202,7 @@ body:has(.header.menuOpened) {
     display: block;
     width: 1.2rem;
     height: 1.2rem;
+    color: var(--foreground);
   }
 }
 
@@ -215,6 +215,21 @@ body:has(.header.menuOpened) {
   .menuItemLabel {
     display: none;
   }
+}
+
+.accountMenuItem:hover {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.accountMenuItemLink {
+  font-weight: 400;
+}
+
+.accountMenuItemLink:hover {
+  color: var(--foreground);
+  font-weight: 500;
+  text-decoration: none;
 }
 
 .header.menuOpened .menuItem:nth-child(1) {

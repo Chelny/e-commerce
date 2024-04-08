@@ -1,1 +1,1 @@
-export { GET, POST } from "@/app/[locale]/_lib/authentication"
+export { GET, POST } from "@/app/[locale]/_lib"

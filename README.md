@@ -38,7 +38,7 @@ AUTH_GOOGLE_ID=
 AUTH_GOOGLE_SECRET=
 AUTH_SECRET=
 DATABASE_URL="postgresql://<username>:<password>@<host>:<port>/<database_name>?schema=public&serverTimezone=UTC"
-RESEND_API_KEY=
+NEXT_PUBLIC_RESEND_API_KEY=
 ```
 
 - Register a OAuth application on Github to get the ID and secret

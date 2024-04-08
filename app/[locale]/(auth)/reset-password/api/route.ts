@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server"
+import { PasswordResetToken, User } from "@prisma/client"
 import { hash } from "bcryptjs"
 import { EHttpResponseStatus } from "@/app/[locale]/_core"
 import { getPasswordResetTokenByToken, getUserByEmail } from "@/app/[locale]/_data"
 import prisma from "@/app/[locale]/_lib/prisma"
 
-const POST = async <T>(body: T): Promise<NextResponse<TApiResponse>> => {
+export const POST = async <T extends User & PasswordResetToken>(body: T): Promise<NextResponse<TApiResponse>> => {
   // Check token validity
   const existingToken = await getPasswordResetTokenByToken(body.token)
 
@@ -44,13 +45,15 @@ const POST = async <T>(body: T): Promise<NextResponse<TApiResponse>> => {
     )
   }
 
-  // Update password in database
-  const hashedPassword = await hash(body.password, 12)
+  if (body.password) {
+    // Update password in database
+    const hashedPassword = await hash(body.password, 12)
 
-  await prisma.user.update({
-    where: { id: existingUser.id },
-    data: { password: hashedPassword },
-  })
+    await prisma.user.update({
+      where: { id: existingUser.id },
+      data: { password: hashedPassword },
+    })
+  }
 
   await prisma.passwordResetToken.delete({ where: { id: existingToken.id } })
 
@@ -62,5 +65,3 @@ const POST = async <T>(body: T): Promise<NextResponse<TApiResponse>> => {
     { status: 200 }
   )
 }
-
-export { POST }

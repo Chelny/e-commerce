@@ -1,8 +1,8 @@
 import { User } from "@prisma/client"
 import prisma from "@/app/[locale]/_lib/prisma"
 
-export const getUserById = async (id: string): Promise<User | null> => {
-  const user = await prisma.user.findUnique({ where: { id } })
+export const getUserById = async (id: string | undefined): Promise<User | null> => {
+  const user = await prisma.user.findUnique({ where: { id }, include: { user_address: true, accounts: true } })
   return user
 }
 

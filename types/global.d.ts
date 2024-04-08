@@ -1,21 +1,25 @@
 type TLocale = string | undefined
 
-type TLayout = {
+type TLayoutProps = {
   children: React.ReactNode
   params: { locale: TLocale }
 }
 
-type TPage = {
+type TPageProps = {
   params: {
     locale: TLocale
   }
-  searchParams: {
+  searchParams?: {
     [key: string]: string | string[] | undefined
   }
 }
 
-type TForm = {
-  page: TPage
+type TPopover = {
+  locale: TLocale
+}
+
+type TFormProps = {
+  page: TPageProps
 }
 
 type TFormState = {

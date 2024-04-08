@@ -30,17 +30,17 @@
     --button-background-hover: theme("colors.ecommerce.500");
     --button-secondary-background: theme("colors.ecommerce.600");
     --box-shadow: theme("boxShadow.card") /* shadcn/ui */;
-    --card: 0 0% 100%;
+    --card: theme("colors.ecommerce.200");
     --card-foreground: var(--foreground);
-    --popover: 0 0% 100%;
+    --popover: var(--background);
     --popover-foreground: var(--foreground);
     --primary: #dadadc;
     --primary-foreground: var(--foreground);
     --secondary: #ababab;
     --secondary-foreground: var(--foreground);
-    --muted: ##ababab80;
+    --muted: theme("colors.ecommerce.500");
     --muted-foreground: var(--foreground);
-    --accent: #fff;
+    --accent: theme("colors.ecommerce.300");
     --accent-foreground: var(--foreground);
     --destructive: #e44646;
     --destructive-foreground: var(--foreground);
@@ -76,15 +76,15 @@
     /* shadcn/ui */
     --card: theme("colors.ecommerce.800");
     --card-foreground: var(--foreground);
-    --popover: theme("colors.ecommerce.800");
+    --popover: var(--background);
     --popover-foreground: var(--foreground);
     --primary: #232325;
     --primary-foreground: var(--foreground);
     --secondary: #545454;
     --secondary-foreground: var(--foreground);
-    --muted: #54545480;
+    --muted: theme("colors.ecommerce.500");
     --muted-foreground: var(--foreground);
-    --accent: #000;
+    --accent: theme("colors.ecommerce.700");
     --accent-foreground: var(--foreground);
     --destructive: #e44646;
     --destructive-foreground: var(--foreground);
@@ -147,13 +147,28 @@ h3 {
   font-size: 1.25rem;
 }
 
+form label {
+  margin-block-start: 0.5rem;
+}
+
 input,
+.ecommerce-input-date,
 select,
 textarea {
-  padding: 0.75rem;
+  margin-block: 0.5rem;
+  padding-inline: 0.5rem;
+  padding-block: 0.75rem;
   border: 0.125rem solid transparent;
   border-radius: var(--border-radius);
   background-color: var(--input-background);
+  box-shadow: theme("boxShadow.md");
+  font-size: 1rem;
+}
+
+.ecommerce-input-date {
+  justify-content: start;
+  height: 100%;
+  font-weight: 400;
 }
 
 .radio-button {
@@ -274,7 +289,15 @@ select {
   border-right: 0.75rem solid transparent;
 }
 
+select.rdp-dropdown {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+}
+
 input:disabled,
+.ecommerce-input-date:disabled,
 select:disabled,
 textarea:disabled {
   opacity: var(--input-opacity-disabled);
@@ -282,9 +305,11 @@ textarea:disabled {
 }
 
 input:user-invalid,
+.ecommerce-input-date:user-invalid,
 select:user-invalid,
 textarea:user-invalid,
 input.invalid,
+.ecommerce-input-date.invalid,
 input + span.invalid,
 select.invalid,
 textarea.invalid {
@@ -292,9 +317,11 @@ textarea.invalid {
 }
 
 html.dark input:user-invalid,
+html.dark .ecommerce-input-date:user-invalid,
 html.dark select:user-invalid,
 html.dark textarea:user-invalid,
 html.dark input.invalid,
+html.dark .ecommerce-input-date.invalid,
 html.dark input + span.invalid,
 html.dark select.invalid,
 html.dark textarea.invalid {
@@ -302,9 +329,9 @@ html.dark textarea.invalid {
 }
 
 button {
-  padding: 0.75rem;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
   border-radius: var(--border-radius);
-  color: var(--color-white);
   font-weight: 500;
   transition: ease-out 0.4s;
 }
@@ -313,6 +340,7 @@ button[type="submit"],
 button.primary-action,
 button.secondary-action,
 button.tertiary-action {
+  color: var(--color-white);
   /* stylelint-disable-next-line declaration-no-important */
   margin-block-start: 1rem !important;
 }

@@ -1,6 +1,6 @@
 import { useTranslation } from "@/app/i18n"
 
-const TermsOfServicePage = async (props: TPage): Promise<JSX.Element> => {
+const TermsOfServicePage = async (props: TPageProps): Promise<JSX.Element> => {
   const { t } = await useTranslation(props.params.locale, ["common", "legal"])
 
   return (

@@ -10,7 +10,7 @@ import { FieldHintMessage } from "@/app/[locale]/_components/FieldHintMessage"
 import { EAlertVariant } from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n/client"
 
-export const ResetPasswordForm = (props: TForm): JSX.Element => {
+export const ResetPasswordForm = (props: TFormProps): JSX.Element => {
   const { t } = useTranslation(props.page.params.locale, "form")
   const [state, formAction] = useFormState(resetPassword, undefined)
   const searchParams = useSearchParams()
@@ -31,6 +31,7 @@ export const ResetPasswordForm = (props: TForm): JSX.Element => {
         />
       )}
       {state?.status && <Alert variant={state?.status} locale={props.page.params.locale} message={state?.message} />}
+
       <input type="hidden" id="token" name="token" value={token ?? undefined} required />
       <label htmlFor="password">{t("label.password")}</label>
       <input
@@ -42,6 +43,7 @@ export const ResetPasswordForm = (props: TForm): JSX.Element => {
       />
       <FieldHintMessage locale={props.page.params.locale} keyName="password" />
       <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.password} />
+
       <label htmlFor="confirmPassword">{t("label.confirm_password")}</label>
       <input
         type="password"
@@ -51,6 +53,7 @@ export const ResetPasswordForm = (props: TForm): JSX.Element => {
         required
       />
       <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.confirmPassword} />
+
       <button type="submit" disabled={pending}>
         {t("button.reset_password")}
       </button>

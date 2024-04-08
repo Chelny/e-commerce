@@ -1,13 +1,16 @@
 {
-  "login": "Login",
   "sign_up": "Don't have an account?",
   "forgot_password": "Forgot Password?",
   "reset_password": "Reset Password",
   "comment": "Comment",
   "comment_unauthenticated": "You must be <anchor>logged in</anchor> to write a comment.",
+  "personal_information": "Personal Information",
+  "login_information": "Login Information",
+  "contact_information": "Contact Information",
   "label": {
     "first_name": "First Name",
     "last_name": "Last Name",
+    "name": "Name",
     "gender": "Gender",
     "gender_male": "Male",
     "gender_female": "Female",
@@ -16,13 +19,29 @@
     "email": "Email",
     "password": "Password",
     "confirm_password": "Confirm Password",
+    "current_password": "Current Password",
+    "new_password": "New Password",
+    "confirm_new_password": "Confirm New Password",
+    "address_line1": "Street Address",
+    "address_line2": "Apartment, Suite or Unit",
+    "city": "City",
+    "state": "State/Province",
+    "country": "Country",
+    "postal_code": "Postal Code",
+    "phone_number": "Phone Number",
     "code": "Two-Factor Code",
     "title": "Title",
     "comment": "Comment"
   },
+  "placeholder": {
+    "date": "Select a date",
+    "country": "Select a country",
+    "state": "Select a state or a province"
+  },
   "hint": {
     "birth_date": "The minimum age is 18 years old.",
-    "password": "Password must be at least 8 characters long, must contain at least one digit and must contain at least one special character."
+    "password": "Password must be at least 8 characters long, must contain at least one digit and must contain at least one special character.",
+    "phone_number": "Please include country code"
   },
   "comment_chars_count": "{{count}}/{{limit}}",
   "agreement_text": "By clicking \"Sign Up\", I agree to the terms and conditions, including the privacy policy, and consent to the processing of my personal data in accordance with the specified guidelines.",
@@ -32,7 +51,8 @@
     "send_email": "Send Email",
     "reset_password": "Reset",
     "confirm": "Confirm",
-    "post_comment": "Post Comment"
+    "post_comment": "Post Comment",
+    "update": "Update"
   },
   "error": {
     "first_name": {
@@ -42,6 +62,10 @@
     "last_name": {
       "required": "Last name is required",
       "pattern": "Invalid last name"
+    },
+    "name": {
+      "required": "Name is required",
+      "pattern": "Invalid name"
     },
     "gender": {
       "required": "Gender is required"
@@ -54,6 +78,10 @@
       "required": "Email is required",
       "pattern": "Invalid email"
     },
+    "current_password": {
+      "required": "Current password is required",
+      "pattern": "Invalid current password"
+    },
     "password": {
       "required": "Password is required",
       "pattern": "Invalid password"
@@ -62,6 +90,34 @@
       "required": "Confirm password is required",
       "pattern": "Invalid confirm password",
       "match": "Passwords don't match"
+    },
+    "address_line1": {
+      "required": "Street address is required",
+      "pattern": "Invalid street address"
+    },
+    "address_line2": {
+      "required": "Apartment, suite or unit is required",
+      "pattern": "Invalid apartment, suite or unit"
+    },
+    "city": {
+      "required": "City is required",
+      "pattern": "Invalid city"
+    },
+    "state": {
+      "required": "State/province is required",
+      "pattern": "Invalid state/province"
+    },
+    "country": {
+      "required": "Country is required",
+      "pattern": "Invalid country"
+    },
+    "postal_code": {
+      "required": "Postal code is required",
+      "pattern": "Invalid postal code"
+    },
+    "phone_number": {
+      "required": "Phone number is required",
+      "pattern": "Invalid phone number"
     },
     "rating": {
       "required": "Rating is required"
@@ -80,8 +136,8 @@
     "duplicate_email": {
       "message": "The email is already in use with a different provider."
     },
-    "incorrect_credentials": {
-      "message": "The email or the password is incorrect."
+    "invalid_credentials": {
+      "message": "The email or the password is invalid."
     },
     "inactive_account": {
       "message": "The account is inactive. Please contact the customer support to reactivate your account."
@@ -98,11 +154,17 @@
     "email_not_found": {
       "message": "The email does not exist."
     },
+    "user_not_found": {
+      "message": "The user does not exist."
+    },
     "invalid_code": {
       "message": "The code is invalid."
     },
     "code_expired": {
       "message": "The code is expired."
+    },
+    "invalid_current_password": {
+      "message": "The current password is invalid."
     }
   },
   "success": {

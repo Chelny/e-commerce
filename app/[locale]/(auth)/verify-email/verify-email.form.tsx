@@ -1,14 +1,15 @@
 "use client"
 
 import { useCallback, useEffect, useRef } from "react"
+// @ts-ignore
 import { useFormState } from "react-dom"
 import { useSearchParams } from "next/navigation"
 import { verifyEmail } from "@/app/[locale]/(auth)/verify-email/verify-email.actions"
 import { Alert } from "@/app/[locale]/_components/Alert"
 import { Spinner } from "@/app/[locale]/_components/Spinner"
-import { EHttpResponseStatus } from "@/app/[locale]/_core"
+import { EAlertVariant, EHttpResponseStatus } from "@/app/[locale]/_core"
 
-export const VerifyEmailForm = (props: TForm): JSX.Element => {
+export const VerifyEmailForm = (props: TFormProps): JSX.Element => {
   const [state, formAction] = useFormState(verifyEmail, undefined)
   const searchParams = useSearchParams()
   const token = searchParams.get("token")
@@ -32,7 +33,7 @@ export const VerifyEmailForm = (props: TForm): JSX.Element => {
     >
       {!token ? (
         <Alert
-          variant={EHttpResponseStatus.ERROR}
+          variant={EAlertVariant.ERROR}
           locale={props.page.params.locale}
           message="form:error.token_missing.message"
         />

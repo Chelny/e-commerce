@@ -9,7 +9,7 @@ const fetchProducts = async (skip: number): Promise<TProductsPagination> => {
   return response
 }
 
-const PopularPage = async (props: TPage): Promise<JSX.Element> => {
+const PopularPage = async (props: TPageProps): Promise<JSX.Element> => {
   const response = await fetchProducts(0)
 
   return <ProductGrid locale={props.params.locale} initialProducts={response.products} fetchData={fetchProducts} />

@@ -8,7 +8,7 @@ import { FieldErrorMessage } from "@/app/[locale]/_components/FieldErrorMessage"
 import { EHttpResponseStatus } from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n/client"
 
-export const ForgotPasswordForm = (props: TForm): JSX.Element => {
+export const ForgotPasswordForm = (props: TFormProps): JSX.Element => {
   const { t } = useTranslation(props.page.params.locale, "form")
   const [state, formAction] = useFormState(sendEmail, undefined)
   const { pending } = useFormStatus()

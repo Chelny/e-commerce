@@ -1,7 +1,7 @@
 import { ResetPasswordForm } from "@/app/[locale]/(auth)/reset-password/reset-password.form"
 import { useTranslation } from "@/app/i18n"
 
-const ResetPasswordPage = async (props: TPage): Promise<JSX.Element> => {
+const ResetPasswordPage = async (props: TPageProps): Promise<JSX.Element> => {
   const { t } = await useTranslation(props.params.locale, "common")
 
   return (

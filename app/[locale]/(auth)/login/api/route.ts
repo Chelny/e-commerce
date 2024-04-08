@@ -1,32 +1,35 @@
 import { NextResponse } from "next/server"
+import { User } from "@prisma/client"
 import { compare } from "bcryptjs"
 import { EHttpResponseStatus } from "@/app/[locale]/_core"
 import { getUserByEmail, getUserByEmailActive } from "@/app/[locale]/_data"
 
-const POST = async <T>(body: T): Promise<NextResponse<TApiResponse>> => {
+export const POST = async <T extends User>(body: T): Promise<NextResponse<TApiResponse>> => {
   const user = await getUserByEmail(body.email)
 
   if (!user) {
     return NextResponse.json(
       {
         status: EHttpResponseStatus.ERROR,
-        message: "form:error.incorrect_credentials.message",
+        message: "form:error.invalid_credentials.message",
       },
       { status: 401 }
     )
   }
 
-  // Check if the password matches the hashed one we already have
-  const isPasswordValid = await compare(body.password, user.password)
+  if (body.password && user.password) {
+    // Check if the password matches the hashed one we already have
+    const isPasswordValid = await compare(body.password, user.password)
 
-  if (!isPasswordValid) {
-    return NextResponse.json(
-      {
-        status: EHttpResponseStatus.ERROR,
-        message: "form:error.incorrect_credentials.message",
-      },
-      { status: 401 }
-    )
+    if (!isPasswordValid) {
+      return NextResponse.json(
+        {
+          status: EHttpResponseStatus.ERROR,
+          message: "form:error.invalid_credentials.message",
+        },
+        { status: 401 }
+      )
+    }
   }
 
   // Check if the user is active
@@ -52,5 +55,3 @@ const POST = async <T>(body: T): Promise<NextResponse<TApiResponse>> => {
     { status: 200 }
   )
 }
-
-export { POST }

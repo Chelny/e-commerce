@@ -12,7 +12,7 @@ import { Social } from "@/app/[locale]/_components/Social"
 import { EHttpResponseStatus, ROUTE_FORGOT_PASSWORD, ROUTE_SIGN_UP } from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n/client"
 
-export const LoginForm = (props: TForm): JSX.Element => {
+export const LoginForm = (props: TFormProps): JSX.Element => {
   const { t } = useTranslation(props.page.params.locale, "form")
   const [state, formAction] = useFormState(login, undefined)
   const [showTwoFactor, setShowTwoFactor] = useState<boolean>(false)

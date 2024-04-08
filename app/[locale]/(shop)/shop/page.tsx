@@ -8,7 +8,8 @@ import { ProductImageGallery } from "@/app/[locale]/_components/ProductImageGall
 import { ProductReviewStars } from "@/app/[locale]/_components/ProductReviewStars"
 import { ProductGrid } from "@/app/[locale]/_components/ProductsGrid"
 import { Share } from "@/app/[locale]/_components/Share"
-import { calculateReducedPrice, formatDate, TProductReview, TProductsPagination } from "@/app/[locale]/_core"
+import { TProductReview, TProductsPagination } from "@/app/[locale]/_core"
+import { calculateReducedPrice, formatDate } from "@/app/[locale]/_lib"
 import { useTranslation } from "@/app/i18n"
 
 const fetchProducts = async (skip: number): Promise<TProductsPagination> => {
@@ -18,7 +19,7 @@ const fetchProducts = async (skip: number): Promise<TProductsPagination> => {
   return response
 }
 
-const ShopPage = async (props: TPage): Promise<JSX.Element> => {
+const ShopPage = async (props: TPageProps): Promise<JSX.Element> => {
   const { t } = await useTranslation(props.params.locale, "shop")
 
   /**************************************************

@@ -3,7 +3,7 @@
 import { flatten, object, Output, safeParse, string } from "valibot"
 import { POST } from "@/app/[locale]/(auth)/verify-email/api/route"
 
-const verifyEmail = async (_: TFormState, formData: FormData): Promise<TFormActions> => {
+export const verifyEmail = async (_: TFormState, formData: FormData): Promise<TFormActions> => {
   const schema = object({
     token: string(),
   })
@@ -28,5 +28,3 @@ const verifyEmail = async (_: TFormState, formData: FormData): Promise<TFormActi
 
   return data
 }
-
-export { verifyEmail }

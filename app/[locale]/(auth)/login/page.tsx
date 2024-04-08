@@ -1,7 +1,7 @@
 import { LoginForm } from "@/app/[locale]/(auth)/login/login.form"
 import { useTranslation } from "@/app/i18n"
 
-const LoginPage = async (props: TPage): Promise<JSX.Element> => {
+const LoginPage = async (props: TPageProps): Promise<JSX.Element> => {
   const { t } = await useTranslation(props.params.locale, "common")
 
   return (

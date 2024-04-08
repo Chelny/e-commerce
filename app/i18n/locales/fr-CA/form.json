@@ -1,13 +1,16 @@
 {
-  "login": "Connexion",
   "sign_up": "Vous n'avez pas de compte ?",
   "forgot_password": "Mot de passe oublié?",
   "reset_password": "Réinitialiser le mot de passe",
   "comment": "Commentaire",
   "comment_unauthenticated": "Vous devez être <anchor>connecté</anchor> pour écrire un commentaire.",
+  "personal_information": "Renseignements personnels",
+  "login_information": "Informations de connexion",
+  "contact_information": "Coordonnées",
   "label": {
     "first_name": "Prénom",
     "last_name": "Nom",
+    "name": "Nom",
     "gender": "Sexe",
     "gender_male": "Homme",
     "gender_female": "Femme",
@@ -16,13 +19,29 @@
     "email": "Courriel",
     "password": "Mot de passe",
     "confirm_password": "Confirmation du mot de passe",
+    "current_password": "Mot de passe actuel",
+    "new_password": "Nouveau mot de passe",
+    "confirm_new_password": "Confirmation du nouveau mot de passe",
+    "address_line1": "Adresse postale",
+    "address_line2": "Appartement, suite ou unité",
+    "city": "Ville",
+    "state": "État/Province",
+    "country": "Pays",
+    "postal_code": "Code postal",
+    "phone_number": "Numéro de téléphone",
     "code": "Code d'authentification à 2 facteurs",
     "title": "Titre",
     "comment": "Commentaire"
   },
+  "placeholder": {
+    "date": "Sélectionner une date",
+    "country": "Sélectionner un pays",
+    "state": "Sélectionner un état ou une province"
+  },
   "hint": {
     "birth_date": "L'âge minimum est de 18 ans.",
-    "password": "Le mot de passe doit comporter au moins 8 caractères, doit contenir au moins un chiffre et doit contenir au moins un caractère spécial."
+    "password": "Le mot de passe doit comporter au moins 8 caractères, doit contenir au moins un chiffre et doit contenir au moins un caractère spécial.",
+    "phone_number": "Veuillez inclure le code du pays"
   },
   "comment_chars_count": "{{count}}/{{limit}}",
   "agreement_text": "En cliquant sur « Créer un compte », j'accepte les termes et conditions, y compris la politique de confidentialité, et consens au traitement de mes données personnelles conformément aux directives spécifiées.",
@@ -32,7 +51,8 @@
     "send_email": "Envoyer un courriel",
     "reset_password": "Réinitialiser",
     "confirm": "Confirmer",
-    "post_comment": "Publier le commentaire"
+    "post_comment": "Publier le commentaire",
+    "update": "Mettre à jour"
   },
   "error": {
     "first_name": {
@@ -40,6 +60,10 @@
       "pattern": "Prénom non valide"
     },
     "last_name": {
+      "required": "Le nom est requis",
+      "pattern": "Nom non valide"
+    },
+    "name": {
       "required": "Le nom est requis",
       "pattern": "Nom non valide"
     },
@@ -54,6 +78,10 @@
       "required": "Le courriel est requis",
       "pattern": "Courriel non valide"
     },
+    "current_password": {
+      "required": "Le mot de passe actuel est requis",
+      "pattern": "Mot de passe actuel non valide"
+    },
     "password": {
       "required": "Le mot de passe est requis",
       "pattern": "Mot de passe non valide"
@@ -62,6 +90,34 @@
       "required": "La confirmation du mot de passe est requise",
       "pattern": "Confirmation du mot de passe non valide",
       "match": "Les mot de passes ne sont pas identiques"
+    },
+    "address_line1": {
+      "required": "L'adresse postale est requise",
+      "pattern": "Adresse postale non valide"
+    },
+    "address_line2": {
+      "required": "L'appartement, suite ou unité est requis",
+      "pattern": "Appartement, suite ou unité non valide"
+    },
+    "city": {
+      "required": "La ville est requise",
+      "pattern": "Ville non valide"
+    },
+    "state": {
+      "required": "L'état ou la province est requis",
+      "pattern": "État ou province non valide"
+    },
+    "country": {
+      "required": "Le pays est requis",
+      "pattern": "Pays non valide"
+    },
+    "postal_code": {
+      "required": "Le code postal est requis",
+      "pattern": "Code postal non valide"
+    },
+    "phone_number": {
+      "required": "Le numéro de téléphone est requis",
+      "pattern": "Numéro de téléphone non valide"
     },
     "rating": {
       "required": "L'évaluation est requise"
@@ -80,8 +136,8 @@
     "duplicate_email": {
       "message": "Le courriel est déjà utilisé par un autre fournisseur."
     },
-    "incorrect_credentials": {
-      "message": "Le courriel ou le mot de passe est incorrect."
+    "invalid_credentials": {
+      "message": "Le courriel ou le mot de passe est invalid."
     },
     "inactive_account": {
       "message": "Le compte est désactivé. Veuillez contacter le service client pour réactiver votre compte."
@@ -98,11 +154,17 @@
     "email_not_found": {
       "message": "Le courriel n'existe pas."
     },
+    "user_not_found": {
+      "message": "L'utilisateur n'existe pas."
+    },
     "invalid_code": {
       "message": "Le code est invalide."
     },
     "code_expired": {
       "message": "Le code est expiré."
+    },
+    "invalid_current_password": {
+      "message": "Le mot de passe actuel est invalide."
     }
   },
   "success": {

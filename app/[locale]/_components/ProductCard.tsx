@@ -3,7 +3,8 @@
 import { useRouter } from "next/navigation"
 import { FaHeart, FaRegHeart } from "react-icons/fa6"
 import { Currency } from "@/app/[locale]/_components/Currency"
-import { calculateReducedPrice, ROUTE_SHOP, TProduct } from "@/app/[locale]/_core"
+import { ROUTE_SHOP, TProduct } from "@/app/[locale]/_core"
+import { calculateReducedPrice } from "@/app/[locale]/_lib"
 import { useTranslation } from "@/app/i18n/client"
 import styles from "./ProductCard.module.css"
 

@@ -9,6 +9,9 @@ export const ROUTE_VERIFY_EMAIL = { TITLE: "site_map.verify_email", PATH: "/veri
 export const ROUTE_FORGOT_PASSWORD = { TITLE: "site_map.forgot_password", PATH: "/forgot-password" }
 export const ROUTE_RESET_PASSWORD = { TITLE: "site_map.reset_password", PATH: "/reset-password" }
 export const ROUTE_AUTH_ERROR = { TITLE: "site_map.auth_error", PATH: "/error" }
+export const ROUTE_ACCOUNT = { TITLE: "site_map.account", PATH: "/account" }
+export const ROUTE_PROFILE = { TITLE: "site_map.profile", PATH: `${ROUTE_ACCOUNT.PATH}/profile` }
+export const ROUTE_SETTINGS = { TITLE: "site_map.settings", PATH: `${ROUTE_ACCOUNT.PATH}/settings` }
 export const ROUTE_SHOP = { TITLE: "site_map.shop", PATH: "/shop" }
 export const ROUTE_NEW_ARRIVALS = { TITLE: "site_map.new_arrivals", PATH: `${ROUTE_SHOP.PATH}/new-arrivals` }
 export const ROUTE_POPULAR = { TITLE: "site_map.popular", PATH: `${ROUTE_SHOP.PATH}/popular` }
@@ -39,7 +42,7 @@ export const AUTH_ROUTES = [
   ROUTE_RESET_PASSWORD.PATH,
 ]
 
-export const PUBLIC_ROUTES = [ROUTE_HOME.PATH, ROUTE_VERIFY_EMAIL.PATH, ROUTE_SHOP.PATH]
+export const PROTECTED_ROUTES = [ROUTE_ACCOUNT.PATH, ROUTE_SETTINGS.PATH]
 
 export const DEFAULT_LOGIN_REDIRECT = ROUTE_HOME.PATH
 
@@ -79,6 +82,20 @@ export const SITE_MAP = [
           {
             title: ROUTE_AUTH_ERROR.TITLE,
             path: ROUTE_AUTH_ERROR.PATH,
+          },
+        ],
+      },
+      {
+        title: ROUTE_ACCOUNT.TITLE,
+        path: ROUTE_ACCOUNT.PATH,
+        children: [
+          {
+            title: ROUTE_PROFILE.TITLE,
+            path: ROUTE_PROFILE.PATH,
+          },
+          {
+            title: ROUTE_SETTINGS.TITLE,
+            path: ROUTE_SETTINGS.PATH,
           },
         ],
       },

@@ -1,5 +1,6 @@
 export * from "./constants"
 export * from "./enums"
 export * from "./interfaces"
+export * from "./regexes"
 export * from "./routes"
-export * from "./utils"
+export * from "./types"

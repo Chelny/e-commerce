@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import NextAuth from "next-auth"
 import acceptLanguage from "accept-language"
-import { API_AUTH_PREFIX, AUTH_ROUTES, DEFAULT_LOGIN_REDIRECT, PUBLIC_ROUTES, ROUTE_LOGIN } from "@/app/[locale]/_core"
+import { API_AUTH_PREFIX, AUTH_ROUTES, DEFAULT_LOGIN_REDIRECT, PROTECTED_ROUTES, ROUTE_LOGIN } from "@/app/[locale]/_core"
 import authConfig from "@/app/[locale]/_lib/authentication.config"
 import { cookieName, defaultLocale, supportedLocales } from "@/app/i18n/settings"
 
@@ -48,18 +48,14 @@ const checkAuthentication = (request: any) => {
   const { nextUrl } = request
 
   const isLoggedIn = !!request.auth
-  const isPublicRoute = PUBLIC_ROUTES.some((path: string) => nextUrl.pathname.includes(path))
   const isAuthRoute = AUTH_ROUTES.some((path: string) => nextUrl.pathname.includes(path))
+  const isProtectedRoute = PROTECTED_ROUTES.some((path: string) => nextUrl.pathname.includes(path))
 
-  if (isAuthRoute) {
-    if (isLoggedIn) {
-      return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
-    }
-
-    return NextResponse.next()
+  if (isAuthRoute && isLoggedIn) {
+    return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
   }
 
-  if (!isLoggedIn && !isPublicRoute) {
+  if (isProtectedRoute && !isLoggedIn) {
     return NextResponse.redirect(new URL(ROUTE_LOGIN.PATH, nextUrl))
   }
 

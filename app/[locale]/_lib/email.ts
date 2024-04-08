@@ -6,7 +6,7 @@ import {
 } from "@/app/[locale]/_components/EmailTemplate"
 import { ROUTE_RESET_PASSWORD, ROUTE_VERIFY_EMAIL } from "@/app/[locale]/_core"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY)
 const FROM_EMAIL = "onboarding@resend.dev"
 
 export const sendVerificationEmail = async (firstName: string, email: string, token: string) => {

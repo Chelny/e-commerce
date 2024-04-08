@@ -19,14 +19,14 @@ import {
 import { useCurrentUser } from "@/app/[locale]/_hooks"
 import { useTranslation } from "@/app/i18n/client"
 
-export const ProductReviewForm = (props: TForm): JSX.Element => {
+export const ProductReviewForm = (props: TFormProps): JSX.Element => {
   const { t } = useTranslation(props.page.params.locale, "form")
   const [state, formAction] = useFormState(sendProductReview, undefined)
   const [selectedRating, setSelectedRating] = useState<number>(0)
   const commentRef = useRef<HTMLTextAreaElement>(null)
   const [comment, setComment] = useState("")
   const { pending } = useFormStatus()
-  const user = useCurrentUser()
+  const authUser = useCurrentUser()
 
   const handleRatingChange = (rating: number): void => {
     setSelectedRating(rating)
@@ -38,7 +38,7 @@ export const ProductReviewForm = (props: TForm): JSX.Element => {
 
   return (
     <>
-      {user?.email ? (
+      {authUser?.email ? (
         <form className="flex flex-col space-y-4 md:w-[500px]" noValidate action={formAction}>
           <h3>{t("form:comment")}</h3>
 

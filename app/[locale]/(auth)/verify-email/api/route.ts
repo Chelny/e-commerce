@@ -3,7 +3,7 @@ import { EHttpResponseStatus } from "@/app/[locale]/_core"
 import { getUserByEmail, getVerificationTokenByToken } from "@/app/[locale]/_data"
 import prisma from "@/app/[locale]/_lib/prisma"
 
-const POST = async <T>(body: T): Promise<NextResponse<TApiResponse>> => {
+export const POST = async <T>(body: T): Promise<NextResponse<TApiResponse>> => {
   // Check token validity
   const existingToken = await getVerificationTokenByToken(body.token)
 
@@ -63,5 +63,3 @@ const POST = async <T>(body: T): Promise<NextResponse<TApiResponse>> => {
     { status: 200 }
   )
 }
-
-export { POST }

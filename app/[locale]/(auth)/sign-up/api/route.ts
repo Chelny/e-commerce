@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server"
+import { User } from "@prisma/client"
 import { hash } from "bcryptjs"
 import { EHttpResponseStatus } from "@/app/[locale]/_core"
 import { getUserByEmail } from "@/app/[locale]/_data"
-import { sendVerificationEmail } from "@/app/[locale]/_lib/email"
+import { generateVerificationToken, sendVerificationEmail } from "@/app/[locale]/_lib"
 import prisma from "@/app/[locale]/_lib/prisma"
-import { generateVerificationToken } from "@/app/[locale]/_lib/tokens"
 
-const POST = async <T>(body: T): Promise<NextResponse<TApiResponse>> => {
+export const POST = async <T extends User & { birth_date: string }>(body: T): Promise<NextResponse<TApiResponse>> => {
   // Check if there is an existing account associated with the provided email
   const foundUserByEmail = await getUserByEmail(body.email)
 
@@ -21,7 +21,18 @@ const POST = async <T>(body: T): Promise<NextResponse<TApiResponse>> => {
   }
 
   // Create user
-  const hashedPassword = await hash(body.password, 12)
+  const hashedPassword = body.password && (await hash(body.password, 12))
+
+  if (!hashedPassword) {
+    return NextResponse.json(
+      {
+        status: EHttpResponseStatus.ERROR,
+        message: "alert.message.500",
+      },
+      { status: 500 }
+    )
+  }
+
   const newUser = await prisma.user.create({
     data: {
       first_name: body.first_name,
@@ -46,16 +57,14 @@ const POST = async <T>(body: T): Promise<NextResponse<TApiResponse>> => {
   const { password, active, created_at, updated_at, ...user } = newUser
 
   const verificationToken = await generateVerificationToken(newUser.email)
-  await sendVerificationEmail(newUser.first_name, verificationToken.email, verificationToken.token)
+  await sendVerificationEmail(newUser.first_name ?? "[first_name]", verificationToken.email, verificationToken.token)
 
   return NextResponse.json(
     {
       status: EHttpResponseStatus.SUCCESS,
       message: "form:success.verify_email.message",
-      data: { ...user, name: `${newUser.first_name} ${newUser.last_name}` },
+      data: user,
     },
     { status: 201 }
   )
 }
-
-export { POST }

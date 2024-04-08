@@ -91,14 +91,14 @@ export const BannerCarousel = (props: TBannerCarouselProps): JSX.Element => {
           {Array.from({ length: instanceRef.current.track.details.slides.length }, (_, index: number) => (
             <button
               key={index}
-              onClick={() => {
-                instanceRef.current?.moveToIdx(index)
-              }}
-              className={"carousel-navigation-button appearance-none flex items-center w-10 h-10 border-0 bg-transparent after:rounded-full no-underline cursor-pointer touch-manipulation after:content-['']".concat(
+              className={"carousel-navigation-button appearance-none flex items-center w-10 h-10 p-3 border-0 bg-transparent after:rounded-full no-underline cursor-pointer touch-manipulation after:content-['']".concat(
                 currentSlide === index
                   ? " after:w-8 after:h-4 after:border after:border-ecommerce-500 after:bg-ecommerce-300 dark:after:bg-ecommerce-500"
                   : " after:w-3 after:h-3 hover:after:w-8 hover:after:h-4 after:bg-ecommerce-500 dark:after:bg-ecommerce-700"
               )}
+              onClick={() => {
+                instanceRef.current?.moveToIdx(index)
+              }}
             ></button>
           ))}
         </div>

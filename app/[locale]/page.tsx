@@ -7,7 +7,7 @@ import { ROUTE_NEW_ARRIVALS, ROUTE_POPULAR, ROUTE_SALE } from "@/app/[locale]/_c
 import { GET_PRODUCTS } from "@/app/[locale]/api/route"
 import { useTranslation } from "@/app/i18n"
 
-const HomePage = async (props: TPage): Promise<JSX.Element> => {
+const HomePage = async (props: TPageProps): Promise<JSX.Element> => {
   const { t } = await useTranslation(props.params.locale, ["common", "shop"])
   const response = await GET_PRODUCTS()
 

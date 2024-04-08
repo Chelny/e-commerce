@@ -14,31 +14,31 @@ type TProductGridProps = {
 
 export const ProductGrid = (props: TProductGridProps): JSX.Element => {
   const [products, setProducts] = useState<TProduct[]>(props.initialProducts)
-  const [isLastPage, setIsLastPage] = useState<boolean>(false)
-  const [page, setPage] = useState<number>(0)
+  const [isLasTPageProps, setIsLasTPageProps] = useState<boolean>(false)
+  const [page, seTPageProps] = useState<number>(0)
   const { ref, inView } = useInView()
 
   const loadMoreUsers = useCallback(async () => {
-    const nextPage = page + 1
-    const response = await props.fetchData(nextPage)
+    const nexTPageProps = page + 1
+    const response = await props.fetchData(nexTPageProps)
 
     setProducts((prevProducts: TProduct[]) => [...prevProducts, ...response.products])
-    setPage(nextPage)
+    seTPageProps(nexTPageProps)
 
     if (response.count >= products.length) {
-      setIsLastPage(true)
+      setIsLasTPageProps(true)
     }
   }, [page, props, products.length])
 
   useEffect(() => {
     const fetchDataInView = async () => {
-      if (inView && !isLastPage) {
+      if (inView && !isLasTPageProps) {
         await loadMoreUsers()
       }
     }
 
     fetchDataInView()
-  }, [inView, isLastPage, loadMoreUsers])
+  }, [inView, isLasTPageProps, loadMoreUsers])
 
   return (
     <>
@@ -49,7 +49,7 @@ export const ProductGrid = (props: TProductGridProps): JSX.Element => {
           </Suspense>
         ))}
       </div>
-      {!isLastPage && <div id="infiniteScroll" ref={ref}></div>}
+      {!isLasTPageProps && <div id="infiniteScroll" ref={ref}></div>}
     </>
   )
 }
