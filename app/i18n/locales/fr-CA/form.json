@@ -179,6 +179,9 @@
     },
     "password_updated": {
       "message": "Le mot de passe a été réinitialisé avec succès !"
+    },
+    "update_profile": {
+      "message": "Le profil a été mise à jour avec succès !"
     }
   }
 }

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import { ECountryCode } from "@/app/[locale]/_core"
 
 export enum EInputType {
@@ -10,6 +10,7 @@ type TUseInputMaskProps = {
   type: EInputType
   value: string
   countryCode?: ECountryCode | string
+  onChange: Dispatch<SetStateAction<string | null | undefined>>
 }
 
 export const useInputMask = (props: TUseInputMaskProps) => {
@@ -18,7 +19,7 @@ export const useInputMask = (props: TUseInputMaskProps) => {
   const formatPhoneNumber = (input: string): string => {
     return input
       .replace(/^(\d{1})$/, "+$1")
-      .replace(/^(\d{1})(\d{1,3})$/, "+$1 ($2)")
+      .replace(/^(\d{1})(\d{1,3})$/, "+$1 ($2")
       .replace(/^(\d{1})(\d{3})(\d{1,3})$/, "+$1 ($2) $3")
       .replace(/^(\d{1})(\d{3})(\d{3})(\d{1,4})/, "+$1 ($2) $3-$4")
   }
@@ -47,11 +48,11 @@ export const useInputMask = (props: TUseInputMaskProps) => {
   const formattedValue = ((): string => {
     switch (props.type) {
       case EInputType.PHONE_NUMBER:
-        return formatPhoneNumber(rawValue)
+        return formatPhoneNumber(props.value)
       case EInputType.POSTAL_CODE:
-        return formatZipCode(rawValue, props.countryCode)
+        return formatZipCode(props.value, props.countryCode)
       default:
-        return rawValue
+        return props.value
     }
   })()
 
@@ -60,7 +61,7 @@ export const useInputMask = (props: TUseInputMaskProps) => {
 
     switch (props.type) {
       case EInputType.PHONE_NUMBER:
-        inputValue = inputValue.replace(/\D/g, "")
+        inputValue = inputValue.replace(/[\D]/g, "")
         break
       case EInputType.POSTAL_CODE:
         switch (props.countryCode) {
@@ -83,6 +84,7 @@ export const useInputMask = (props: TUseInputMaskProps) => {
     }
 
     setRawValue(inputValue)
+    props.onChange(inputValue)
   }
 
   return { rawValue, formattedValue, handleChange }

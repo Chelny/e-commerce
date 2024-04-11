@@ -44,7 +44,8 @@ export const updateProfile = async (_: TFormState, formData: FormData): Promise<
       last_name: nullable(string([minLength(1, "last_name.required"), regex(NAME_REGEX, "last_name.pattern")])),
       name: nullable(string([minLength(1, "name.required"), regex(NAME_REGEX, "name.pattern")])),
       gender: enum_(Gender, "gender.required"),
-      birth_date: string("birth_date.required", [
+      birth_date: string([
+        minLength(1, "birth_date.required"),
         custom((value: string) => new Date(value) < minimumBirthdate(), "birth_date.max"),
       ]),
       email: string([minLength(1, "email.required"), email("email.pattern")]),
@@ -144,6 +145,7 @@ export const updateProfile = async (_: TFormState, formData: FormData): Promise<
     }
   }
 
+  // @ts-ignore
   const response = await POST<ProfileData>(result.output)
   const data = await response.json()
 

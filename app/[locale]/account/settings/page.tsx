@@ -6,6 +6,7 @@ const SettingsPage = async (props: TPageProps): Promise<JSX.Element> => {
   return (
     <>
       <h1>{t("site_map.settings")}</h1>
+      Nothing to see here
       {/* <SettingsForm page={props} /> */}
     </>
   )

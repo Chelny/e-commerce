@@ -161,7 +161,7 @@ textarea {
   border: 0.125rem solid transparent;
   border-radius: var(--border-radius);
   background-color: var(--input-background);
-  box-shadow: theme("boxShadow.md");
+  box-shadow: theme("boxShadow.sm");
   font-size: 1rem;
 }
 
@@ -330,7 +330,7 @@ html.dark textarea.invalid {
 
 button {
   padding-inline: 1rem;
-  padding-block: 0.5rem;
+  padding-block: 0.75rem;
   border-radius: var(--border-radius);
   font-weight: 500;
   transition: ease-out 0.4s;

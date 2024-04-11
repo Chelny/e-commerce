@@ -179,6 +179,9 @@
     },
     "password_updated": {
       "message": "The password has been successfully updated!"
+    },
+    "update_profile": {
+      "message": "The profile has been successfully updated!"
     }
   }
 }

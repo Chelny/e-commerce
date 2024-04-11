@@ -18,6 +18,7 @@ const config: Config = {
       width: {
         "authentication-form": "100%",
         "authentication-form-md": "32rem",
+        "account-form": "100%",
         "account-form-md": "48rem",
       },
       borderRadius: {

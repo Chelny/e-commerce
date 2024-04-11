@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react"
 import { ECountryCode } from "@/app/[locale]/_core"
 import { EInputType, useInputMask } from "@/app/[locale]/_hooks"
 
@@ -8,11 +8,12 @@ type TInputMaskProps = {
   className: string
   value: string
   countryCode?: ECountryCode | string
+  onChange: Dispatch<SetStateAction<string | null | undefined>>
 }
 
 export const InputMask = (props: TInputMaskProps): JSX.Element => {
   const [inputType, setInputType] = useState<string>("text")
-  const { rawValue, formattedValue, handleChange } = useInputMask(props)
+  const { rawValue, formattedValue, handleChange } = useInputMask({ ...props, onChange: props.onChange })
 
   useEffect(() => {
     switch (props.type) {
@@ -27,9 +28,9 @@ export const InputMask = (props: TInputMaskProps): JSX.Element => {
   }, [])
 
   useEffect(() => {
-    handleChange({ target: { value: rawValue } } as ChangeEvent<HTMLInputElement>)
+    handleChange({ target: { value: props.value } } as ChangeEvent<HTMLInputElement>)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.countryCode])
+  }, [props.value, props.countryCode])
 
   return (
     <>

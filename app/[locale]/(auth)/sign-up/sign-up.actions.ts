@@ -64,6 +64,7 @@ export const signUp = async (_: TFormState, formData: FormData): Promise<TFormAc
     }
   }
 
+  // @ts-ignore
   const response = await POST<SignUpData>(result.output)
   const data = await response.json()
 
