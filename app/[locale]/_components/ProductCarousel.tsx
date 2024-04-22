@@ -31,10 +31,10 @@ export const ProductCarousel = (props: TProductCarouselProps): JSX.Element => {
         "(min-width: 768px)": {
           slides: { perView: 2.5 },
         },
-        "(min-width: 1024px)": {
+        "(min-width: 992px)": {
           slides: { perView: 3.5 },
         },
-        "(min-width: 1200px)": {
+        "(min-width: 1024px)": {
           slides: { perView: 4.9 },
         },
       },

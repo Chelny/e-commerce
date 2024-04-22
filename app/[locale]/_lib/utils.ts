@@ -2,11 +2,11 @@ import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
 /**
- * Used for shadcn/ui
+ * Merge classes
  * @param inputs
  * @returns
  */
-export const cn = (...inputs: ClassValue[]): string => {
+export const classMerge = (...inputs: ClassValue[]): string => {
   return twMerge(clsx(inputs))
 }
 

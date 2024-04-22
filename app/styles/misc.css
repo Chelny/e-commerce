@@ -1,0 +1,8 @@
+hr {
+  margin-block: 2rem;
+  border-color: var(--border);
+}
+
+section {
+  padding-block: 1rem;
+}

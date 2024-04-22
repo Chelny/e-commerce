@@ -2,15 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useParams, useRouter, useSelectedLayoutSegments } from "next/navigation"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu"
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import { IoLanguage } from "react-icons/io5"
-import { Button } from "@/app/[locale]/_components/ui/button"
+import { classMerge } from "@/app/[locale]/_lib"
 
 type TDropdownOptions = {
   label: string
@@ -66,21 +60,28 @@ export const ChangeLocale = (): JSX.Element => {
   }, [params.locale, setSelectedLanguage])
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button className="flex gap-2 text-foreground hover:bg-transparent" variant="ghost">
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        <button
+          type="button"
+          className={classMerge(
+            "DropdownMenuTriggerButton",
+            "flex gap-2 px-4 py-2 text-foreground hover:bg-transparent"
+          )}
+        >
           <IoLanguage className="h-[1.2rem] w-[1.2rem]" /> <span>{dropdownLabel}</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-background rounded-md p-4">
-        <DropdownMenuRadioGroup value={dropdownValue} onValueChange={handleLocaleChange}>
+        </button>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content className={classMerge("DropdownMenuContent", "min-w-[8rem]")}>
+        <DropdownMenu.Arrow className="DropdownMenuArrow" />
+        <DropdownMenu.RadioGroup value={dropdownValue} onValueChange={handleLocaleChange}>
           {dropdownOptions.map((option: TDropdownOptions) => (
-            <DropdownMenuRadioItem key={option.value} className="py-2 hover:cursor-pointer" value={option.value}>
+            <DropdownMenu.RadioItem key={option.value} className="DropdownMenuRadioItem" value={option.value}>
               {option.label}
-            </DropdownMenuRadioItem>
+            </DropdownMenu.RadioItem>
           ))}
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </DropdownMenu.RadioGroup>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
   )
 }

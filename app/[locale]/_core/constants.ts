@@ -4,6 +4,11 @@ export const APP = {
 
 export const SERVER_URL = "http://localhost:8000/api"
 
+export const BREAKPOINT_SM = 576
+export const BREAKPOINT_MD = 768
+export const BREAKPOINT_LG = 992
+export const BREAKPOINT_XL = 1200
+
 export const MAX_PRODUCTS_PER_PAGE = 20
 export const MAX_PRODUCT_REVIEWS_PER_PAGE = 20
 

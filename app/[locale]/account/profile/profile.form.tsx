@@ -101,6 +101,7 @@ export const ProfileForm = (props: TFormProps): JSX.Element => {
           {/* TODO: Image */}
           {/* <Image src={image ?? ""} width={200} height={200} alt={email ?? ""} /> */}
           {/* <input type="file" id="image" name="image" value={image ?? ""} onChange={(e) => setImage(e.target.files && e.target.files[0].filename)} readOnly={provider !== EOAuthProvider.CREDENTIALS} /> */}
+          {/* <FieldHintMessage locale={props.page.params.locale} keyName="sso_image" /> */}
 
           {provider !== EOAuthProvider.CREDENTIALS ? (
             <>
@@ -115,6 +116,11 @@ export const ProfileForm = (props: TFormProps): JSX.Element => {
                 value={name ?? ""}
                 readOnly
                 required
+              />
+              <FieldHintMessage
+                locale={props.page.params.locale}
+                keyName="sso_name"
+                interpolation={{ ssoProvider: provider }}
               />
               <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.name} />
             </>
@@ -246,6 +252,11 @@ export const ProfileForm = (props: TFormProps): JSX.Element => {
             readOnly={provider !== EOAuthProvider.CREDENTIALS}
             required
             onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+          />
+          <FieldHintMessage
+            locale={props.page.params.locale}
+            keyName="sso_email"
+            interpolation={{ ssoProvider: provider }}
           />
           <FieldErrorMessage locale={props.page.params.locale} field={state?.data?.errors?.email} />
 

@@ -1,0 +1,66 @@
+button {
+  padding-inline: 1rem;
+  padding-block: 0.75rem;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  transition: ease-out 0.4s;
+}
+
+button[type="submit"],
+button.primary-action,
+button.secondary-action,
+button.tertiary-action {
+  color: var(--color-white);
+  /* stylelint-disable-next-line declaration-no-important */
+  margin-block-start: 1rem !important;
+}
+
+button[type="submit"],
+button.primary-action {
+  background-color: var(--button);
+}
+
+button.secondary-action {
+  background-color: var(--button-secondary);
+}
+
+button.tertiary-action {
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  box-shadow: var(--box-shadow);
+}
+
+button.button-link {
+  padding: 0;
+  color: var(--foreground);
+  font-weight: 500;
+  transition: unset;
+}
+
+button:disabled {
+  opacity: 75%;
+  cursor: not-allowed;
+}
+
+form button[type="submit"]:hover {
+  box-shadow: inset 0 0 0 3.125rem var(--button-hover);
+}
+
+.IconButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border-radius: var(--border-radius);
+}
+
+.IconButton:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.IconButton svg {
+  width: 22px;
+  height: 22px;
+}

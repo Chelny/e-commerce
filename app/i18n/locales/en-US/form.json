@@ -39,7 +39,9 @@
     "state": "Select a state or a province"
   },
   "hint": {
+    "sso_name": "You cannot modify the name. Please sign in to {{ssoProvider}} to update your name.",
     "birth_date": "The minimum age is 18 years old.",
+    "sso_email": "You cannot modify the email. Please sign in to {{ssoProvider}} to update your email.",
     "password": "Password must be at least 8 characters long, must contain at least one digit and must contain at least one special character.",
     "phone_number": "Please include country code"
   },

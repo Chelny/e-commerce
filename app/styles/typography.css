@@ -1,0 +1,57 @@
+h1 {
+  font-size: 1.75rem;
+}
+
+h1:has(+ form) {
+  margin-block-end: 1.5rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+footer h3 {
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+a {
+  color: var(--link);
+  font-weight: 600;
+}
+
+a.shop-menu-link {
+  color: var(--shop-menu-link);
+  text-transform: uppercase;
+}
+
+footer a {
+  color: theme("colors.ecommerce.400");
+  font-weight: 500;
+}
+
+a:active,
+a.active {
+  color: var(--link-active);
+}
+
+a:hover,
+a:focus {
+  color: var(--link-hover);
+  text-decoration: underline;
+  text-decoration-thickness: 0.125rem;
+  text-underline-offset: 0.125rem;
+}
+
+footer a:hover,
+footer a:focus {
+  color: theme("colors.ecommerce.500");
+}
+
+footer #copyright a {
+  color: theme("colors.ecommerce.500");
+}

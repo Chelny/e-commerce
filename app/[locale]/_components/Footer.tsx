@@ -88,7 +88,7 @@ export const Footer = (props: TFooterProps): JSX.Element => {
               </Link>
             </li>
             <li>
-              <Link href={"https://www.twitter.com/chelny"} target="_blank" aria-label="Twitter">
+              <Link href={"https://www.x.com/chelny"} target="_blank" aria-label="X (Twitter)">
                 <FaXTwitter className="brand-icon" />
               </Link>
             </li>

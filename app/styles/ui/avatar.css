@@ -1,0 +1,25 @@
+.AvatarRoot {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  overflow: hidden;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 100%;
+}
+
+.AvatarImage {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.AvatarFallback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background-color: var(--muted);
+}

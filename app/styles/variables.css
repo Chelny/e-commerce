@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-white: theme("colors.ecommerce.100");
+    --color-black: theme("colors.ecommerce.900");
+    --background: theme("colors.ecommerce.100");
+    --foreground: theme("colors.ecommerce.800");
+    --card: theme("colors.ecommerce.200");
+    --card-foreground: var(--foreground);
+    --popover: var(--background);
+    --popover-foreground: var(--foreground);
+    --primary: #dadadc;
+    --primary-foreground: var(--foreground);
+    --secondary: #ababab;
+    --secondary-foreground: var(--foreground);
+    --muted: theme("colors.ecommerce.400");
+    --muted-foreground: var(--foreground);
+    --accent: theme("colors.ecommerce.300");
+    --accent-foreground: var(--foreground);
+    --destructive: #e44646;
+    --destructive-foreground: var(--foreground);
+    --link: theme("colors.ecommerce.900");
+    --link-hover: theme("colors.ecommerce.500");
+    --link-active: theme("colors.ecommerce.500");
+    --border: var(--muted);
+    --border-radius: theme("borderRadius.DEFAULT");
+    --ring: var(--muted);
+    --box-shadow: theme("boxShadow.card");
+    --input: theme("colors.ecommerce.200");
+    --input-opacity-disabled: 0.65;
+    --radio-button: theme("colors.ecommerce.200");
+    --radio-button-checked: theme("colors.ecommerce.900");
+    --radio-toolbar-border-focus: theme("colors.ecommerce.300");
+    --radio-toolbar: theme("colors.ecommerce.300");
+    --radio-toolbar-hover: theme("colors.ecommerce.400");
+    --radio-toolbar-checked: theme("colors.ecommerce.900");
+    --radio-toolbar-foreground: theme("colors.ecommerce.900");
+    --radio-toolbar-foreground-hover: theme("colors.ecommerce.900");
+    --radio-toolbar-foreground-checked: theme("colors.ecommerce.200");
+    --progress-bar: theme("colors.ecommerce.300");
+    --progress-value: theme("colors.ecommerce.900");
+    --button: theme("colors.ecommerce.900");
+    --button-hover: theme("colors.ecommerce.500");
+    --button-secondary: theme("colors.ecommerce.600");
+  }
+
+  .dark {
+    --background: theme("colors.ecommerce.900");
+    --foreground: theme("colors.ecommerce.200");
+    --card: theme("colors.ecommerce.800");
+    --card-foreground: var(--foreground);
+    --popover: var(--background);
+    --popover-foreground: var(--foreground);
+    --primary: #232325;
+    --primary-foreground: var(--foreground);
+    --secondary: #545454;
+    --secondary-foreground: var(--foreground);
+    --muted: theme("colors.ecommerce.700");
+    --muted-foreground: var(--foreground);
+    --accent: theme("colors.ecommerce.700");
+    --accent-foreground: var(--foreground);
+    --destructive: #e44646;
+    --destructive-foreground: var(--foreground);
+    --link: theme("colors.ecommerce.100");
+    --link-active: theme("colors.ecommerce.500");
+    --input: theme("colors.ecommerce.800");
+    --input-opacity-disabled: 0.5;
+    --radio-button: theme("colors.ecommerce.800");
+    --radio-button-checked: theme("colors.ecommerce.800");
+    --radio-toolbar-border-focus: theme("colors.ecommerce.500");
+    --radio-toolbar: theme("colors.ecommerce.700");
+    --radio-toolbar-hover: theme("colors.ecommerce.600");
+    --radio-toolbar-checked: theme("colors.ecommerce.800");
+    --radio-toolbar-foreground: theme("colors.ecommerce.200");
+    --radio-toolbar-foreground-hover: theme("colors.ecommerce.200");
+    --radio-toolbar-foreground-checked: theme("colors.ecommerce.100");
+    --progress-bar: theme("colors.ecommerce.700");
+    --progress-value: theme("colors.ecommerce.500");
+    --button: theme("colors.ecommerce.600");
+    --button-hover: theme("colors.ecommerce.800");
+    --button-secondary: theme("colors.ecommerce.700");
+  }
+}
