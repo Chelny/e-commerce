@@ -18,7 +18,7 @@ export const ProductCard = (props: TProductCardProps): JSX.Element => {
   const { t } = useTranslation(props.locale, ["common", "shop"])
 
   const handleViewProductDetails = (sku: string) => {
-    router.push(`/${props.locale}${ROUTE_SHOP.PATH}?product=${sku}`)
+    router.push(`/${props.locale}${ROUTE_SHOP.PATH}/product/${sku}`)
   }
 
   return (

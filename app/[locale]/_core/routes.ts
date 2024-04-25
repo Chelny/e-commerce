@@ -118,7 +118,7 @@ export const SITE_MAP = [
           // TODO: Get item's name and URL
           // {
           //   title: "site_map.item_name",
-          //   path: `${ROUTE_SHOP.PATH}/item/$param`,
+          //   path: `${ROUTE_SHOP.PATH}/product/$param`,
           // },
         ],
       },

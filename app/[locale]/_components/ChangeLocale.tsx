@@ -47,10 +47,10 @@ export const ChangeLocale = (): JSX.Element => {
 
     setSelectedLanguage(newLocale)
 
-    // This is used by the Header component which is used in `app/[locale]/layout.tsx` file,
-    // urlSegments will contain the segments after the locale.
-    // We replace the URL with the new locale and the rest of the segments.
-    router.push(`/${newLocale}/${urlSegments.join("/")}${searchParams.size > 0 ? `?${searchParams}` : ""}`, {
+    // Fix to remove route groups from URL segments
+    const filteredSegments = urlSegments.filter((segment: string) => !/\(.*?\)/.test(segment))
+
+    router.push(`/${newLocale}/${filteredSegments.join("/")}${searchParams.size > 0 ? `?${searchParams}` : ""}`, {
       scroll: false,
     })
   }

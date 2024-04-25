@@ -1,11 +1,10 @@
 "use client"
 
-import { Suspense, useState } from "react"
+import { useState } from "react"
 import { dir } from "i18next"
 import { KeenSliderPlugin, useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 import { ProductCard } from "@/app/[locale]/_components/ProductCard"
-import { ProductCardSkeleton } from "@/app/[locale]/_components/ProductCard.skeleton"
 import { TProduct } from "@/app/[locale]/_core"
 
 type TProductCarouselProps = {
@@ -71,9 +70,7 @@ export const ProductCarousel = (props: TProductCarouselProps): JSX.Element => {
       <div ref={sliderRef} className="keen-slider pb-2">
         {props.products?.map((product: TProduct) => (
           <div key={product?.id} className="keen-slider__slide">
-            <Suspense fallback={<ProductCardSkeleton />}>
-              <ProductCard locale={props.locale} product={product} />
-            </Suspense>
+            <ProductCard locale={props.locale} product={product} />
           </div>
         ))}
       </div>

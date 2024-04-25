@@ -8,6 +8,7 @@ type TLayoutProps = {
 type TPageProps = {
   params: {
     locale: TLocale
+    product?: string
   }
   searchParams?: {
     [key: string]: string | string[] | undefined

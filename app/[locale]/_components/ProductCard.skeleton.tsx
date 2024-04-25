@@ -6,11 +6,11 @@ export const ProductCardSkeleton = (): JSX.Element => {
     <div className="relative">
       <Skeleton className={styles.itemProductCardImage} />
       <div className="py-2 leading-loose">
-        <div className="py-4">
+        <div className="mt-4">
           <Skeleton className="w-full h-[1rem]" />
         </div>
-        <div>
-          <span className="py-4">
+        <div className="mt-4">
+          <span>
             <Skeleton className="w-[12rem] h-[1rem]" />
           </span>
         </div>
