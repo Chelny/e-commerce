@@ -26,7 +26,7 @@ const LocaleLayout = async (props: TLayoutProps): Promise<JSX.Element> => {
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <ToastProvider locale={props.params.locale}>
               <Header locale={props.params.locale}></Header>
-              <main className="overflow-x-hidden flex flex-col">
+              <main className="overflow-x-hidden flex flex-col 2xl:w-[1440px] 2xl:mx-auto">
                 <Breadcrumbs locale={props.params.locale} />
                 {props.children}
               </main>

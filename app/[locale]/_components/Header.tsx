@@ -41,18 +41,18 @@ export const Header = (props: THeaderProps): JSX.Element => {
     setWidth(newWidth)
   }
 
-  const openMenu = (): void => {
+  const handleOpenMenu = (): void => {
     setMenuOpen((prevMenuOpen: boolean) => !prevMenuOpen)
   }
 
-  const goToLoginPage = (event: React.MouseEvent<HTMLButtonElement>): void => {
+  const handleGoToLoginPage = (event: React.MouseEvent<HTMLButtonElement>): void => {
     if (width < BREAKPOINT_MD) {
       event.preventDefault()
       router.push(ROUTE_LOGIN.PATH)
     }
   }
 
-  const goToCartPage = (event: React.MouseEvent<HTMLButtonElement>): void => {
+  const handleGoToCartPage = (event: React.MouseEvent<HTMLButtonElement>): void => {
     if (width < BREAKPOINT_MD) {
       event.preventDefault()
       router.push(ROUTE_CART.PATH)
@@ -76,7 +76,7 @@ export const Header = (props: THeaderProps): JSX.Element => {
           role="button"
           aria-controls="menu"
           aria-expanded={menuOpen ? "true" : "false"}
-          onClick={openMenu}
+          onClick={handleOpenMenu}
         >
           <div className={styles.menuIconTopBar}></div>
           <div className={styles.menuIconBottomBar}></div>
@@ -159,7 +159,7 @@ export const Header = (props: THeaderProps): JSX.Element => {
               <Popover.Trigger asChild>
                 <LoginButton
                   {...props}
-                  onClick={(event: React.MouseEvent<HTMLButtonElement>) => goToLoginPage(event)}
+                  onClick={(event: React.MouseEvent<HTMLButtonElement>) => handleGoToLoginPage(event)}
                 />
               </Popover.Trigger>
               <Popover.Content className="PopoverContent">
@@ -172,7 +172,10 @@ export const Header = (props: THeaderProps): JSX.Element => {
         <li className={styles.menuItem}>
           <Popover.Root>
             <Popover.Trigger asChild>
-              <CartButton {...props} onClick={(event: React.MouseEvent<HTMLButtonElement>) => goToCartPage(event)} />
+              <CartButton
+                {...props}
+                onClick={(event: React.MouseEvent<HTMLButtonElement>) => handleGoToCartPage(event)}
+              />
             </Popover.Trigger>
             <Popover.Content className="PopoverContent">
               <Popover.Arrow className="PopoverArrow" />

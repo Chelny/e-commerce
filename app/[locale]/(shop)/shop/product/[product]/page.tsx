@@ -5,6 +5,7 @@ import ProductRecommendationsSkeleton from "@/app/[locale]/(shop)/shop/product/[
 import ProductReviewsSkeleton from "@/app/[locale]/(shop)/shop/product/[product]/ProductReviews.skeleton"
 import { ProductReviewForm } from "@/app/[locale]/(shop)/shop/product-review.form"
 import { Cart } from "@/app/[locale]/_components/Cart"
+import CartSkeleton from "@/app/[locale]/_components/Cart.skeleton"
 import { Currency } from "@/app/[locale]/_components/Currency"
 import { ProductCarousel } from "@/app/[locale]/_components/ProductCarousel"
 import { ProductImageGallery } from "@/app/[locale]/_components/ProductImageGallery"
@@ -22,8 +23,8 @@ const ProductPage = async (props: TPageProps): Promise<JSX.Element> => {
 
   return (
     <div className="flex flex-col space-y-16">
-      <div className="grid md:grid-cols-[2fr_1fr] md:space-x-8 rtl:md:space-x-reverse space-y-8 md:space-y-0">
-        <div className="grid md:grid-cols-[25rem_2fr] md:space-x-4 rtl:md:space-x-reverse space-y-4 md:space-y-0">
+      <div className="grid xl:grid-cols-[2fr_1fr] xl:space-x-8 rtl:xl:space-x-reverse space-y-8 xl:space-y-0">
+        <div className="grid xl:grid-cols-[25rem_2fr] xl:space-x-4 rtl:xl:space-x-reverse space-y-4 xl:space-y-0">
           <Suspense fallback={<ProductInfoSkeleton />}>
             <ProductImageGallery locale={props.params.locale} />
             <div>
@@ -59,7 +60,7 @@ const ProductPage = async (props: TPageProps): Promise<JSX.Element> => {
             </div>
           </Suspense>
         </div>
-        <Suspense fallback={<>Loading cart...</>}>
+        <Suspense fallback={<CartSkeleton />}>
           <Cart locale={props.params.locale} product={product} />
         </Suspense>
       </div>

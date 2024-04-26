@@ -23,7 +23,7 @@ export const Footer = (props: TFooterProps): JSX.Element => {
   const { t } = useTranslation(props.locale, "common")
 
   return (
-    <footer className="p-4 bg-ecommerce-900 dark:bg-ecommerce-800 text-ecommerce-100">
+    <footer className="2xl:w-[1440px] p-4 2xl:mx-auto bg-ecommerce-900 dark:bg-ecommerce-800 text-ecommerce-100">
       <div className="grid grid-rows-app-footer-links md:grid-rows-app-footer-links-md grid-cols-app-footer-links md:grid-cols-app-footer-links-md md:space-x-24 rtl:md:space-x-reverse space-y-8 md:space-y-0 pb-4 md:py-6 text-center md:text-start">
         <div className="space-y-4">
           <h3>{t("app_footer.about")}</h3>

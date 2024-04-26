@@ -18,11 +18,11 @@ export const ProductCard = (props: TProductCardProps): JSX.Element => {
   const router = useRouter()
   const { t } = useTranslation(props.locale, ["common", "shop"])
 
-  const addToFavourites = (): void => {
+  const handleAddToFavourites = (): void => {
     console.log("Call add to favourites hook")
   }
 
-  const addToCart = (): void => {
+  const handleAddToCart = (): void => {
     console.log("Call add to cart hook")
   }
 
@@ -40,10 +40,10 @@ export const ProductCard = (props: TProductCardProps): JSX.Element => {
           height={272}
           alt={props.product.name}
         />
-        <button type="button" className={styles.addFavouritesButton} onClick={addToFavourites}>
+        <button type="button" className={styles.addFavouritesButton} onClick={handleAddToFavourites}>
           <FiHeart className={styles.icon} />
         </button>
-        <button type="button" className={styles.addCartButton} onClick={addToCart}>
+        <button type="button" className={styles.addCartButton} onClick={handleAddToCart}>
           <FiShoppingCart className={styles.icon} />
         </button>
         <button

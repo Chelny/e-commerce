@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react"
 import { ECountryCode } from "@/app/[locale]/_core"
+import { formatPhoneNumber, formatPostalCode } from "@/app/[locale]/_lib"
 
 export enum EInputType {
   PHONE_NUMBER = "PHONE_NUMBER",
@@ -16,41 +17,12 @@ type TUseInputMaskProps = {
 export const useInputMask = (props: TUseInputMaskProps) => {
   const [rawValue, setRawValue] = useState<string>(props.value)
 
-  const formatPhoneNumber = (input: string): string => {
-    return input
-      .replace(/^(\d{1})$/, "+$1")
-      .replace(/^(\d{1})(\d{1,3})$/, "+$1 ($2")
-      .replace(/^(\d{1})(\d{3})(\d{1,3})$/, "+$1 ($2) $3")
-      .replace(/^(\d{1})(\d{3})(\d{3})(\d{1,4})/, "+$1 ($2) $3-$4")
-  }
-
-  const formatZipCode = (input: string, countryCode?: string): string => {
-    if (countryCode) {
-      switch (countryCode) {
-        case ECountryCode.CA:
-          return input
-            .replace(/^([ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z])$/, "$1")
-            .replace(/^([ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z])(\d)$/, "$1 $2")
-            .replace(/^([ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z])(\d[ABCEGHJ-NPRSTV-Z])$/, "$1 $2")
-            .replace(/^([ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z])(\d[ABCEGHJ-NPRSTV-Z]\d)$/, "$1 $2")
-        case ECountryCode.US:
-          return input
-            .replace(/^(?!0{5})(\d{5})(?!-?0{4})$/, "$1")
-            .replace(/^(?!0{5})(\d{5})(?!-?0{4})(\d{1,4})$/, "$1-$2")
-        default:
-          break
-      }
-    }
-
-    return input
-  }
-
   const formattedValue = ((): string => {
     switch (props.type) {
       case EInputType.PHONE_NUMBER:
         return formatPhoneNumber(props.value)
       case EInputType.POSTAL_CODE:
-        return formatZipCode(props.value, props.countryCode)
+        return formatPostalCode(props.value, props.countryCode)
       default:
         return props.value
     }
