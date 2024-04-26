@@ -20,25 +20,16 @@ export const ProductCarousel = (props: TProductCarouselProps): JSX.Element => {
       rtl: dir(props.locale) === "rtl",
       initial: 0,
       mode: "free-snap",
-      breakpoints: {
-        "(min-width: 400px)": {
-          slides: { perView: 1.3 },
-        },
-        "(min-width: 640px)": {
-          slides: { perView: 2.3 },
-        },
-        "(min-width: 768px)": {
-          slides: { perView: 2.5 },
-        },
-        "(min-width: 992px)": {
-          slides: { perView: 3.5 },
-        },
-        "(min-width: 1024px)": {
-          slides: { perView: 4.9 },
-        },
-      },
       slides: {
-        perView: 1,
+        perView: () => {
+          const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize)
+          const slideWidthRem = 17
+          const spacing = 30
+          const slideWidthPx = slideWidthRem * rootFontSize + spacing
+          const slidesPerView = window.innerWidth / slideWidthPx
+          return +slidesPerView.toFixed(1)
+        },
+        spacing: 20,
       },
       created() {
         setLoaded(true)

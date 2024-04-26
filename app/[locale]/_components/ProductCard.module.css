@@ -1,28 +1,46 @@
-.itemProductCardImage {
+.productCard {
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   width: 100%;
-  height: 18rem;
+  height: 17rem;
   border-radius: var(--border-radius);
   background-position: center center;
   background-size: cover;
 }
 
 @media screen and (min-width: 768px) {
-  .itemProductCardImage {
+  .productCard {
     width: 17rem;
   }
 }
 
-.addFavouriteButton,
+.productCard:hover .productCardImage {
+  filter: blur(1rem) opacity(50%);
+}
+
+.addFavouritesButton,
+.addCartButton,
 .viewProductButton {
   position: absolute;
   visibility: hidden;
 }
 
-.addFavouriteButton {
+.addFavouritesButton,
+.addCartButton {
+  transition: transform 0.5s ease, visibility 0.5s;
+  transform: translateY(-100%);
+}
+
+.addFavouritesButton {
+  top: 0;
+  padding: 0.5rem;
+  color: var(--color-black);
+  inset-inline-start: 0;
+}
+
+.addCartButton {
   top: 0;
   padding: 0.5rem;
   color: var(--color-black);
@@ -44,11 +62,19 @@
   transform: translateY(100%);
 }
 
-.itemProductCardImage:hover .addFavouriteButton {
-  visibility: visible;
-}
-
-.itemProductCardImage:hover .viewProductButton {
+.productCard:hover .addFavouritesButton,
+.productCard:hover .addCartButton,
+.productCard:hover .viewProductButton {
   visibility: visible;
   transform: translateY(0);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-white);
+}
+
+.icon.filled {
+  fill: white;
 }

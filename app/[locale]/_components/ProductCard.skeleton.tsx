@@ -4,7 +4,7 @@ import styles from "./ProductCard.module.css"
 export const ProductCardSkeleton = (): JSX.Element => {
   return (
     <div className="relative">
-      <Skeleton className={styles.itemProductCardImage} />
+      <Skeleton className={styles.productCard} />
       <div className="py-2 leading-loose">
         <div className="mt-4">
           <Skeleton className="w-full h-[1rem]" />

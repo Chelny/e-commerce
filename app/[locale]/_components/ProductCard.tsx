@@ -1,7 +1,8 @@
 "use client"
 
+import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { FaHeart, FaRegHeart } from "react-icons/fa6"
+import { FiHeart, FiShoppingCart } from "react-icons/fi"
 import { Currency } from "@/app/[locale]/_components/Currency"
 import { ROUTE_SHOP, TProduct } from "@/app/[locale]/_core"
 import { calculateReducedPrice } from "@/app/[locale]/_lib"
@@ -17,24 +18,37 @@ export const ProductCard = (props: TProductCardProps): JSX.Element => {
   const router = useRouter()
   const { t } = useTranslation(props.locale, ["common", "shop"])
 
-  const handleViewProductDetails = (sku: string) => {
+  const addToFavourites = (): void => {
+    console.log("Call add to favourites hook")
+  }
+
+  const addToCart = (): void => {
+    console.log("Call add to cart hook")
+  }
+
+  const handleViewProductDetails = (sku: string): void => {
     router.push(`/${props.locale}${ROUTE_SHOP.PATH}/product/${sku}`)
   }
 
   return (
     <div className="relative">
-      <div
-        className={`${styles.itemProductCardImage} bg-ecommerce-500`}
-        // style={{ backgroundImage: `url(${props.product.image})` }}
-        style={{ backgroundImage: "url(https://picsum.photos/272/288)" }}
-      >
-        {/* <button className={styles.addFavouriteButton} type="button">
-          <FaRegHeart />
-          <FaHeart />
-        </button> */}
+      <div className={`${styles.productCard} bg-ecommerce-500`}>
+        <Image
+          className={styles.productCardImage}
+          src="https://picsum.photos/272/272"
+          width={272}
+          height={272}
+          alt={props.product.name}
+        />
+        <button type="button" className={styles.addFavouritesButton} onClick={addToFavourites}>
+          <FiHeart className={styles.icon} />
+        </button>
+        <button type="button" className={styles.addCartButton} onClick={addToCart}>
+          <FiShoppingCart className={styles.icon} />
+        </button>
         <button
-          className={styles.viewProductButton}
           type="button"
+          className={styles.viewProductButton}
           onClick={() => handleViewProductDetails(props.product.sku)}
         >
           {t("shop:item.view_item")}
