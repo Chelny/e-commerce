@@ -184,6 +184,9 @@
     },
     "update_profile": {
       "message": "Le profil a été mise à jour avec succès !"
+    },
+    "review_added": {
+      "message": "Votre avis a été ajouté !"
     }
   }
 }

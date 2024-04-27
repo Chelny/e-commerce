@@ -25,6 +25,7 @@ export const sendEmail = async (_: TFormState, formData: FormData): Promise<TFor
     }
   }
 
+  // @ts-ignore
   const response = await POST<ForgotPasswordData>(result.output)
   const data = await response.json()
 

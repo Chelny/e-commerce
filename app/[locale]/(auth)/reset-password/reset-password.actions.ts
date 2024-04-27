@@ -32,6 +32,7 @@ export const resetPassword = async (_: TFormState, formData: FormData): Promise<
     }
   }
 
+  // @ts-ignore
   const response = await POST<ResetPasswordData>(result.output)
   const data = await response.json()
 

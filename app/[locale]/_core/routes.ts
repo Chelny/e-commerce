@@ -11,6 +11,7 @@ export const ROUTE_RESET_PASSWORD = { TITLE: "site_map.reset_password", PATH: "/
 export const ROUTE_AUTH_ERROR = { TITLE: "site_map.auth_error", PATH: "/error" }
 export const ROUTE_ACCOUNT = { TITLE: "site_map.account", PATH: "/account" }
 export const ROUTE_PROFILE = { TITLE: "site_map.profile", PATH: `${ROUTE_ACCOUNT.PATH}/profile` }
+export const ROUTE_WISHLIST = { TITLE: "site_map.wishlist", PATH: `${ROUTE_ACCOUNT.PATH}/wishlist` }
 export const ROUTE_SETTINGS = { TITLE: "site_map.settings", PATH: `${ROUTE_ACCOUNT.PATH}/settings` }
 export const ROUTE_SHOP = { TITLE: "site_map.shop", PATH: "/shop" }
 export const ROUTE_NEW_ARRIVALS = { TITLE: "site_map.new_arrivals", PATH: `${ROUTE_SHOP.PATH}/new-arrivals` }
@@ -92,6 +93,10 @@ export const SITE_MAP = [
           {
             title: ROUTE_PROFILE.TITLE,
             path: ROUTE_PROFILE.PATH,
+          },
+          {
+            title: ROUTE_WISHLIST.TITLE,
+            path: ROUTE_WISHLIST.PATH,
           },
           {
             title: ROUTE_SETTINGS.TITLE,

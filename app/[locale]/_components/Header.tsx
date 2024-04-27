@@ -1,6 +1,6 @@
 "use client"
 
-import { ForwardedRef, forwardRef, MouseEventHandler, useEffect, useState } from "react"
+import { ForwardedRef, forwardRef, useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import * as Avatar from "@radix-ui/react-avatar"
@@ -8,10 +8,18 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import * as Popover from "@radix-ui/react-popover"
 import { signOut } from "next-auth/react"
 import { useTheme } from "next-themes"
-import { FiLogOut, FiMoon, FiSearch, FiSettings, FiShoppingCart, FiSun, FiUser } from "react-icons/fi"
+import { FiHeart, FiLogOut, FiMoon, FiSearch, FiSettings, FiShoppingCart, FiSun, FiUser } from "react-icons/fi"
 import { LoginForm } from "@/app/[locale]/(auth)/login/login.form"
 import { ChangeLocale } from "@/app/[locale]/_components/ChangeLocale"
-import { APP, BREAKPOINT_MD, ROUTE_CART, ROUTE_LOGIN, ROUTE_PROFILE, ROUTE_SETTINGS } from "@/app/[locale]/_core"
+import {
+  APP,
+  BREAKPOINT_MD,
+  ROUTE_CART,
+  ROUTE_LOGIN,
+  ROUTE_PROFILE,
+  ROUTE_SETTINGS,
+  ROUTE_WISHLIST,
+} from "@/app/[locale]/_core"
 import { useCurrentUser } from "@/app/[locale]/_hooks"
 import { classMerge, nameInitials } from "@/app/[locale]/_lib"
 import { useTranslation } from "@/app/i18n/client"
@@ -85,7 +93,9 @@ export const Header = (props: THeaderProps): JSX.Element => {
       </div>
       <div className={styles.title}>
         <Link
-          className={`!text-ecommerce-800 dark:!text-ecommerce-100 ${pathname === `/${props.locale}` ? "active" : ""}`}
+          className={`!text-ecommerce-800 dark:!text-ecommerce-100 no-underline hover:underline ${
+            pathname === `/${props.locale}` ? "active" : ""
+          }`}
           href={`/${props.locale}`}
           locale={false}
         >
@@ -129,6 +139,22 @@ export const Header = (props: THeaderProps): JSX.Element => {
                     className={classMerge("DropdownMenuItem", styles.accountMenuItem)}
                     onClick={() => setAccountDropdownOpen(false)}
                   >
+                    <FiHeart className="me-2 h-4 w-4" />
+                    <Link
+                      className={`${styles.accountMenuItemLink} ${
+                        pathname === `/${props.locale}${ROUTE_WISHLIST.PATH}` ? "active" : ""
+                      }`}
+                      href={`/${props.locale}${ROUTE_WISHLIST.PATH}`}
+                      locale={false}
+                      aria-label={t(ROUTE_WISHLIST.TITLE)}
+                    >
+                      {t("site_map.wishlist")}
+                    </Link>
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item
+                    className={classMerge("DropdownMenuItem", styles.accountMenuItem)}
+                    onClick={() => setAccountDropdownOpen(false)}
+                  >
                     <FiSettings className="me-2 h-4 w-4" />
                     <Link
                       className={`${styles.accountMenuItemLink} ${
@@ -163,8 +189,8 @@ export const Header = (props: THeaderProps): JSX.Element => {
                 />
               </Popover.Trigger>
               <Popover.Content className="PopoverContent">
-                <Popover.Arrow className="PopoverArrow" />
                 <LoginForm page={{ params: props }} />
+                <Popover.Arrow className="PopoverArrow" />
               </Popover.Content>
             </Popover.Root>
           </li>
@@ -178,7 +204,6 @@ export const Header = (props: THeaderProps): JSX.Element => {
               />
             </Popover.Trigger>
             <Popover.Content className="PopoverContent">
-              <Popover.Arrow className="PopoverArrow" />
               <span>TODO: Implement CartPopover</span>
               <br />
               <Link
@@ -189,6 +214,7 @@ export const Header = (props: THeaderProps): JSX.Element => {
               >
                 {t("view_cart")}
               </Link>
+              <Popover.Arrow className="PopoverArrow" />
             </Popover.Content>
           </Popover.Root>
         </li>

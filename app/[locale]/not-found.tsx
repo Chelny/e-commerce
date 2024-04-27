@@ -6,8 +6,8 @@ import { LOCALE_REGEX, ROUTE_HOME } from "@/app/[locale]/_core"
 import { useTranslation } from "@/app/i18n/client"
 
 const NotFound = (): JSX.Element => {
-  const paths = usePathname()
-  const locale = paths.split("/").find((path: string) => path.match(LOCALE_REGEX))
+  const pathname = usePathname()
+  const locale = pathname.split("/").find((path: string) => path.match(LOCALE_REGEX))
   const { t } = useTranslation(locale, "common")
 
   return (

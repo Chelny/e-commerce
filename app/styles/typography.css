@@ -22,6 +22,9 @@ footer h3 {
 a {
   color: var(--link);
   font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 0.125rem;
+  text-underline-offset: 0.125rem;
 }
 
 a.shop-menu-link {
@@ -30,8 +33,9 @@ a.shop-menu-link {
 }
 
 footer a {
-  color: theme("colors.ecommerce.400");
+  color: var(--muted);
   font-weight: 500;
+  text-decoration: none;
 }
 
 a:active,
@@ -42,16 +46,14 @@ a.active {
 a:hover,
 a:focus {
   color: var(--link-hover);
-  text-decoration: underline;
-  text-decoration-thickness: 0.125rem;
-  text-underline-offset: 0.125rem;
+  text-decoration: none;
 }
 
 footer a:hover,
 footer a:focus {
-  color: theme("colors.ecommerce.500");
+  color: var(--white);
 }
 
 footer #copyright a {
-  color: theme("colors.ecommerce.500");
+  color: var(--white);
 }

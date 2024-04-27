@@ -1,9 +1,10 @@
 import { Suspense } from "react"
-import { GET_PRODUCT, GET_PRODUCT_REVIEWS } from "@/app/[locale]/(shop)/shop/api/route"
+import { GET_PRODUCT, GET_PRODUCT_REVIEWS } from "@/app/[locale]/(shop)/shop/product/[product]/api/route"
+import { ProductReviewForm } from "@/app/[locale]/(shop)/shop/product/[product]/product-review.form"
 import ProductInfoSkeleton from "@/app/[locale]/(shop)/shop/product/[product]/ProductInfo.skeleton"
 import ProductRecommendationsSkeleton from "@/app/[locale]/(shop)/shop/product/[product]/ProductRecommendations.skeleton"
 import ProductReviewsSkeleton from "@/app/[locale]/(shop)/shop/product/[product]/ProductReviews.skeleton"
-import { ProductReviewForm } from "@/app/[locale]/(shop)/shop/product-review.form"
+import { AddToWishlistButton } from "@/app/[locale]/_components/AddToWishlistButton"
 import { Cart } from "@/app/[locale]/_components/Cart"
 import CartSkeleton from "@/app/[locale]/_components/Cart.skeleton"
 import { Currency } from "@/app/[locale]/_components/Currency"
@@ -28,9 +29,12 @@ const ProductPage = async (props: TPageProps): Promise<JSX.Element> => {
           <Suspense fallback={<ProductInfoSkeleton />}>
             <ProductImageGallery locale={props.params.locale} />
             <div>
-              <div className="flex justify-between items-center space-x-2 rtl:space-x-reverse">
+              <div className="flex justify-between items-start space-x-2 rtl:space-x-reverse">
                 <h1>{product?.name}</h1>
-                <Share />
+                <div className="flex items-center">
+                  <AddToWishlistButton locale={props.params.locale} />
+                  <Share locale={props.params.locale} />
+                </div>
               </div>
               <div className="flex items-center space-x-2 rtl:space-x-reverse">
                 <span className="text-2xl">
@@ -48,12 +52,7 @@ const ProductPage = async (props: TPageProps): Promise<JSX.Element> => {
                   </span>
                 )}
               </div>
-              <div className="flex flex-col xl:flex-row justify-between items-start">
-                <ProductRatingStars locale={props.params.locale} ratings={productReviews?.ratings} />
-                <button type="button" className="button-link">
-                  {t("shop:item.add_to_wish_list")}
-                </button>
-              </div>
+              <ProductRatingStars locale={props.params.locale} ratings={productReviews?.ratings} />
               <hr />
               <h3>{t("shop:item.description")}</h3>
               <p>{product?.description}</p>
@@ -87,7 +86,7 @@ const ProductPage = async (props: TPageProps): Promise<JSX.Element> => {
               <ProductRatingProgressBars locale={props.params.locale} ratings={productReviews?.ratings} />
             </div>
             <div className="space-y-8">
-              <ProductReviewForm page={props} />
+              <ProductReviewForm page={props} productId={product?.id} />
 
               {productReviews?.reviews && productReviews.reviews.length > 0 ? (
                 productReviews?.reviews?.map((review: TProductReview) => (

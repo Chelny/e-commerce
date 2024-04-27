@@ -24,10 +24,7 @@
 
 .listItemLink {
   font-weight: 400;
-}
-
-.listItemLink:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .listItemLinkActive {

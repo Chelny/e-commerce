@@ -14,6 +14,7 @@
     "new_arrivals": "Nouveautés",
     "popular": "Populaire",
     "sales": "Ventes",
+    "wishlist": "Liste de souhaits",
     "cart": "Panier",
     "checkout": "Caisse",
     "company": "Compagnie",
@@ -39,7 +40,8 @@
   "button": {
     "view_all": "Voir tout",
     "return_home": "Retour à la page d'accueil",
-    "return_login": "Retour à la page de connexion"
+    "return_login": "Retour à la page de connexion",
+    "close": "Fermer"
   },
   "theme": {
     "toggle_theme": "Changer le thème",

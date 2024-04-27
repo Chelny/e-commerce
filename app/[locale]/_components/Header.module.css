@@ -221,12 +221,12 @@ body:has(.header.menuOpened) {
 
 .accountMenuItemLink {
   font-weight: 400;
+  text-decoration: none;
 }
 
 .accountMenuItemLink:hover {
   color: var(--foreground);
   font-weight: 500;
-  text-decoration: none;
 }
 
 .header.menuOpened .menuItem:nth-child(1) {

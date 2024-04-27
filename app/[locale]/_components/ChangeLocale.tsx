@@ -73,7 +73,6 @@ export const ChangeLocale = (): JSX.Element => {
         </button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content className={classMerge("DropdownMenuContent", "min-w-[8rem]")}>
-        <DropdownMenu.Arrow className="DropdownMenuArrow" />
         <DropdownMenu.RadioGroup value={dropdownValue} onValueChange={handleLocaleChange}>
           {dropdownOptions.map((option: TDropdownOptions) => (
             <DropdownMenu.RadioItem key={option.value} className="DropdownMenuRadioItem" value={option.value}>
@@ -81,6 +80,7 @@ export const ChangeLocale = (): JSX.Element => {
             </DropdownMenu.RadioItem>
           ))}
         </DropdownMenu.RadioGroup>
+        <DropdownMenu.Arrow className="DropdownMenuArrow" />
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   )

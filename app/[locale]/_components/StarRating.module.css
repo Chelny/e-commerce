@@ -3,6 +3,10 @@
   align-items: center;
 }
 
+.star {
+  cursor: pointer;
+}
+
 .star svg {
   width: 2rem;
   height: 2rem;

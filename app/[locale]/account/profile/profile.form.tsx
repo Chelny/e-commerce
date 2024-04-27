@@ -66,8 +66,7 @@ export const ProfileForm = (props: TFormProps): JSX.Element => {
       setPostalCode(data?.user_address?.postal_code)
       setPhoneNumber(data?.user_address?.phone_number)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [authUser])
 
   useEffect(() => {
     fetchData()

@@ -21,6 +21,7 @@ type TPopover = {
 
 type TFormProps = {
   page: TPageProps
+  productId?: string
 }
 
 type TFormState = {

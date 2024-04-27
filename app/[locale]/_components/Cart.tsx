@@ -1,7 +1,8 @@
 "use client"
 
 import { ChangeEvent, useCallback, useEffect, useState } from "react"
-import { INVENTORY_WARNING_COUNT, TProduct } from "@/app/[locale]/_core"
+import Link from "next/link"
+import { INVENTORY_WARNING_COUNT, ROUTE_PROFILE, TProduct } from "@/app/[locale]/_core"
 import { useCurrentUser } from "@/app/[locale]/_hooks"
 import { formatPostalCode } from "@/app/[locale]/_lib"
 import { getProfile } from "@/app/[locale]/account/profile/profile.actions"
@@ -73,21 +74,33 @@ export const Cart = (props: TCartProps): JSX.Element => {
 
   return (
     <div className="flex flex-col md:space-y-4">
-      {authUser?.email && (
-        <div>
-          <b>{t("shop:cart.ship_to")}</b>
-          <br />
-          {name ? name : `${firstName} ${lastName}`}
-          <br />
-          {addressLine1} {addressLine2}
-          <br />
-          {city}, {countryState}
-          <br />
-          {postalCode && country ? formatPostalCode(postalCode, country) : postalCode}
-          <br />
-          {t(`countries.${country}.country`)}
-        </div>
-      )}
+      <div>
+        <b>{t("shop:cart.ship_to")}</b>
+        <br />
+        {authUser?.id && addressLine1 ? (
+          <>
+            {name ? name : `${firstName} ${lastName}`}
+            <br />
+            {addressLine1} {addressLine2}
+            <br />
+            {city}, {countryState}
+            <br />
+            {postalCode && country ? formatPostalCode(postalCode, country) : postalCode}
+            <br />
+            {t(`countries.${country}.country`)}
+          </>
+        ) : (
+          <>
+            <Link
+              className="block my-2"
+              href={`/${props.locale}${ROUTE_PROFILE.PATH}`}
+              aria-label={t(ROUTE_PROFILE.TITLE)}
+            >
+              {t("shop:cart.set_shipping_address")}
+            </Link>
+          </>
+        )}
+      </div>
       {props.product?.inventory && props.product?.inventory.quantity === 0 ? (
         <p className="text-red-500">{t("shop:item.out_of_stock")}</p>
       ) : (

@@ -13,8 +13,8 @@ type TBreadcrumbsProps = {
 
 export const Breadcrumbs = (props: TBreadcrumbsProps): JSX.Element => {
   const { t } = useTranslation(props.locale, "common")
-  const paths = usePathname()
-  const pathNames = paths.split("/").filter((path: string) => path)
+  const pathname = usePathname()
+  const pathNames = pathname.split("/").filter((path: string) => path)
   // Exclude locale-like strings from the pathNames
   const filteredPathNames = pathNames.filter((path: string) => !path.match(LOCALE_REGEX))
   const separator = <span className={styles.separator}>/</span>

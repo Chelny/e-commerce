@@ -5,16 +5,18 @@
     "add_to_cart": "Ajouter au panier",
     "buy_now": "Acheter maintenant",
     "description": "Description",
-    "add_to_wish_list": "Ajouter à la liste de souhaits",
+    "add_to_wishlist": "Ajouter à la liste de souhaits",
     "reviews_zero": "Aucun avis",
     "reviews_one": "{{count}} avis",
     "reviews_other": "{{count}} avis",
     "stars_one": "{{count}} étoile",
-    "stars_other": "{{count}} étoiles"
+    "stars_other": "{{count}} étoiles",
+    "share": "Partager cet article"
   },
   "cart": {
     "ship_to": "Expédier à :",
-    "in_stock": "En stock :"
+    "in_stock": "En stock :",
+    "set_shipping_address": "Définir l'adresse de livraison"
   },
   "recommendations": "Recommendations",
   "reviews": {

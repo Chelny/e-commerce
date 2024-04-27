@@ -7,5 +7,7 @@
 
 /* Redix UI */
 @import "./styles/ui/avatar.css";
+@import "./styles/ui/dialog.css";
 @import "./styles/ui/dropdown.css";
 @import "./styles/ui/popover.css";
+@import "./styles/ui/tooltip.css";

@@ -20,27 +20,35 @@
   filter: blur(1rem);
 }
 
-.addFavouritesButton,
-.addCartButton,
+.addToWishlistButton,
+.addToCartButton,
 .viewProductButton {
   position: absolute;
   visibility: hidden;
 }
 
-.addFavouritesButton,
-.addCartButton {
+.addToWishlistButton,
+.addToCartButton {
   transition: transform 0.5s ease, visibility 0.5s;
   transform: translateY(-100%);
 }
 
-.addFavouritesButton {
+.addToWishlistButton {
   top: 0;
   padding: 0.5rem;
   color: var(--color-black);
   inset-inline-start: 0;
 }
 
-.addCartButton {
+.addToWishlistButton svg {
+  color: var(--color-white);
+}
+
+.addToWishlistButton svg.filled {
+  fill: var(--color-white);
+}
+
+.addToCartButton {
   top: 0;
   padding: 0.5rem;
   color: var(--color-black);
@@ -62,8 +70,8 @@
   transform: translateY(100%);
 }
 
-.productCard:hover .addFavouritesButton,
-.productCard:hover .addCartButton,
+.productCard:hover .addToWishlistButton,
+.productCard:hover .addToCartButton,
 .productCard:hover .viewProductButton {
   visibility: visible;
   transform: translateY(0);
@@ -76,5 +84,5 @@
 }
 
 .icon.filled {
-  fill: white;
+  fill: var(--color-white);
 }

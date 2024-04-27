@@ -28,7 +28,7 @@
     --border: var(--muted);
     --border-radius: theme("borderRadius.DEFAULT");
     --ring: var(--muted);
-    --box-shadow: theme("boxShadow.card");
+    --box-shadow: theme("boxShadow.DEFAULT");
     --input: theme("colors.ecommerce.200");
     --input-opacity-disabled: 0.65;
     --radio-button: theme("colors.ecommerce.200");

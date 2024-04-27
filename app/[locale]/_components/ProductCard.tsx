@@ -2,7 +2,9 @@
 
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import * as Tooltip from "@radix-ui/react-tooltip"
 import { FiHeart, FiShoppingCart } from "react-icons/fi"
+import { AddToWishlistButton } from "@/app/[locale]/_components/AddToWishlistButton"
 import { Currency } from "@/app/[locale]/_components/Currency"
 import { ROUTE_SHOP, TProduct } from "@/app/[locale]/_core"
 import { calculateReducedPrice } from "@/app/[locale]/_lib"
@@ -18,10 +20,6 @@ export const ProductCard = (props: TProductCardProps): JSX.Element => {
   const router = useRouter()
   const { t } = useTranslation(props.locale, ["common", "shop"])
 
-  const handleAddToFavourites = (): void => {
-    console.log("Call add to favourites hook")
-  }
-
   const handleAddToCart = (): void => {
     console.log("Call add to cart hook")
   }
@@ -36,16 +34,27 @@ export const ProductCard = (props: TProductCardProps): JSX.Element => {
         <Image
           className={styles.productCardImage}
           src="https://picsum.photos/272/272"
+          priority
           width={272}
           height={272}
           alt={props.product.name}
         />
-        <button type="button" className={styles.addFavouritesButton} onClick={handleAddToFavourites}>
-          <FiHeart className={styles.icon} />
-        </button>
-        <button type="button" className={styles.addCartButton} onClick={handleAddToCart}>
-          <FiShoppingCart className={styles.icon} />
-        </button>
+        <AddToWishlistButton locale={props.locale} className={styles.addToWishlistButton} />
+        <Tooltip.Provider>
+          <Tooltip.Root>
+            <Tooltip.Trigger asChild>
+              <button type="button" className={styles.addToCartButton} onClick={handleAddToCart}>
+                <FiShoppingCart className={styles.icon} />
+              </button>
+            </Tooltip.Trigger>
+            <Tooltip.Portal>
+              <Tooltip.Content className="TooltipContent" side="bottom">
+                {t("shop:item.add_to_cart")}
+                <Tooltip.Arrow className="TooltipArrow" />
+              </Tooltip.Content>
+            </Tooltip.Portal>
+          </Tooltip.Root>
+        </Tooltip.Provider>
         <button
           type="button"
           className={styles.viewProductButton}
@@ -72,14 +81,6 @@ export const ProductCard = (props: TProductCardProps): JSX.Element => {
             </span>
           )}
         </div>
-        {/* <div className="grid grid-cols-[1fr_1fr] space-x-2 rtl:space-x-reverse text-white">
-          <button type="button" className="p-1 bg-ecommerce-700">
-            {t("shop:add_to_cart")}
-          </button>
-          <button type="button" className="p-1 bg-ecommerce-900">
-            {t("shop:buy_now")}
-          </button>
-        </div> */}
       </div>
     </div>
   )

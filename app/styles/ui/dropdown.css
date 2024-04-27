@@ -1,10 +1,13 @@
+/* stylelint-disable no-unknown-animations */
+@import "./animations.css";
+
 .DropdownMenuTriggerButton:hover {
   background-color: var(--accent);
   color: var(--accent-foreground);
 }
 
 .DropdownMenuArrow {
-  box-shadow: 0 10px 38px -10px rgb(22 23 24 / 35%), 0 10px 20px -15px rgb(22 23 24 / 20%);
+  box-shadow: var(--box-shadow);
   fill: var(--popover);
   stroke: var(--muted);
 }
@@ -16,8 +19,7 @@
   border-radius: var(--border-radius);
   background-color: var(--popover);
   color: var(--popover-foreground);
-  /* box-shadow: var(--box-shadow); */
-  box-shadow: 0 10px 38px -10px rgb(22 23 24 / 35%), 0 10px 20px -15px rgb(22 23 24 / 20%);
+  box-shadow: var(--box-shadow);
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
@@ -41,54 +43,6 @@
 .DropdownMenuContent[data-side="left"],
 .DropdownMenuSubContent[data-side="left"] {
   animation-name: slideRightAndFade;
-}
-
-@keyframes slideUpAndFade {
-  from {
-    opacity: 0%;
-    transform: translateY(2px);
-  }
-
-  to {
-    opacity: 100%;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideRightAndFade {
-  from {
-    opacity: 0%;
-    transform: translateX(-2px);
-  }
-
-  to {
-    opacity: 100%;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideDownAndFade {
-  from {
-    opacity: 0%;
-    transform: translateY(-2px);
-  }
-
-  to {
-    opacity: 100%;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideLeftAndFade {
-  from {
-    opacity: 0%;
-    transform: translateX(2px);
-  }
-
-  to {
-    opacity: 100%;
-    transform: translateX(0);
-  }
 }
 
 .DropdownMenuItem,

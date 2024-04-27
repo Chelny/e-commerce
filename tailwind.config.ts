@@ -25,7 +25,7 @@ const config: Config = {
         DEFAULT: "0.25rem",
       },
       boxShadow: {
-        "card": "inset 0 0 0.5px 1px hsl(0 0% 100% / 7.5%), 0 0 0 1px hsl(0 0% 0% / 5%), 0 0.3px 0.4px hsl(0 0% 0 % / 2%), 0 0.9px 1.5px hsl(0 0% 0% / 4.5%), 0 3.5px 6px hsl(0 0% 0 % / 9%)",
+        DEFAULT: "0 10px 38px -10px rgb(22 23 24 / 35%), 0 10px 20px -15px rgb(22 23 24 / 20%)",
       },
       colors: {
         ecommerce: {
@@ -75,20 +75,6 @@ const config: Config = {
       },
       transitionProperty: {
         "toast": "bottom, opacity",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
