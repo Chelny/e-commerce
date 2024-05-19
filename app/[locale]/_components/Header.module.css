@@ -3,31 +3,10 @@
 .header {
   position: relative;
   z-index: 20;
-  display: grid;
-  justify-content: center;
-  align-items: center;
   overflow: hidden;
   width: 100dvw;
   padding: 1rem;
   background-color: theme("colors.ecommerce.200");
-  transition: all 0.5s ease-out, background 1s ease-out;
-  transition-delay: 0.2s;
-}
-
-@media screen and (min-width: 768px) {
-  .header {
-    grid-template-columns: max-content 2fr;
-    gap: 2rem;
-    transition: none;
-    transition-delay: initial;
-  }
-}
-
-@media screen and (min-width: 1535px) {
-  .header {
-    width: 1440px;
-    margin-inline: auto;
-  }
 }
 
 :global(.dark) .header {
@@ -60,15 +39,48 @@ body:has(.header.menuOpened) {
   overflow: hidden;
 }
 
+.headerContainer {
+  display: grid;
+  grid-template-rows: max-content auto;
+  align-items: center;
+  transition: all 0.5s ease-out, background 1s ease-out;
+  transition-delay: 0.2s;
+}
+
+@media screen and (min-width: 768px) {
+  .headerContainer {
+    grid-template-rows: 1fr;
+    grid-template-columns: max-content 2fr;
+    gap: 2rem;
+    transition: none;
+    transition-delay: initial;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  .headerContainer {
+    width: 88rem;
+    margin-inline: auto;
+  }
+}
+
+.heading {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .menuIconContainer {
   position: absolute;
+  top: 50%;
   left: 1rem;
   width: 2rem;
-  height: 2rem;
+  height: 0.5rem;
   cursor: pointer;
   user-select: none;
   transition: all 0.3s cubic-bezier(0.4, 0.01, 0.165, 0.99);
-  transform: rotate(0deg);
+  transform: translateY(-50%) rotate(0deg);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -84,16 +96,9 @@ body:has(.header.menuOpened) {
 }
 
 .menuIcon {
-  position: relative;
-  top: 50%;
   display: block;
   width: 2rem;
-  height: 2rem;
-  margin: -0.25rem auto 0;
-}
-
-.header.menuOpened .menuIcon {
-  left: 25%;
+  height: 0.5rem;
 }
 
 .menuIconTopBar {
@@ -142,11 +147,14 @@ body:has(.header.menuOpened) {
   gap: 2rem;
   width: 0;
   height: 0;
+  pointer-events: none;
 }
 
 .header.menuOpened .menu {
-  width: 100dvw;
+  width: 100%;
   height: auto;
+  pointer-events: all;
+  margin-block-start: 3rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -157,6 +165,7 @@ body:has(.header.menuOpened) {
     align-items: center;
     width: auto;
     height: auto;
+    pointer-events: all;
   }
 }
 
@@ -201,11 +210,6 @@ body:has(.header.menuOpened) {
     height: 1.2rem;
     color: var(--foreground);
   }
-}
-
-.menuItemLabel {
-  font-weight: 600;
-  text-transform: uppercase;
 }
 
 @media screen and (min-width: 768px) {

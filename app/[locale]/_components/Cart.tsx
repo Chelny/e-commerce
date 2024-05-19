@@ -1,139 +1,173 @@
-"use client"
-
-import { ChangeEvent, useCallback, useEffect, useState } from "react"
+import { ChangeEvent, useContext, useEffect, useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
-import { INVENTORY_WARNING_COUNT, ROUTE_PROFILE, TProduct } from "@/app/[locale]/_core"
-import { useCurrentUser } from "@/app/[locale]/_hooks"
-import { formatPostalCode } from "@/app/[locale]/_lib"
-import { getProfile } from "@/app/[locale]/account/profile/profile.actions"
+import { usePathname } from "next/navigation"
+import { RiDeleteBin7Line } from "react-icons/ri"
+import { Currency } from "@/app/[locale]/_components/Currency"
+import { ROUTE_CART, TCartWithProduct } from "@/app/[locale]/_core"
+import { cn, getDiscountedPrice } from "@/app/[locale]/_lib"
+import { CartContext } from "@/app/[locale]/_providers"
 import { useTranslation } from "@/app/i18n/client"
 
 type TCartProps = {
   locale: TLocale
-  product: TProduct | null
 }
 
 export const Cart = (props: TCartProps): JSX.Element => {
   const { t } = useTranslation(props.locale, "shop")
-  const [name, setName] = useState<string | null | undefined>(undefined)
-  const [firstName, setFirstName] = useState<string | null | undefined>(undefined)
-  const [lastName, setLastName] = useState<string | null | undefined>(undefined)
-  const [addressLine1, setAddressLine1] = useState<string | null | undefined>(undefined)
-  const [addressLine2, setAddressLine2] = useState<string | null | undefined>(undefined)
-  const [city, setCity] = useState<string | null | undefined>(undefined)
-  const [countryState, setCountryState] = useState<string | null | undefined>(undefined)
-  const [country, setCountry] = useState<string | null | undefined>(undefined)
-  const [postalCode, setPostalCode] = useState<string | null | undefined>(undefined)
-  const [quantity, setQuantity] = useState<number>(0)
-  const authUser = useCurrentUser()
+  const pathname = usePathname()
+  const [quantities, setQuantities] = useState<Record<string, number>>({})
+  const [previousQuantities, setPreviousQuantities] = useState<Record<string, number>>({})
+  const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null)
+  const { cart, isInCart, addToCart, removeFromCart } = useContext(CartContext)
 
-  const fetchData = useCallback(async () => {
-    if (authUser?.id) {
-      const response = await getProfile(authUser.id)
-      const data = response.data
-      setName(data?.name)
-      setFirstName(data?.first_name)
-      setLastName(data?.last_name)
-      setAddressLine1(data?.user_address?.address_line1)
-      setAddressLine2(data?.user_address?.address_line2)
-      setCity(data?.user_address?.city)
-      setCountryState(data?.user_address?.state)
-      setCountry(data?.user_address?.country)
-      setPostalCode(data?.user_address?.postal_code)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const handleQuantity = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleQuantity = (event: ChangeEvent<HTMLInputElement>, cartItem: TCartWithProduct): void => {
     const quantity = +event.target.value
 
-    if (quantity < 1) return
+    if (quantity < 0) return
 
-    if (props.product?.inventory && props.product?.inventory.quantity >= quantity) {
-      setQuantity(quantity)
+    if (cartItem.product?.inventory && cartItem.product?.inventory.quantity >= quantity) {
+      setQuantities({
+        ...quantities,
+        [cartItem.id]: quantity,
+      })
+
+      if (debounceTimeout) {
+        clearTimeout(debounceTimeout)
+      }
+
+      const timeout = setTimeout(() => {
+        const previousQuantity = previousQuantities[cartItem.id] || 0
+
+        if (isInCart(cartItem.product.id)) {
+          if (quantity === 0) {
+            removeFromCart(cartItem.product.id, quantity)
+          } else if (quantity < previousQuantity) {
+            const decrementNumber = previousQuantity - quantity
+            removeFromCart(cartItem.product.id, decrementNumber)
+          } else if (quantity > previousQuantity) {
+            const incrementNumber = quantity - previousQuantity
+            addToCart(cartItem.product.id, incrementNumber)
+          }
+        } else {
+          addToCart(cartItem.product.id, quantity)
+        }
+
+        setPreviousQuantities({
+          ...previousQuantities,
+          [cartItem.id]: quantity,
+        })
+      }, 1000)
+
+      setDebounceTimeout(timeout)
     }
   }
 
-  const handleAddToCart = (): void => {
-    console.log("Call add to cart hook")
+  const handleRemoveCartItem = (cartItem: TCartWithProduct): void => {
+    removeFromCart(cartItem.product.id, 0)
   }
 
-  const handleCheckout = (): void => {
-    console.log("Checkout")
+  const subtotal = (): number => {
+    return cart.reduce((acc, cartItem) => {
+      const quantity = quantities[cartItem.id] || 0
+      const discountedPrice = getDiscountedPrice(cartItem.product.price, cartItem.product.discount?.discount_percent)
+      return acc + discountedPrice * quantity
+    }, 0)
   }
 
   useEffect(() => {
-    if (props.product?.inventory && props.product?.inventory.quantity > 0) {
-      setQuantity(1)
-    }
-  }, [props.product?.inventory])
+    const initialQuantities: Record<string, number> = {}
 
-  useEffect(() => {
-    fetchData()
-  }, [fetchData])
+    cart.forEach((cartItem) => {
+      initialQuantities[cartItem.id] = cartItem.quantity
+    })
+
+    setQuantities(initialQuantities)
+    setPreviousQuantities(initialQuantities)
+  }, [cart])
 
   return (
-    <div className="flex flex-col md:space-y-4">
-      <div>
-        <b>{t("shop:cart.ship_to")}</b>
-        <br />
-        {authUser?.id && addressLine1 ? (
-          <>
-            {name ? name : `${firstName} ${lastName}`}
-            <br />
-            {addressLine1} {addressLine2}
-            <br />
-            {city}, {countryState}
-            <br />
-            {postalCode && country ? formatPostalCode(postalCode, country) : postalCode}
-            <br />
-            {t(`countries.${country}.country`)}
-          </>
-        ) : (
-          <>
-            <Link
-              className="block my-2"
-              href={`/${props.locale}${ROUTE_PROFILE.PATH}`}
-              aria-label={t(ROUTE_PROFILE.TITLE)}
-            >
-              {t("shop:cart.set_shipping_address")}
-            </Link>
-          </>
+    <div>
+      <div
+        className={cn(
+          "flex flex-row items-center py-1 border-b border-solid mb-4",
+          "border-ecommerce-300",
+          "dark:border-ecommerce-600"
         )}
+      >
+        <h3 className="flex-grow">{t("shop:cart.shopping_cart")}</h3>
+        <div>{t("shop:cart.items_count", { count: cart.length })}</div>
       </div>
-      {props.product?.inventory && props.product?.inventory.quantity === 0 ? (
-        <p className="text-red-500">{t("shop:item.out_of_stock")}</p>
-      ) : (
-        props.product?.inventory &&
-        props.product?.inventory.quantity <= INVENTORY_WARNING_COUNT && (
-          <p className="text-red-500">
-            {t("shop:cart.in_stock")} <span>{props.product?.inventory.quantity}</span>
-          </p>
-        )
-      )}
-      <input
-        type="number"
-        value={quantity}
-        disabled={props.product?.inventory?.quantity === 0}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => handleQuantity(event)}
-      />
-      <div className="flex flex-col md:flex-row md:gap-2">
-        <button
-          type="button"
-          className="secondary-action flex-1"
-          disabled={props.product?.inventory?.quantity === 0}
-          onClick={handleAddToCart}
+      <div className="flex flex-col gap-4">
+        {cart.map((cartItem: TCartWithProduct, index: number) => (
+          <div key={index} className="grid grid-cols-[4rem_1fr_5rem_6rem_max-content] gap-4 items-center">
+            <Image
+              src={cartItem.product.image ?? "https://placehold.co/64x64/webp?text=no+image"}
+              priority
+              width={64}
+              height={64}
+              alt={cartItem.product.name}
+            />
+            <div>
+              <b>{cartItem.product.name}</b>
+              <div className="text-sm">
+                <Currency
+                  locale={props.locale}
+                  value={getDiscountedPrice(cartItem.product.price, cartItem.product.discount?.discount_percent)}
+                />
+                {cartItem.product.discount?.active && (
+                  <span className="text-ecommerce-500 line-through">
+                    <Currency locale={props.locale} value={cartItem.product.price} />
+                  </span>
+                )}
+              </div>
+            </div>
+            <div>
+              <input
+                className="w-[5rem]"
+                type="number"
+                value={quantities[cartItem.id] || 0}
+                onChange={(event: ChangeEvent<HTMLInputElement>) => handleQuantity(event, cartItem)}
+              />
+            </div>
+            <div className="text-end">
+              <Currency
+                locale={props.locale}
+                value={
+                  getDiscountedPrice(cartItem.product.price, cartItem.product.discount?.discount_percent) *
+                  quantities[cartItem.id]
+                }
+              />
+            </div>
+            <div>
+              <button className="text-red-500" onClick={() => handleRemoveCartItem(cartItem)}>
+                <RiDeleteBin7Line />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div
+        className={cn(
+          "flex flex-row justify-end items-center py-4 border-t border-solid mt-4",
+          "border-ecommerce-300",
+          "dark:border-ecommerce-600"
+        )}
+      >
+        <div>{t("shop:cart.subtotal")}:</div>
+        <div className="ms-2 font-bold">
+          <Currency locale={props.locale} value={subtotal()} />
+        </div>
+      </div>
+      <div className="text-end">
+        <Link
+          className={pathname === `/${props.locale}${ROUTE_CART.PATH}` ? "active" : ""}
+          href={`/${props.locale}${ROUTE_CART.PATH}`}
+          locale={false}
+          aria-label={t(ROUTE_CART.TITLE)}
         >
-          {t("shop:item.add_to_cart")}
-        </button>
-        <button
-          type="button"
-          className="primary-action flex-1"
-          disabled={props.product?.inventory?.quantity === 0}
-          onClick={handleCheckout}
-        >
-          {t("shop:item.buy_now")}
-        </button>
+          {t("shop:cart.view_cart")}
+        </Link>
       </div>
     </div>
   )

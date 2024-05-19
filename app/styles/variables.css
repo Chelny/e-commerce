@@ -25,6 +25,7 @@
     --link: theme("colors.ecommerce.900");
     --link-hover: theme("colors.ecommerce.500");
     --link-active: theme("colors.ecommerce.500");
+    --link-footer: theme("colors.ecommerce.400");
     --border: var(--muted);
     --border-radius: theme("borderRadius.DEFAULT");
     --ring: var(--muted);

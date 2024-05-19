@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server"
-import { User } from "@prisma/client"
 import { compare } from "bcryptjs"
+import { randomBytes } from "crypto"
 import { EHttpResponseStatus } from "@/app/[locale]/_core"
-import { getUserByEmail, getUserByEmailActive } from "@/app/[locale]/_data"
+import {
+  createGuestUser,
+  createSession,
+  getSessionBySessionToken,
+  getUserByEmail,
+  getUserByEmailActive,
+} from "@/app/[locale]/_data"
 
-export const POST = async <T extends User>(body: T): Promise<NextResponse<TApiResponse>> => {
+export const POST_LOGIN = async (body: { email: string; password: string }): Promise<NextResponse<TApiResponse>> => {
   const user = await getUserByEmail(body.email)
 
   if (!user) {
@@ -55,3 +61,34 @@ export const POST = async <T extends User>(body: T): Promise<NextResponse<TApiRe
     { status: 200 }
   )
 }
+
+// FIXME: Allow guest users
+// export const POST_LOGIN_GUEST = async (): Promise<NextResponse<TApiResponse>> => {
+//   const user = await createGuestUser()
+
+//   if (!user) {
+//     return NextResponse.json(
+//       {
+//         status: EHttpResponseStatus.ERROR,
+//         message: "alert.message.400",
+//       },
+//       { status: 400 }
+//     )
+//   }
+
+//   const sessionToken = randomBytes(32).toString("hex")
+//   const userId = user.id
+//   const expirationDate = new Date()
+//   expirationDate.setDate(expirationDate.getDate() + 30) // 30 days from current date
+//   const expires = expirationDate
+//   const existingSession = await getSessionBySessionToken(sessionToken)
+//   if (!existingSession) await createSession(sessionToken, userId, expires)
+
+//   return NextResponse.json(
+//     {
+//       status: EHttpResponseStatus.SUCCESS,
+//       data: user,
+//     },
+//     { status: 200 }
+//   )
+// }

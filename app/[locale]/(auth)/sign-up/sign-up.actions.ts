@@ -16,7 +16,7 @@ import {
 } from "valibot"
 import { POST } from "@/app/[locale]/(auth)/sign-up/api/route"
 import { NAME_REGEX, PASSWORD_REGEX } from "@/app/[locale]/_core"
-import { minimumBirthdate } from "@/app/[locale]/_lib"
+import { getMinimumBirthdate } from "@/app/[locale]/_lib"
 
 export const signUp = async (_: TFormState, formData: FormData): Promise<TFormActions> => {
   const schema = object(
@@ -26,7 +26,7 @@ export const signUp = async (_: TFormState, formData: FormData): Promise<TFormAc
       gender: enum_(Gender, "gender.required"),
       birth_date: string([
         minLength(1, "birth_date.required"),
-        custom((value: string) => new Date(value) < minimumBirthdate(), "birth_date.max"),
+        custom((value: string) => new Date(value) < getMinimumBirthdate(), "birth_date.max"),
       ]),
       email: string([minLength(1, "email.required"), email("email.pattern")]),
       password: string([minLength(1, "password.required"), regex(PASSWORD_REGEX, "password.pattern")]),

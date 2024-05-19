@@ -1,4 +1,13 @@
-import { Cart, OrderItems, Product, ProductDiscount, ProductInventory, ProductReview, User } from "@prisma/client"
+import {
+  Cart,
+  OrderItems,
+  Prisma,
+  Product,
+  ProductDiscount,
+  ProductInventory,
+  ProductReview,
+  User,
+} from "@prisma/client"
 
 export type TProduct = Product & {
   inventory?: ProductInventory | null
@@ -12,10 +21,12 @@ export type TProduct = Product & {
   ratings?: TProductReviewRatings | undefined
 }
 
-export type TProductReview = ProductReview & {
-  product: Product
-  user: User
-}
+export type TProductReview = Prisma.ProductReviewGetPayload<{
+  include: {
+    product: true
+    user: true
+  }
+}>
 
 export type TProductReviewRatings =
   | {
@@ -36,3 +47,14 @@ export type TProductsPagination = {
   products: TProduct[] | []
   count: number
 }
+
+export type TCartWithProduct = Prisma.CartGetPayload<{
+  include: {
+    product: {
+      include: {
+        inventory: true
+        discount: true
+      }
+    }
+  }
+}>

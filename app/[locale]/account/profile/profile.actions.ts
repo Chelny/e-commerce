@@ -25,7 +25,7 @@ import {
   POSTAL_CODE_US_REGEX,
   ROUTE_PROFILE,
 } from "@/app/[locale]/_core"
-import { minimumBirthdate } from "@/app/[locale]/_lib"
+import { getMinimumBirthdate } from "@/app/[locale]/_lib"
 import { GET, POST } from "@/app/[locale]/account/profile/api/route"
 
 export const getProfile = async (
@@ -46,7 +46,7 @@ export const updateProfile = async (_: TFormState, formData: FormData): Promise<
       gender: enum_(Gender, "gender.required"),
       birth_date: string([
         minLength(1, "birth_date.required"),
-        custom((value: string) => new Date(value) < minimumBirthdate(), "birth_date.max"),
+        custom((value: string) => new Date(value) < getMinimumBirthdate(), "birth_date.max"),
       ]),
       email: string([minLength(1, "email.required"), email("email.pattern")]),
       current_password: nullable(

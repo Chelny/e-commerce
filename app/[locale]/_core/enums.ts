@@ -19,6 +19,7 @@ export enum EAlertVariant {
 }
 
 export enum EOAuthProvider {
+  GUEST = "guest",
   CREDENTIALS = "credentials",
   GOOGLE = "google",
   GITHUB = "github",

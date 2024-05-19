@@ -4,6 +4,8 @@ export const APP = {
 
 export const SERVER_URL = "http://localhost:8000/api"
 
+export const SESSION_ID = "e_commerce_session_id"
+
 export const BREAKPOINT_SM = 576
 export const BREAKPOINT_MD = 768
 export const BREAKPOINT_LG = 992

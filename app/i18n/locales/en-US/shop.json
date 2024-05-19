@@ -6,14 +6,15 @@
     "buy_now": "Buy Now",
     "description": "Description",
     "add_to_wishlist": "Add to wishlist",
+    "remove_from_wishlist": "Remove from wishlist",
     "reviews_zero": "No reviews",
-    "reviews_one": "{{count}} review",
+    "reviews_one": "1 review",
     "reviews_other": "{{count}} reviews",
-    "stars_one": "{{count}} star",
+    "stars_one": "1 star",
     "stars_other": "{{count}} stars",
     "share": "Share this item"
   },
-  "cart": {
+  "shipping": {
     "ship_to": "Ship to:",
     "in_stock": "In stock:",
     "set_shipping_address": "Set shipping address"
@@ -24,5 +25,13 @@
     "no_comments": "No comments"
   },
   "no_items_found": "No items found",
-  "no_more_items": "No more items"
+  "no_more_items": "No more items",
+  "cart": {
+    "shopping_cart": "Shopping Cart",
+    "items_count_zero": "No items",
+    "items_count_one": "1 item",
+    "items_count_other": "{{count}} items",
+    "subtotal": "Subtotal",
+    "view_cart": "View Cart"
+  }
 }

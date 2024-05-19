@@ -3,14 +3,12 @@ import { ProductReview } from "@prisma/client"
 import {
   EHttpResponseStatus,
   MAX_PRODUCT_REVIEWS_PER_PAGE,
-  MAX_PRODUCTS_PER_PAGE,
   TProduct,
   TProductReviewsWithRatings,
-  TProductsPagination,
 } from "@/app/[locale]/_core"
 import prisma from "@/app/[locale]/_lib/prisma"
 
-export const GET_PRODUCT = async (sku: string): Promise<TProduct | null> => {
+export const GET_PRODUCT = async (sku: string): Promise<TProduct> => {
   const productPromise = await prisma.product.findUnique({
     where: { sku },
     include: {
@@ -20,7 +18,7 @@ export const GET_PRODUCT = async (sku: string): Promise<TProduct | null> => {
     },
   })
 
-  if (!productPromise) return null
+  if (!productPromise) return {} as TProduct
 
   const colors = productPromise.colors.split(";") // Split the colors string into an array
 

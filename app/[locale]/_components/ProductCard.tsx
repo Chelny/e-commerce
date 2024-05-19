@@ -1,13 +1,15 @@
 "use client"
 
+import { useContext } from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import * as Tooltip from "@radix-ui/react-tooltip"
-import { FiHeart, FiShoppingCart } from "react-icons/fi"
+import { FiShoppingCart } from "react-icons/fi"
 import { AddToWishlistButton } from "@/app/[locale]/_components/AddToWishlistButton"
 import { Currency } from "@/app/[locale]/_components/Currency"
 import { ROUTE_SHOP, TProduct } from "@/app/[locale]/_core"
-import { calculateReducedPrice } from "@/app/[locale]/_lib"
+import { cn, getDiscountedPrice } from "@/app/[locale]/_lib"
+import { CartContext } from "@/app/[locale]/_providers"
 import { useTranslation } from "@/app/i18n/client"
 import styles from "./ProductCard.module.css"
 
@@ -19,9 +21,10 @@ type TProductCardProps = {
 export const ProductCard = (props: TProductCardProps): JSX.Element => {
   const router = useRouter()
   const { t } = useTranslation(props.locale, ["common", "shop"])
+  const { isInCart, updateCart } = useContext(CartContext)
 
-  const handleAddToCart = (): void => {
-    console.log("Call add to cart hook")
+  const handleUpdateCart = (): void => {
+    updateCart(props.product.id)
   }
 
   const handleViewProductDetails = (sku: string): void => {
@@ -39,12 +42,12 @@ export const ProductCard = (props: TProductCardProps): JSX.Element => {
           height={272}
           alt={props.product.name}
         />
-        <AddToWishlistButton locale={props.locale} className={styles.addToWishlistButton} />
+        <AddToWishlistButton locale={props.locale} product={props.product} className={styles.addToWishlistButton} />
         <Tooltip.Provider>
           <Tooltip.Root>
             <Tooltip.Trigger asChild>
-              <button type="button" className={styles.addToCartButton} onClick={handleAddToCart}>
-                <FiShoppingCart className={styles.icon} />
+              <button type="button" className={styles.addToCartButton} onClick={handleUpdateCart}>
+                <FiShoppingCart className={cn(styles.icon, isInCart(props.product.id) && "fill-current")} />
               </button>
             </Tooltip.Trigger>
             <Tooltip.Portal>
@@ -66,15 +69,11 @@ export const ProductCard = (props: TProductCardProps): JSX.Element => {
       <div className="py-2 leading-loose">
         <div>{props.product.name}</div>
         <div>
-          <span>
-            <Currency
-              locale={props.locale}
-              value={calculateReducedPrice(
-                props.product.price,
-                props.product.discount?.active ? props.product.discount?.discount_percent || 0 : 0
-              )}
-            />
-          </span>{" "}
+          <Currency
+            locale={props.locale}
+            value={getDiscountedPrice(props.product.price, props.product.discount?.discount_percent)}
+          />
+          &nbsp;
           {props.product.discount?.active && (
             <span className="text-ecommerce-500 line-through">
               <Currency locale={props.locale} value={props.product.price} />

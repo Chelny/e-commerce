@@ -27,13 +27,8 @@ a {
   text-underline-offset: 0.125rem;
 }
 
-a.shop-menu-link {
-  color: var(--shop-menu-link);
-  text-transform: uppercase;
-}
-
 footer a {
-  color: var(--muted);
+  color: var(--link-footer);
   font-weight: 500;
   text-decoration: none;
 }

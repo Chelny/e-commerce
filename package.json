@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "author": {
-    "name": "Chelny Duplan",
+    "name": "Chelny",
     "url": "https://www.linkedin.com/in/chelny/"
   },
   "scripts": {
     "dev": "next dev",
+    "prisma:generate": "pnpm exec prisma format && npm exec prisma generate",
+    "prisma:push": "pnpm exec prisma db push",
+    "prisma:studio": "pnpm exec prisma studio",
     "build": "next build",
     "start": "next start",
     "prepare": "husky install",
@@ -22,6 +25,7 @@
   "dependencies": {
     "@auth/core": "0.28.0",
     "@auth/prisma-adapter": "1.5.0",
+    "@paralleldrive/cuid2": "2.2.2",
     "@prisma/client": "5.10.2",
     "@radix-ui/react-avatar": "1.0.4",
     "@radix-ui/react-dialog": "1.0.5",

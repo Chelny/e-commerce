@@ -84,9 +84,9 @@
 }
 
 .DropdownMenuLabel {
-  padding-left: 25px;
   font-size: 12px;
   line-height: 25px;
+  padding-inline-start: 25px;
 }
 
 .DropdownMenuItem:focus {
@@ -130,9 +130,20 @@
 
 .DropdownMenuItemIndicator {
   position: absolute;
-  left: 0;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   width: 25px;
+  inset-inline-start: 0;
+}
+
+html:dir(rtl) .DropdownMenuItem,
+html:dir(rtl) .DropdownMenuCheckboxItem,
+html:dir(rtl) .DropdownMenuRadioItem,
+html:dir(rtl) .DropdownMenuSubTrigger {
+  justify-content: flex-end;
+}
+
+html:dir(rtl) .DropdownMenuItem *:first-child {
+  order: 1;
 }

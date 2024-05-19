@@ -7,6 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model User {
   id                      String                 @id @default(cuid())
   first_name              String?
@@ -31,6 +41,7 @@ model User {
   two_factor_confirmation TwoFactorConfirmation?
   user_address            UserAddress?
   user_payment            UserPayment[]
+  wishlist                Wishlist[]
 }
 
 model Account {
@@ -95,16 +106,6 @@ model TwoFactorConfirmation {
   user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 model UserAddress {
   id            String   @id @default(cuid())
   user_id       String   @unique
@@ -152,6 +153,7 @@ model Product {
   discount    ProductDiscount?
   inventory   ProductInventory?
   reviews     ProductReview[]
+  wishlist    Wishlist[]
 }
 
 model ProductCategory {
@@ -199,6 +201,18 @@ model ProductReview {
   user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
+model Wishlist {
+  id         String   @id @default(cuid())
+  user_id    String
+  product_id String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, product_id], name: "unique_product_for_user")
+}
+
 model Cart {
   id         String   @id @default(cuid())
   session_id String
@@ -208,6 +222,8 @@ model Cart {
   updated_at DateTime @updatedAt
   product    Product  @relation(fields: [product_id], references: [id], onDelete: Cascade)
   session    User     @relation(fields: [session_id], references: [id], onDelete: Cascade)
+
+  @@unique([session_id, product_id], name: "unique_product_for_session")
 }
 
 model Order {
@@ -252,4 +268,5 @@ enum Gender {
 enum UserRole {
   ADMIN
   USER
+  GUEST
 }

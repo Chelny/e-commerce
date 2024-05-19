@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { useParams, useRouter, useSelectedLayoutSegments } from "next/navigation"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import { IoLanguage } from "react-icons/io5"
-import { classMerge } from "@/app/[locale]/_lib"
+import { cn } from "@/app/[locale]/_lib"
 
 type TDropdownOptions = {
   label: string
@@ -64,15 +64,12 @@ export const ChangeLocale = (): JSX.Element => {
       <DropdownMenu.Trigger asChild>
         <button
           type="button"
-          className={classMerge(
-            "DropdownMenuTriggerButton",
-            "flex gap-2 px-4 py-2 text-foreground hover:bg-transparent"
-          )}
+          className={cn("DropdownMenuTriggerButton", "flex gap-2 px-4 py-2 text-foreground hover:bg-transparent")}
         >
           <IoLanguage className="h-[1.2rem] w-[1.2rem]" /> <span>{dropdownLabel}</span>
         </button>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content className={classMerge("DropdownMenuContent", "min-w-[8rem]")}>
+      <DropdownMenu.Content className={cn("DropdownMenuContent", "min-w-[8rem]")}>
         <DropdownMenu.RadioGroup value={dropdownValue} onValueChange={handleLocaleChange}>
           {dropdownOptions.map((option: TDropdownOptions) => (
             <DropdownMenu.RadioItem key={option.value} className="DropdownMenuRadioItem" value={option.value}>

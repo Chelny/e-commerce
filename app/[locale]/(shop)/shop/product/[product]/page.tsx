@@ -5,16 +5,16 @@ import ProductInfoSkeleton from "@/app/[locale]/(shop)/shop/product/[product]/Pr
 import ProductRecommendationsSkeleton from "@/app/[locale]/(shop)/shop/product/[product]/ProductRecommendations.skeleton"
 import ProductReviewsSkeleton from "@/app/[locale]/(shop)/shop/product/[product]/ProductReviews.skeleton"
 import { AddToWishlistButton } from "@/app/[locale]/_components/AddToWishlistButton"
-import { Cart } from "@/app/[locale]/_components/Cart"
-import CartSkeleton from "@/app/[locale]/_components/Cart.skeleton"
 import { Currency } from "@/app/[locale]/_components/Currency"
 import { ProductCarousel } from "@/app/[locale]/_components/ProductCarousel"
 import { ProductImageGallery } from "@/app/[locale]/_components/ProductImageGallery"
 import { ProductRatingProgressBars } from "@/app/[locale]/_components/ProductRatingProgressBars"
 import { ProductRatingStars } from "@/app/[locale]/_components/ProductRatingStars"
+import { ProductShipping } from "@/app/[locale]/_components/ProductShipping"
+import ProductShippingSkeleton from "@/app/[locale]/_components/ProductShipping.skeleton"
 import { Share } from "@/app/[locale]/_components/Share"
 import { TProductReview } from "@/app/[locale]/_core"
-import { calculateReducedPrice, formatDate } from "@/app/[locale]/_lib"
+import { formatDate, getDiscountedPrice } from "@/app/[locale]/_lib"
 import { useTranslation } from "@/app/i18n"
 
 const ProductPage = async (props: TPageProps): Promise<JSX.Element> => {
@@ -32,7 +32,7 @@ const ProductPage = async (props: TPageProps): Promise<JSX.Element> => {
               <div className="flex justify-between items-start space-x-2 rtl:space-x-reverse">
                 <h1>{product?.name}</h1>
                 <div className="flex items-center">
-                  <AddToWishlistButton locale={props.params.locale} />
+                  <AddToWishlistButton locale={props.params.locale} product={product} />
                   <Share locale={props.params.locale} />
                 </div>
               </div>
@@ -40,7 +40,7 @@ const ProductPage = async (props: TPageProps): Promise<JSX.Element> => {
                 <span className="text-2xl">
                   <Currency
                     locale={props.params.locale}
-                    value={calculateReducedPrice(
+                    value={getDiscountedPrice(
                       product?.price,
                       product?.discount && product?.discount.active ? product?.discount.discount_percent : 0
                     )}
@@ -59,8 +59,8 @@ const ProductPage = async (props: TPageProps): Promise<JSX.Element> => {
             </div>
           </Suspense>
         </div>
-        <Suspense fallback={<CartSkeleton />}>
-          <Cart locale={props.params.locale} product={product} />
+        <Suspense fallback={<ProductShippingSkeleton />}>
+          <ProductShipping locale={props.params.locale} product={product} />
         </Suspense>
       </div>
 

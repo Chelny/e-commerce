@@ -1,4 +1,5 @@
 import { PrismaAdapter } from "@auth/prisma-adapter"
+import { UserRole } from "@prisma/client"
 import NextAuth, { NextAuthConfig } from "next-auth"
 import { EOAuthProvider, ROUTE_AUTH_ERROR, ROUTE_LOGIN } from "@/app/[locale]/_core"
 import { getTwoFactorConfirmationByUserId, getUserById } from "@/app/[locale]/_data"
@@ -12,20 +13,12 @@ export const {
   signOut,
 } = NextAuth({
   // debug: process.env.NODE_ENV === "development",
-  pages: {
-    signIn: ROUTE_LOGIN.PATH,
-    error: ROUTE_AUTH_ERROR.PATH,
-  },
-  events: {
-    async linkAccount({ user }) {
-      await prisma.user.update({
-        where: { id: user.id },
-        data: { emailVerified: new Date() },
-      })
-    },
-  },
+  adapter: PrismaAdapter(prisma),
   callbacks: {
     async signIn({ user, account }) {
+      // FIXME: Allow guest users
+      // if (user?.provider === EOAuthProvider.GUEST) return true
+
       // Allow OAuth without email verification
       if (account?.provider !== EOAuthProvider.CREDENTIALS) return true
 
@@ -44,14 +37,6 @@ export const {
 
       return true
     },
-    async session({ token, session }) {
-      if (session.user) {
-        if (token.sub) session.user.id = token.sub
-        if (token.role) session.user.role = token.role
-      }
-
-      return session
-    },
     async jwt({ token }) {
       if (!token.sub) return token
 
@@ -62,8 +47,30 @@ export const {
 
       return token
     },
+    async session({ session, token }) {
+      if (session.user) {
+        if (token.sub) session.user.id = token.sub
+        if (token.role) session.user.role = token.role
+
+        // FIXME: Allow guest users
+        // session.user.role = token.role ?? UserRole.GUEST
+      }
+
+      return session
+    },
   },
-  adapter: PrismaAdapter(prisma),
+  events: {
+    async linkAccount({ user }) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { emailVerified: new Date() },
+      })
+    },
+  },
   session: { strategy: "jwt" },
+  pages: {
+    signIn: ROUTE_LOGIN.PATH,
+    error: ROUTE_AUTH_ERROR.PATH,
+  },
   ...authConfig,
 } satisfies NextAuthConfig)

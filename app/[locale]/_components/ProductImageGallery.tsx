@@ -12,7 +12,7 @@ import {
   useKeenSlider,
 } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
-import { classMerge } from "@/app/[locale]/_lib"
+import { cn } from "@/app/[locale]/_lib"
 
 type TProductImageGalleryProps = {
   locale: TLocale
@@ -48,7 +48,7 @@ export const ProductImageGallery = (props: TProductImageGalleryProps): JSX.Eleme
     <div className="overflow-hidden space-y-2">
       <div ref={sliderRef} className="keen-slider">
         {imageUrls.map((imageUrl, index) => (
-          <div key={index} className={classMerge(`keen-slider__slide number-slide${index + 1}`, "flex justify-center")}>
+          <div key={index} className={cn(`keen-slider__slide number-slide${index + 1}`, "flex justify-center")}>
             <Image
               className="rounded-lg"
               src={imageUrl}
@@ -63,7 +63,7 @@ export const ProductImageGallery = (props: TProductImageGalleryProps): JSX.Eleme
 
       <div ref={thumbnailRef} className="keen-slider thumbnail">
         {imageUrls.map((imageUrl, index) => (
-          <div key={index} className={classMerge(`keen-slider__slide number-slide${index + 1}`, "flex justify-center")}>
+          <div key={index} className={cn(`keen-slider__slide number-slide${index + 1}`, "flex justify-center")}>
             <Image
               className="rounded-lg"
               src={imageUrl}

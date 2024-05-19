@@ -22,12 +22,16 @@ export const ProductCarousel = (props: TProductCarouselProps): JSX.Element => {
       mode: "free-snap",
       slides: {
         perView: () => {
-          const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize)
-          const slideWidthRem = 17
-          const spacing = 30
-          const slideWidthPx = slideWidthRem * rootFontSize + spacing
-          const slidesPerView = window.innerWidth / slideWidthPx
-          return +slidesPerView.toFixed(1)
+          if (window.innerWidth < 1536) {
+            const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize)
+            const slideWidthRem = 17
+            const spacing = 30
+            const slideWidthPx = slideWidthRem * rootFontSize + spacing
+            const slidesPerView = window.innerWidth / slideWidthPx
+            return +slidesPerView.toFixed(1)
+          }
+
+          return 4.7
         },
         spacing: 20,
       },
